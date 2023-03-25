@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Select Beers</title>
+	</head>
+<body bgcolor="#FDF5E6">
+<h1 align="CENTER">Beer Selection Page</h1>
+
+<form ACTION="SelectBeer" method="get">
+	Select beer characteristics (GET)
+	<p> Color:
+	<select name="color" size="1">
+		<option value="light"> light </option> 
+		<option value="amber"> amber </option> 
+		<option value="brown"> brown </option> 
+		<option value="dark"> dark </option>
+		<option value="no"> no </option>
+	</select>
+  <input type="submit">
+</form>
+
+<hr>
+
+<form ACTION="SelectBeer" method="post">
+	Select beer characteristics (POST)
+	<input type="hidden" name="inplicit" value="true">
+	<p> Color:
+	<select name="color" size="1">
+		<option value="light"> light </option> 
+		<option value="amber"> amber </option> 
+		<option value="brown"> brown </option> 
+		<option value="dark" selected> dark </option>
+	</select>
+  <input type="submit">
+  <br>
+  <p><i>dark value generates a ServletException</i></p>
+</form>
+
+
+</body>
+</html>
+
+
