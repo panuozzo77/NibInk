@@ -2,27 +2,39 @@ package com.Model;
 
 import java.sql.*;
 
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.apache.tomcat.jdbc.pool.PoolProperties;
+
 public  class DAOConnection {
-	static Connection con;
+	static PoolProperties p = new PoolProperties();
+	static Connection con = null;
 	static String username = null;
 	static String password = null;
 
 
-   public static Connection sqlconnection()
+   public static Connection sqlConnection()
    {
-	   try{
-	       String dbUrl = "jdbc:mysql://localhost:3306/india_db";
-	       Class.forName("com.mysql.jdbc.Driver").newInstance();
-	       con=DriverManager.getConnection(dbUrl,"root","");              
-	       System.out.println("Connection established for SQL");
-	   }catch(Exception e){
-		   System.out.println("Database connection exception="+e);
+	   p.setUrl("jdbc:mysql://localhost:3306/TSW");
+	   p.setDriverClassName("com.mysql.cj.jdbc.Driver");
+	   p.setUsername(username);
+	   p.setPassword(password);
+	   DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(p);
+	   Connection con = null;
+	   try {
+		   con = ds.getConnection();
+	   } catch(Exception e)
+	   {
+		   System.out.println("Error Connecting to the DB");
 	   }
+
 	   return con;    
    }    
     
    public void setUsername(String name) {this.username=name;}
+   
    public void setPassword(String password) {this.password=password;}
+   
+   //prova
     
 }
 

@@ -6,9 +6,12 @@
 <%DAOConnection test=new DAOConnection();
 test.setUsername("root");
 test.setPassword("password");
-test.sqlconnection(); %>
-	
-//ok diciamo che così funziona... boh
-
+String error = "nessun errore";
+ try{ test.sqlConnection();
+ } catch(Error e){
+	 error=e.getMessage();
+ }
+ %>
+ <%= error %>
 </body>
 </html>
