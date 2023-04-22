@@ -8,6 +8,7 @@ import org.apache.tomcat.jdbc.pool.PoolProperties;
 public  class DAOConnection {
 	static PoolProperties p = new PoolProperties();
 	static Connection con = null;
+	static Statement stmt = null;
 	static String username = null;
 	static String password = null;
 
@@ -19,7 +20,6 @@ public  class DAOConnection {
 	   p.setUsername(username);
 	   p.setPassword(password);
 	   DataSource ds = new org.apache.tomcat.jdbc.pool.DataSource(p);
-	   Connection con = null;
 	   try {
 		   con = ds.getConnection();
 	   } catch(Exception e)
@@ -28,13 +28,36 @@ public  class DAOConnection {
 	   }
 
 	   return con;    
-   }    
+   }
+   
+   public static Statement getStatement()
+   {
+	   if(con==null)
+		   DAOConnection.sqlConnection();
+	   if(stmt==null) {
+		   try {
+			stmt=con.createStatement();
+		   } catch (SQLException e) {
+			e.printStackTrace();
+		   }
+	   }
+	   return stmt;
+   }
+   
+   public void queryInsert(String query)
+   {
+	   if(stmt==null)
+		   DAOConnection.getStatement();
+	   try {
+	   stmt.executeUpdate(query); //only INSERT, UPDATE and DELETE commands
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   } 
+   }
     
-   public void setUsername(String name) {this.username=name;}
+   public void setUsername(String name) {DAOConnection.username=name;}
    
-   public void setPassword(String password) {this.password=password;}
-   
-   //prova
+   public void setPassword(String password) {DAOConnection.password=password;}
     
 }
 
