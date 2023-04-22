@@ -1,4 +1,4 @@
-package com.Model;
+package com.model;
 
 import java.io.*;
 import java.util.Vector;

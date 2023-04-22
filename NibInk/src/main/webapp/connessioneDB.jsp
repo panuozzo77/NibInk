@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<%@ page language="java" import="com.Model.*" %>
+<%@ page language="java" import="com.model.*" %>
 <%
 DAOConnection test=new DAOConnection();
 test.setUsername("root");
