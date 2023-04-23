@@ -44,7 +44,7 @@ public  class DAOConnection {
 	   return stmt;
    }
    
-   public void queryInsert(String query)
+   static void queryInsert(String query)
    {
 	   if(stmt==null)
 		   DAOConnection.getStatement();

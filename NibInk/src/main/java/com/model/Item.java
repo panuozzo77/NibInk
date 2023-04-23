@@ -26,8 +26,8 @@ public class Item
 	}
 	public void setCodenumber(String code) {
 		this.codenumber=code; 
-	
 	}
+	
 	public String getCodenumber() {
 		return codenumber;
 	}
