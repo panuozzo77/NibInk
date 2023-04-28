@@ -2,14 +2,14 @@
 <html>
 <body>
 
-<%@ page language="java" import="com.model.*" %>
+<%@ page language="java" import="com.model.*" import="com.model.DAOConnection.*" %>
 <%
 DAOConnection test=new DAOConnection();
-test.setUsername("root");
-test.setPassword("password");
+DAOConnection.setUsername("root");
+DAOConnection.setPassword("password");
 String queryExecuted;
- queryExecuted= (request.getParameter("query")!=null) ? request.getParameter("query") : "nessuna query eseguita";
- test.queryInsert(queryExecuted);
+queryExecuted= (request.getParameter("query")!=null) ? request.getParameter("query") : "nessuna query eseguita";
+test.queryInsert(queryExecuted);
 %>
  <%= queryExecuted %>
 </body>

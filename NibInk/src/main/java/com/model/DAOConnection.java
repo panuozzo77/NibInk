@@ -44,7 +44,7 @@ public  class DAOConnection {
 	   return stmt;
    }
    
-   static void queryInsert(String query)
+   public void queryInsert(String query)
    {
 	   if(stmt==null)
 		   DAOConnection.getStatement();
@@ -55,9 +55,9 @@ public  class DAOConnection {
 	   } 
    }
     
-   public void setUsername(String name) {DAOConnection.username=name;}
+   public static void setUsername(String name) {DAOConnection.username=name;}
    
-   public void setPassword(String password) {DAOConnection.password=password;}
+   public static void setPassword(String password) {DAOConnection.password=password;}
     
 }
 

@@ -15,7 +15,7 @@ public class DAOItem extends DAOConnection {
 	
 	public void addItemToDB(Item item)
 	{
-		String sql="INSERT INTO Product (ID,title,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql="INSERT INTO Items (ID,title,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
 		try {
 			stmt = DAOConnection.con.prepareStatement(sql);
 			stmt.setObject(1, item.getCodenumber());
@@ -30,12 +30,11 @@ public class DAOItem extends DAOConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void removeItemFromDB(Item item)
 	{
-		String sql="DELETE FROM Product WHERE ID = ?;";
+		String sql="DELETE FROM Items WHERE ID = ?;";
 		try {
 			stmt = DAOConnection.con.prepareStatement(sql);
 			stmt.setObject(1, item.getCodenumber());
@@ -43,12 +42,11 @@ public class DAOItem extends DAOConnection {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public <T> void modifyItemToDB(Item item, String field, T value)
 	{
-		String sql="UPDATE Product SET ? = ? WHERE ID = ?;";
+		String sql="UPDATE Items SET ? = ? WHERE ID = ?;";
 		try {
 			stmt = DAOConnection.con.prepareStatement(sql);
 			stmt.setObject(1, field);
@@ -62,36 +60,76 @@ public class DAOItem extends DAOConnection {
 	
 	public ArrayList<Item> getAllItemsFromDB()
 	{
-		ArrayList<Item> items = new ArrayList<Item>();
 		ResultSet rs = null;
 		try {
-			String sql = "SELECT * FROM Product";
+			String sql = "SELECT * FROM Items";
 			stmt = DAOConnection.con.prepareStatement(sql);
-			rs = stmt.executeQuery(sql);
-			while (rs.next())
-			{
-				Item item = new Item();
-				item.setCodenumber(rs.getString("ID"));
-				item.setTitle(rs.getString("Title"));
-	            item.setPrice(rs.getFloat("Price"));
-	            item.setVat(rs.getFloat("VAT"));
-	            item.setColor(rs.getString("Color"));
-	            item.setDimensions(rs.getString("Dimensions"));
-	            item.setWeight(rs.getInt("Weight"));
-	            item.setDescription(rs.getString("description"));
-	            items.add(item);
+			rs = stmt.executeQuery();
+		} catch(SQLException e) {
+				e.printStackTrace();
+		}
+		return getFromResultSet(rs);
+	}
+	
+	//orderBy contiene il nome di una colonna. filterField contiene il nome di una colonna. filterValue contiene il valore della colonna
+	public ArrayList<Item> getAllItemsFromDB(String orderBy, String filterField, String filterValue){
+		ResultSet rs = null;
+		try {
+			String sql= "SELECT * FROM Items";
+			if(filterField != null && filterValue != null){
+				sql += " WHERE " + filterField + " = ?";
 			}
+			if(orderBy != null){
+				sql += " ORDER BY " + orderBy; 
+			}
+			stmt = DAOConnection.con.prepareStatement(sql);
+			if(filterField != null && filterValue != null){
+				stmt.setString(1, filterValue);
+			}
+			rs = stmt.executeQuery();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return getFromResultSet(rs);
+	}
+	
+	public int getItemsNumber()
+	{
+		int number = 0;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT * FROM Items AS Quantity";
+		try {
+			stmt = DAOConnection.con.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			if(rs.next())
+				number = rs.getInt("Quantity");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-		return items;
+		return number;
+	}
+
+	private ArrayList<Item> getFromResultSet(ResultSet rs){
+		ArrayList<Item> items = new ArrayList<Item>();
+		try {
+		while (rs.next())
+		{
+			Item item = new Item();
+			item.setCodenumber(rs.getString("ID"));
+			item.setTitle(rs.getString("Title"));
+            item.setPrice(rs.getFloat("Price"));
+            item.setVat(rs.getFloat("VAT"));
+            item.setColor(rs.getString("Color"));
+            item.setDimensions(rs.getString("Dimensions"));
+            item.setWeight(rs.getInt("Weight"));
+            item.setDescription(rs.getString("description"));
+            items.add(item);
+		}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return items;
 	}
 }
+
