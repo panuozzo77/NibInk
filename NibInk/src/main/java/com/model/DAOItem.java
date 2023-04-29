@@ -1,15 +1,18 @@
 package com.model;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 public class DAOItem extends DAOConnection {
 	PreparedStatement stmt;
+	Connection con;
 
 	public DAOItem () {
-		if(DAOConnection.con==null)
-			DAOConnection.sqlConnection();
+		super();
+		con = super.getConnection();
 	}
 	
 	
@@ -17,7 +20,7 @@ public class DAOItem extends DAOConnection {
 	{
 		String sql="INSERT INTO Items (ID,title,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
 		try {
-			stmt = DAOConnection.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, item.getCodenumber());
 			stmt.setObject(2, item.getTitle());
 			stmt.setObject(3, item.getPrice());
@@ -36,7 +39,7 @@ public class DAOItem extends DAOConnection {
 	{
 		String sql="DELETE FROM Items WHERE ID = ?;";
 		try {
-			stmt = DAOConnection.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, item.getCodenumber());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -48,7 +51,7 @@ public class DAOItem extends DAOConnection {
 	{
 		String sql="UPDATE Items SET ? = ? WHERE ID = ?;";
 		try {
-			stmt = DAOConnection.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, field);
 			stmt.setObject(2, value);
 			stmt.setObject(3, item.getCodenumber());
@@ -63,8 +66,8 @@ public class DAOItem extends DAOConnection {
 		ResultSet rs = null;
 		try {
 			String sql = "SELECT * FROM Items";
-			stmt = DAOConnection.con.prepareStatement(sql);
-			rs = stmt.executeQuery();
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
 		} catch(SQLException e) {
 				e.printStackTrace();
 		}
@@ -82,7 +85,7 @@ public class DAOItem extends DAOConnection {
 			if(orderBy != null){
 				sql += " ORDER BY " + orderBy; 
 			}
-			stmt = DAOConnection.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			if(filterField != null && filterValue != null){
 				stmt.setString(1, filterValue);
 			}
@@ -97,12 +100,13 @@ public class DAOItem extends DAOConnection {
 	{
 		int number = 0;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT * FROM Items AS Quantity";
+		String sql = "SELECT COUNT(*) AS Quantity FROM Items ";
 		try {
-			stmt = DAOConnection.con.prepareStatement(sql);
+			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			if(rs.next())
 				number = rs.getInt("Quantity");
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

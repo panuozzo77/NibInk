@@ -3,7 +3,7 @@ package com.model;
 import java.util.ArrayList;
 
 public class Catalog {
-	static ArrayList<Item> allItems;
+	public static ArrayList<Item> allItems;
 	
 	public Catalog() 
 	{
@@ -19,7 +19,9 @@ public class Catalog {
 	public void updateCatalog()
 	{
 		DAOItem db = new DAOItem();
-		if(allItems.size()!=db.getItemsNumber())
+		if(allItems==null)
+			loadArticlesInCatalog();
+		else if(allItems.size()!=db.getItemsNumber())
 			loadArticlesInCatalog();
 	}
 	
