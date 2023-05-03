@@ -37,4 +37,17 @@ public class Catalog {
 		return db.getAllItemsFromDB("Price DESC", null, null);
 	}
 	
+	public void removeItem(Item item)
+	{
+		DAOItem db = new DAOItem();
+		db.removeItemFromDB(item);
+		updateCatalog();
+	}
+	
+	public void addItem(Item item)
+	{
+		DAOItem db = new DAOItem();
+		db.addItemToDB(item);
+		updateCatalog();
+	}
 }
