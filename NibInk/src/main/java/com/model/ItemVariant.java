@@ -8,16 +8,16 @@ public class ItemVariant {
     private Map<String, Integer> quantityByVariation; // Map from variation to quantity
 
     public ItemVariant(Item item) {
-        this.setItem(item);
+        this.item=item;
         this.quantityByVariation = new HashMap<String, Integer>();
     }
 
-    public void addVariation(String variation, int quantity) {
-        quantityByVariation.put(variation, quantity);
+    public void addVariation(String size, int quantity) {
+        quantityByVariation.put(size, quantity);
     }
 
-    public int getQuantity(String variation) {
-        Integer quantity = quantityByVariation.get(variation);
+    public int getQuantity(String size) {
+        Integer quantity = quantityByVariation.get(size);
         return quantity != null ? quantity : 0;
     }
 
@@ -27,10 +27,6 @@ public class ItemVariant {
 
 	public Item getItem() {
 		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
 	}
 
 	public void modifyQuantity(String size, int quantity) {
@@ -45,5 +41,13 @@ public class ItemVariant {
 	        quantityByVariation.put(size, currentQuantity + quantity);
 	    }
 	}
+	
+	  public void removeVariants() {
+	        quantityByVariation.clear();
+	    }
+	    
+	    public void removeVariant(String size) {
+	        quantityByVariation.remove(size);
+	    }
 	
 }

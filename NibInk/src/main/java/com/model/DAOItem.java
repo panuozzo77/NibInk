@@ -90,6 +90,7 @@ public class DAOItem extends DAOConnection {
 	}
 	
 	//orderBy contiene il nome di una colonna. filterField contiene il nome di una colonna. filterValue contiene il valore della colonna
+	// 	public ArrayList<Item> getAllItemsFromDB(String orderBy, String filterField, String filterValue, int startIndex, int count){
 	public ArrayList<Item> getAllItemsFromDB(String orderBy, String filterField, String filterValue){
 		ResultSet rs = null;
 		try {
@@ -100,10 +101,16 @@ public class DAOItem extends DAOConnection {
 			if(orderBy != null){
 				sql += " ORDER BY " + orderBy; 
 			}
+			/* int paramIndex = 1;
+			 * sql += " LIMIT ?, ?";
+			 */
 			stmt = con.prepareStatement(sql);
 			if(filterField != null && filterValue != null){
 				stmt.setString(1, filterValue);
+				//paramIndex++;
 			}
+			//stmt.setInt(paramIndex, startIndex);
+			//stmt.setInt(paramIndex+1, count);
 			rs = stmt.executeQuery();
 			} catch(SQLException e) {
 				e.printStackTrace();

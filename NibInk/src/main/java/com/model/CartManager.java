@@ -10,8 +10,8 @@ public class CartManager {
         activeCarts = new HashMap<>();
     }
 
-    public void addCart(String cartId, Cart cart) {
-        activeCarts.put(cartId, cart);
+    public void addNewCart(String cartId) {
+        activeCarts.put(cartId, new Cart());
     }
 
     public void removeCart(String cartId) {
@@ -20,5 +20,26 @@ public class CartManager {
 
     public Cart getCart(String cartId) {
         return activeCarts.get(cartId);
+    }
+    
+    public void addItemToCart(String cartId, String item, int quantity, String size) {
+        Cart cart = activeCarts.get(cartId);
+        DAOItem db = new DAOItem();
+        ItemInTheCart itemInTheCart = new ItemInTheCart(db.getItemFromDB(item), quantity, size);
+        cart.addToCart(itemInTheCart);
+    }
+
+    public void removeItemFromCart(String cartId, String item, int quantity, String size) {
+    	Cart cart = activeCarts.get(cartId);
+        DAOItem db = new DAOItem();
+        ItemInTheCart itemInTheCart = new ItemInTheCart(db.getItemFromDB(item), quantity, size);
+        cart.removeFromCart(itemInTheCart);
+    }
+    
+    public void modifyQuantityFromCart(String cartId, String item, int quantity, String size) {
+    	Cart cart = activeCarts.get(cartId);
+        DAOItem db = new DAOItem();
+        ItemInTheCart itemInTheCart = new ItemInTheCart(db.getItemFromDB(item), quantity, size);
+        cart.modifyQuantity(itemInTheCart, quantity);
     }
 }

@@ -2,15 +2,15 @@ package com.model;
 
 public class ItemInTheCart {
 	Item item;
-	String variant;
+	String size;
 	int quantity;
 
 	public ItemInTheCart() {}
 	
-	public ItemInTheCart(Item item, int quantity, String variant) {
+	public ItemInTheCart(Item item, int quantity, String size) {
 		this.item=item;
 		this.quantity=quantity;
-		this.variant=variant;
+		this.size=size;
 	}
 	
 	public void setItem(Item item)
@@ -23,9 +23,9 @@ public class ItemInTheCart {
 		this.quantity=quantity;
 	}
 	
-	public void setVariant(String variant)
+	public void setSize(String size)
 	{
-		this.variant=variant;
+		this.size=size;
 	}
 	
 	public Item getItem()
@@ -38,8 +38,8 @@ public class ItemInTheCart {
 		return this.quantity;
 	}
 	
-	public String getVariant()
+	public String getSize()
 	{
-		return this.variant;
+		return this.size;
 	}
 }
