@@ -18,23 +18,38 @@ public class DAOItem extends DAOConnection {
 	
 	public void addItemToDB(Item item)
 	{
-		String sql="INSERT INTO Items (ID,title,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?);";
+		String sql="INSERT INTO Items (ID,title,brand,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, item.getCodenumber());
 			stmt.setObject(2, item.getTitle());
-			stmt.setObject(3, item.getPrice());
-			stmt.setObject(4, item.getVat());
-			stmt.setObject(5, item.getColor());
-			stmt.setObject(6, item.getDimensions());
-			stmt.setObject(7, item.getWeight());
-			stmt.setObject(8, item.getDescription());
+			stmt.setObject(3, item.getBrand());
+			stmt.setObject(4, item.getPrice());
+			stmt.setObject(5, item.getVat());
+			stmt.setObject(6, item.getColor());
+			stmt.setObject(7, item.getDimensions());
+			stmt.setObject(8, item.getWeight());
+			stmt.setObject(9, item.getDescription());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public ArrayList<Item> getItems(int startIndex, int count) {
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM Items LIMIT ?, ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, startIndex);
+            stmt.setInt(2, count);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getFromResultSet(rs);
+    }
+	
 	public void removeItemFromDB(Item item)
 	{
 		String sql="DELETE FROM Items WHERE ID = ?;";
@@ -96,6 +111,21 @@ public class DAOItem extends DAOConnection {
 			return getFromResultSet(rs);
 	}
 	
+	public Item getItemFromDB(String id)
+	{
+		ResultSet rs=null;
+		String sql="Select * FROM Items WHERE ID = ?;";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, id);
+			rs=stmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return getItemFromResultSet(rs);
+	}
+	
 	public int getItemsNumber()
 	{
 		int number = 0;
@@ -134,6 +164,27 @@ public class DAOItem extends DAOConnection {
 			e.printStackTrace();
 		}
 			return items;
+	}
+	
+	private Item getItemFromResultSet(ResultSet rs){
+		Item item = new Item();
+		try {
+		while (rs.next())
+		{
+			item.setCodenumber(rs.getString("ID"));
+			item.setTitle(rs.getString("Title"));
+            item.setPrice(rs.getFloat("Price"));
+            item.setVat(rs.getFloat("VAT"));
+            item.setColor(rs.getString("Color"));
+            item.setDimensions(rs.getString("Dimensions"));
+            item.setWeight(rs.getInt("Weight"));
+            item.setDescription(rs.getString("description"));
+		}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return item;
 	}
 }
 
