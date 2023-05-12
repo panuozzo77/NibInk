@@ -58,7 +58,7 @@ body
 	height:50%;
 }
 
-#campi_input > form > input[type=password] {
+#campi_input > form > input[type=text] {
 
   width: 50%;
   padding: 15px;
@@ -68,7 +68,7 @@ body
   background: #f1f1f1;
 }
 
-#campi_input > form > input[type=text] {
+#campi_input > form > input[type=password] {
 
   width: 50%;
   padding: 15px;
@@ -162,7 +162,7 @@ body
 	height:50%;
 }
 
-#campi_input_reg > form > input[type=password] {
+#campi_input_reg > form > input[type=text] {
 
   width: 50%;
   padding: 15px;
@@ -172,8 +172,7 @@ body
   background: #f1f1f1;
 }
 
-
-#campi_input_reg > form > input[type=text] {
+#campi_input_reg > form > input[type=password] {
 
   width: 50%;
   padding: 15px;

@@ -4,16 +4,25 @@
 <%@ page import="com.model.Item" %>
 <%@ page import="com.model.DAOItem" %>
 <%@ page import="com.model.Catalog" %>
+<%@ page import="com.model.ItemVariant" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="com.model.ItemManager" %>
+<%@ page import="java.util.ArrayList" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 
 	<meta charset="UTF-8">
-	<% DAOItem db = new DAOItem(); %>
-	<% Item product = db.getItemFromDB(request.getParameter("id"));%>
+	<% 
+		DAOItem db = new DAOItem();
+		Item product = db.getItemFromDB(request.getParameter("id"));
+		ItemVariant productVariants = new ItemVariant(product);
+		productVariants.loadVariants();
+	%>
 	<title> <%= product.getTitle() %></title>
-	<link rel="stylesheet" href="/NibInk/CSS/product.css">
+	<link rel="stylesheet" href="/NibInk/CSS/product3.css">
 	
 </head>
 <body>
@@ -21,14 +30,43 @@
 	<div class="container">
   		<div class="rowUp">
     		<div class="columLeft">
-    			<img class="product_img" src="/NibInk/images/<%=product.getTitle()%>.jpg" width=350px height=350px>
+    			<img class="product_img" src="/NibInk/images/<%=product.getTitle()%>.jpg">
     		</div>
     		<div class="columRight">
     			<h2><%=product.getTitle()%></h2><br>		    	
 		    	<p><fmt:formatNumber value="<%= product.getPrice()%>" type="currency"/></p>
 		    	<p class="description"><%=product.getDescription()%></p>
 		    	<div class="buttons">
-		    		<button onclick="location.reload();" class="addToCart"> <img src="/NibInk/images/cart.png" width=20px height=20px>Aggiungi al Carrello</button>
+		    		<%
+		    			if(!productVariants.isEmpty()){
+		    		%>
+		    				
+		    			<form>
+		    			Taglia: &emsp;
+		    			<select>
+			    			<% for(Map.Entry<String, Integer> entry : productVariants.getVariants().entrySet()){ %>
+			    				<option value="<%=entry.getKey()%>"> <%=entry.getKey()%> </option>
+			    			<% } %>
+		    			</select>	
+		    			<br>
+		    			Quantità:
+		    			<input type="number" min="0" max="10" value="1">
+		    			<button type="submit" class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
+		    			</form>
+		    				
+		    				
+		    				
+		    		<%		
+		    			}else{
+		    		%>
+		    			
+		    			<button class="addToCart" disabled><img src="/NibInk/images/cart.png" width=20px height=20px>Non disponibile</button>
+		    				
+		    		<%		
+		    			}
+		    		%>
+		    		
+		    		
 		    	</div>
     		</div>
   		</div>
@@ -67,6 +105,22 @@
 				
 				
 				 -->
+				 
+				 <%
+				 	ItemManager im = new ItemManager();
+					ArrayList<Item> itemsLoaded=im.loadItems(0, 4);
+				 %>
+				 
+								
+					<c:forEach items="<%= itemsLoaded %>" var="item">
+						<button class="card" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';"> 
+							<img src="/NibInk/images/${item.getTitle()}.jpg" height=65px width=65px>
+							<br>
+							${item.getTitle()}<br>
+							<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
+						 </button>
+					</c:forEach>
+				
 				
 			</div>
 		</div>

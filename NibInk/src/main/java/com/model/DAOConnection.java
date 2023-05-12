@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DAOConnection {
-	private static final String URL = "jdbc:mysql://localhost:3306/tsw";
+	private static final String URL = "jdbc:mysql://localhost:3306/TSW";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 	private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
