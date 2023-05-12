@@ -24,6 +24,8 @@ public class ItemManager {
 	
 	 public ArrayList<Item> loadItems(int startIndex, int count) {
 	        DAOItem db = new DAOItem();
-	        return db.getItems(startIndex, count);
+	        ArrayList<Item> al=db.getItems(startIndex, count);
+	        System.out.println("ItemManager: " +al.size());
+	        return al;
 	    }
 }

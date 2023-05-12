@@ -41,13 +41,13 @@ public class DAOCustomer extends DAOConnection {
 	
 	public Customer getCustomerByEmail(String email) {
 		String sql="SELECT * FROM Users WHERE email = ?;";
+		Customer customer = new Customer();
 		ResultSet rs = null;
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, email);
 			rs = stmt.executeQuery();
 			if(rs.next()){
-				Customer customer = new Customer();
 				customer.setEmail(rs.getString("email"));
                 customer.setName(rs.getString("name"));
                 customer.setSurname(rs.getString("surname"));
@@ -55,13 +55,12 @@ public class DAOCustomer extends DAOConnection {
                 customer.setAddress(rs.getString("address"));
                 customer.setCity(rs.getString("city"));
                 customer.setCap(rs.getString("cap"));
-                return customer;
 			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return null;
+        return customer;
 	}
 	
 	public boolean addCustomer(Customer customer)

@@ -165,11 +165,13 @@ public class DAOItem extends DAOConnection {
             item.setWeight(rs.getInt("Weight"));
             item.setDescription(rs.getString("description"));
             items.add(item);
+            //System.out.println("Oggetto: "+item.getTitle());
 		}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		//System.out.println("totalSize: "+items.size());
 			return items;
 	}
 	
