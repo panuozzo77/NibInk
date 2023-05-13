@@ -22,10 +22,20 @@ public class ItemManager {
 			loadVariants();
 	}
 	
-	 public ArrayList<Item> loadItems(int startIndex, int count) {
-	        DAOItem db = new DAOItem();
-	        ArrayList<Item> al=db.getItems(startIndex, count);
-	        System.out.println("ItemManager: " +al.size());
-	        return al;
-	    }
+	public ArrayList<Item> loadItems(int startIndex, int count) {
+        DAOItem db = new DAOItem();
+        ArrayList<Item> al=db.getItems(startIndex, count);
+        System.out.println("ItemManager: " +al.size());
+        return al;
+    }
+	 
+	 
+	 
+	 
+	 //fatto da me
+	 public ArrayList<Item> loadRelatedItems(float price){
+		 DAOItem db = new DAOItem();
+		 ArrayList<Item> al = db.getRelatedFromDB(price);
+		 return al;
+	 }
 }

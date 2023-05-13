@@ -7,76 +7,39 @@
 
 body {
   	font-family: Arial, Helvetica, sans-serif;
-  	
+  	 	
   	height:100%;
   	width: 100%;
 }
 
-
 .container{
 	width: 100%;
   	height: 100%;
-  	
-	margin-top: 3%;
 	margin-bottom: 3%;
 	
 	display: flex;
 	flex-direction: row;
+	order: 0;
+}
+
+.filters{
+	margin-top: 10%;
+	margin-bottom: 3%;
+	margin-left: 2%;
+	
+	width: 10%;
+	order: 2;
+	min-width: 180px;
 }
 
 .filterText{
 	font-size: 18px;
 	font-weight: bold;	
-}
-
-.filters{
-	margin-top: 8%;
-	margin-bottom: 3%;
-	margin-left: 2%;
-	padding-right: 5%;
-	
-	width: 15%;
-	border-right: 1px solid black;
+	order: 1;
 }
 
 .filterForm{
 	margin-top: 3px;	
-}
-
-.container2{
-	
-	width:100%;
-	margin-top: 5%;
-	
-	display: flex;
-	flex-direction: column;
-}
-	
-.card{		
-	background-color: #e9e9ed;
-	text-align: center;
-	padding: 2%;
-	margin: 1%;
-	border: 1px solid #c1c1c1;
-	border-radius: 15px;
-	width: 20%;	
-}
-
-.itemInCatalog{
-
-	order: 1;
-	margin-top: 2%;
-	margin-bottom: 2%;
-	margin-left: 1px;
-	margin-right: 7%;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	flex-wrap: wrap;		
-}
-
-.tasti_navigazionali{
-	text-align: center;
 	order: 2;
 }
 
@@ -84,4 +47,93 @@ body {
 	border: none;
 	padding: 15px 30px;
 	border-radius: 5px;	
+}
+
+.container2{	
+	width:100%;
+	
+	margin-top: 5%;	
+	display: flex;
+	flex-direction: column;
+	order: 4;
+}
+
+.title{
+	order: 5;
+}
+
+.itemInCatalog{
+	order: 6;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	margin-left: 3%;
+	margin-right: 3%;
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid black;
+}
+
+.row{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin-bottom: 10px;
+}
+
+.cardBorder{
+	display: flex;
+	justify-content: center;
+	background-color: #e9e9ed;
+	width: 10vw;
+	border: 1px solid #1c1c1c;
+	border-radius: 15px;
+	padding: 0px;
+	
+	margin-left: 3px;
+}
+
+.cardContent{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+.productCard{			
+	text-align: center;
+	width: 100%;
+	border: none;
+	border-radius: 15px 15px 0 0;
+	height: 90%;
+	padding-top: 5%;
+	padding-bottom: 3%;
+}
+
+.productImg{
+	width: 80%;
+	height: 80%;
+}
+
+.addToCart{
+	height: 20%;
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid black;
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	padding-top: 3%;
+	padding-bottom: 3%;
+	border-radius: 0 0 15px 15px;
+}
+
+.navigationKeys{
+	text-align: center;
+	order: 99;
+}
+
+@media screen and (max-width: 800px){
+	.row{
+		flex-direction: column;
+	}
 }

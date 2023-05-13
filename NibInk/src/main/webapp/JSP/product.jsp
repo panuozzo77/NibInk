@@ -26,6 +26,8 @@
 	
 </head>
 <body>
+<jsp:include page="Navbar.jsp" />
+
 	
 	<div class="container">
   		<div class="rowUp">
@@ -84,44 +86,27 @@
 			<h4>Prodotti Correlati</h4>	
 			<div class="moreProducts">
 				<!-- Prodotti correlati es stessa marca + stesso prezzo -->
-				<!-- 
-				
-				
-				% Catalog rProducts = new Catalog() %>
-				% rProducts.allItems = db.getAllItemsFromDB(null, "Price", String.valueOf(product.getPrice()));%>
-				<c:forEach var="item" items="${Catalog.allItems}">
-					<div class="column">
-	    				<div class="card">
-	    					<a href="/NibInk/JSP/product.jsp?id=${item.codenumber}">
-	    						<img src="/NibInk/images/${item.title}.jpg" height=100px width=100px>
-							</a>
-							<br>
-							${item.title}
-							<br>
-							<fmt:formatNumber value="${item.price}" type="currency"/>
-						 </div>
-	 		 		</div>
-				</c:forEach>
-				
-				
-				 -->
-				 
+			 
 				 <%
 				 	ItemManager im = new ItemManager();
-					ArrayList<Item> itemsLoaded=im.loadItems(0, 4);
+					ArrayList<Item> itemsLoaded=im.loadRelatedItems(product.getPrice());
 				 %>
-				 
-								
-					<c:forEach items="<%= itemsLoaded %>" var="item">
-						<button class="card" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';"> 
-							<img src="/NibInk/images/${item.getTitle()}.jpg" height=65px width=65px>
-							<br>
-							${item.getTitle()}<br>
-							<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
-						 </button>
+				
+				<div class="mpRow"> 
+					<c:forEach items="<%= itemsLoaded %>" var="item"> 									
+						<div class= "mpCardBorder">
+							<div class="mpCardContent">
+								<button class="mpProductCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">
+								<div>
+								<img class="mpProductImg" src="/NibInk/images/${item.getTitle()}.jpg">
+								</div>
+									<br>${item.getTitle()}<br>
+									<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
+								 </button>
+							</div>
+						</div>
 					</c:forEach>
-				
-				
+				</div>
 			</div>
 		</div>
 	</div>

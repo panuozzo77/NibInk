@@ -195,5 +195,25 @@ public class DAOItem extends DAOConnection {
 		}
 		return item;
 	}
+	
+	
+	
+	//fatto da me
+	public ArrayList<Item> getRelatedFromDB(float filterValue){
+		ResultSet rs = null;
+		try {
+			String sql= "SELECT * FROM Items";
+				sql += " WHERE price >= ?";		
+				sql += " ORDER BY price ASC"; 
+				sql += " LIMIT 4";
+			stmt = con.prepareStatement(sql);
+			stmt.setFloat(1, filterValue);
+			rs = stmt.executeQuery();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return getFromResultSet(rs);
+	}
+	
 }
 

@@ -50,4 +50,11 @@ public class Cart {
 		this.total = newPrice;
 	}
 	
+	
+	//test
+	
+	public ArrayList<ItemInTheCart> getCart() {
+		return cart;
+	}
+	
 }
