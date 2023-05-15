@@ -4,6 +4,7 @@ public class Item
 {
 	private String codenumber;
 	private String title;
+	private String brand;
 	private String color;
 	private float price;
 	private float vat;
@@ -13,10 +14,11 @@ public class Item
 	 
 	public Item() {}
 	
-	public Item(String codenumber, String title, String color, String dimensions, String description, float price, float vat, int weight)
+	public Item(String codenumber, String title, String brand, String color, String dimensions, String description, float price, float vat, int weight)
 	{
-		this.codenumber=codenumber;
+		this.setCodenumber(codenumber);
 		this.setTitle(title);
+		this.setBrand(brand);
 		this.setColor(color);
 		this.setPrice(price);
 		this.setVat(vat);
@@ -24,68 +26,78 @@ public class Item
 		this.setDimensions(dimensions);
 		this.setDescription(description);
 	}
+	
+	//SET Methods
 	public void setCodenumber(String code) {
 		this.codenumber=code; 
-	
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	
+	public void setVat(float vat) {
+		this.vat = vat;
+	}
+	
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+	
+	public void setDimensions(String dimensions) {
+		this.dimensions = dimensions;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	//GET Methods
 	public String getCodenumber() {
 		return codenumber;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getBrand() {
+		return brand;
 	}
 	
 	public String getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public float getPrice() {
 		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
 	}
 
 	public float getVat() {
 		return vat;
 	}
 
-	public void setVat(float vat) {
-		this.vat = vat;
-	}
-
 	public int getWeight() {
 		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
 	}
 
 	public String getDimensions() {
 		return dimensions;
 	}
 
-	public void setDimensions(String dimensions) {
-		this.dimensions = dimensions;
-	}
-
 	public String getDescription() {
 		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-		
+	}	
 }
