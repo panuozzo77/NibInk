@@ -26,7 +26,7 @@
 	
 </head>
 <body>
-<jsp:include page="Navbar.jsp" />
+<jsp:include page="navbar.jsp" />
 
 	
 	<div class="container">
@@ -43,19 +43,46 @@
 		    			if(!productVariants.isEmpty()){
 		    		%>
 		    				
-		    			<form>
+		    			<form action="/NibInk/AddToCart" method="post">
 		    			Taglia: &emsp;
-		    			<select>
+		    			
+		    			<select id="sizeSelect" name="size" onChange="updateQuantityInput()">
 			    			<% for(Map.Entry<String, Integer> entry : productVariants.getVariants().entrySet()){ %>
-			    				<option value="<%=entry.getKey()%>"> <%=entry.getKey()%> </option>
+			    				<%int quantityAvailable = entry.getValue(); %>
+			    				<option value="<%=entry.getKey()%>" data-quantity="<%= quantityAvailable%>" > <%=entry.getKey()%>  </option>
 			    			<% } %>
+			    			  <option hidden="" value="" selected disabled >Scegli la taglia!</option>
 		    			</select>	
 		    			<br>
 		    			Quantità:
-		    			<input type="number" min="0" max="10" value="1">
-		    			<button type="submit" class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
+		    			<input type="hidden" name="product" value=<%=product.getCodenumber() %>>
+		    			<input type="number" name="quantity" id="quantityInput" min="1" max="10" value="1">
+		    			<button type="submit" id=button class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
 		    			</form>
-		    				
+		    			
+	    				<script>
+	    					var sizeQuantityMap = {};
+   							function updateQuantityInput() {
+					        var sizeSelect = document.getElementById("sizeSelect");
+					        var quantityInput = document.getElementById("quantityInput");
+					
+					        var selectedSize = sizeSelect.value;
+					        var maxQuantity = parseInt(sizeSelect.options[sizeSelect.selectedIndex].getAttribute("data-quantity"));
+					
+					        if (maxQuantity > 0) {
+					            quantityInput.max = maxQuantity.toString();
+					            quantityInput.value = "1";
+					            button.disabled = false;
+					            button.innerHTML = '<img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello'
+					            sizeQuantityMap[selectedSize]
+					        } else {
+					            quantityInput.max = "0";
+					            quantityInput.value = "0";
+					            button.disabled = true;
+					            button.innerHTML = '<img src="/NibInk/images/cart.png" width=20px height=20px>Non disponibile'
+					        	}
+					    	}
+						</script>
 		    				
 		    				
 		    		<%		
@@ -67,6 +94,8 @@
 		    		<%		
 		    			}
 		    		%>
+		    			
+		    			
 		    		
 		    		
 		    	</div>
@@ -110,6 +139,6 @@
 			</div>
 		</div>
 	</div>
-	
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

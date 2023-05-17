@@ -4,6 +4,7 @@
 <%@ page import="com.model.ItemManager" %>
 <%@ page import="com.model.Item" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,32 +14,49 @@
 	<link href="/NibInk/CSS/catalog3.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<jsp:include page="Navbar.jsp" />
+<div class="navbar">
+	<jsp:include page="navbar.jsp"/>
+</div>
 
 
 	<%
-		int itemPerPage=15;
-		int startIndex=request.getParameter("whereToStart")==null ? 0 : Integer.parseInt(request.getParameter("whereToStart"));
-		int pageNumber=request.getParameter("pageNumber")==null ? 1 : Integer.parseInt(request.getParameter("pageNumber"));
+		DAOItem db=new DAOItem();
+		int items;
+		int itemPerPage=10;
+		int pageNumber=request.getParameter("pageNumber")== null ? 1 : Integer.parseInt(request.getParameter("pageNumber"));
+		int startIndex=request.getParameter("startIndex")== null || request.getParameter("pageNumber").equals(String.valueOf(1)) ? 0 : Integer.parseInt(request.getParameter("startIndex"));
+		String filter=request.getParameter("filter");
 		ItemManager im = new ItemManager();
-		ArrayList<Item> itemsLoaded=im.loadItems(startIndex, itemPerPage);
+		ArrayList<Item> itemsLoaded;
+		if(filter==null || filter.contains("null")){
+			itemsLoaded=im.loadItems(startIndex, itemPerPage);
+			items = db.getItemsNumber();
+		}
+		else{
+			itemsLoaded=im.loadFilteredItems(startIndex, itemPerPage, filter);
+			items = db.getFilteredItemsNumber(filter);
+		}
+		
 	%>
-	
+	<div class="container0">
 	<div class="container">
 		
 		<div class="filters">
 			<p class="filterText">Filtri:</p>
 			
-			<form class="filterForm" action="filterServlet" method="get">
-				<input type="checkbox" id="productType1" name="onlyPens" value="">
-				<label for="productType1"> Penne Stilografiche</label><br>
-				<input type="checkbox" id="productType2" name="onlyInks" value="">
-				<label for="productType2"> Inchiostri</label><br>
-				<input type="checkbox" id="productType3" name="onlyNotebooks" value="">
-				<label for="productType3"> Taccuini</label><br>
+			<form class="filterForm" action="/NibInk/nextPage" method="get">
+				<input type="checkbox" id="onlyPens" name="onlyPens" value="pen-">
+				<label for="onlyPens"> Penne Stilografiche</label><br>
+				<input type="checkbox" id="onlyInks" name="onlyInks" value="ink-">
+				<label for="onlyInks"> Inchiostri</label><br>
+				<input type="checkbox" id="onlyNotebooks" name="onlyNotebooks" value="notebook">
+				<label for="onlyNotebooks"> Taccuini</label><br>
 				<br>
-				<input type="submit" class="buttons">
+				<input type="submit" class="buttons" id="submit" value="Filtra">
 			</form>
+				<% if(filter!=null){ %>
+					<button class="buttons" onclick="location.href = '/NibInk/JSP/catalog.jsp';">Azzera</button>
+				<%} %>
 		</div>
 		
 		
@@ -60,7 +78,10 @@
 								<br>${item.getTitle()}<br>
 								<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
 							 </button>
-							 <button class="addToCart">Add to Cart</button>
+							 <form action="/NibInk/AddToCart" method="get" class="addToCartForm">
+							 	<input type="hidden" name="product" value="${item.getCodenumber()}">
+							 	<button type="submit" class="addToCart">Add to Cart</button>
+							 </form>
 						</div>
 					 </div>
 					 
@@ -74,13 +95,29 @@
 			</div>
 			
 			<div class="navigationKeys">
-				<form action="page" method="get">
-        			<input type="hidden" value="<%=startIndex + itemPerPage%>" name="startIndex">
-					<input type="hidden" value="<%=pageNumber + 1%>" name="pageNumber">
-            		<input class="buttons" type="submit" value="Pagina <%=pageNumber + 1%>">
-        		</form>
-   			</div>	
+				<% 
+					
+					for(int k=0, j=1; k<items; k+=itemPerPage, j++)
+					{
+				%>
+						<form action="/NibInk/nextPage" method="get">
+							<input type="hidden" value="<%= filter %>" name="filters" class="invisibleButtons">
+							<input type="hidden" value="<%=k%>" name="startIndex" class="invisibleButtons">
+							<input type="hidden" value="<%=j%>" name="pageNumber" class="invisibleButtons">
+							<input type="submit" value="Pagina <%=j%>" class="navButtons">
+						</form>
+				<%
+					}
+				%>
+								
+				
+   			</div>
 		</div>
+	</div>
+	</div>
+	
+	<div class="footer">
+		<jsp:include page="footer.jsp"/>
 	</div>
 </body>
 </html>

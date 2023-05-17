@@ -6,7 +6,9 @@ public class Cart {
 	ArrayList<ItemInTheCart> cart; 
 	float total = 0;
 	
-	public Cart() {} 
+	public Cart() {
+		cart=new ArrayList<ItemInTheCart>();
+	} 
 	
 	public void addToCart(Item item, int quantity, String size)
 	{
@@ -49,10 +51,7 @@ public class Cart {
 	{
 		this.total = newPrice;
 	}
-	
-	
-	//test
-	
+		
 	public ArrayList<ItemInTheCart> getCart() {
 		return cart;
 	}

@@ -7,7 +7,10 @@ public class CartManager {
     private static Map<String, Cart> activeCarts;
 
     public CartManager() {
-        activeCarts = new HashMap<>();
+        //activeCarts = new HashMap<String, Cart>();
+    	if(activeCarts==null) {
+    		activeCarts = new HashMap<String, Cart>();
+    	}
     }
 
     public void addNewCart(String cartId) {
@@ -42,4 +45,15 @@ public class CartManager {
         ItemInTheCart itemInTheCart = new ItemInTheCart(db.getItemFromDB(item), quantity, size);
         cart.modifyQuantity(itemInTheCart, quantity);
     }
+    
+    
+    
+    
+    
+    
+    
+    public boolean containsKey(String key) {
+    	return activeCarts.containsKey(key);
+    }
+    
 }

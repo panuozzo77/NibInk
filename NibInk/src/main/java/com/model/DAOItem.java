@@ -198,7 +198,12 @@ public class DAOItem extends DAOConnection {
 	
 	
 	
+	
+	
+	
 	//fatto da me
+	
+	
 	public ArrayList<Item> getRelatedFromDB(float filterValue){
 		ResultSet rs = null;
 		try {
@@ -213,6 +218,61 @@ public class DAOItem extends DAOConnection {
 				e.printStackTrace();
 			}
 			return getFromResultSet(rs);
+	}
+	
+	public ArrayList<Item> getFilteredItems(int startIndex, int count, String filter) {
+        ResultSet rs = null;
+        try {
+        	if(!filter.contains("-")) {
+        		String sql = "SELECT * FROM Items WHERE type = ? LIMIT ?, ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, filter);
+                stmt.setInt(2, startIndex);
+                stmt.setInt(3, count);
+        	}
+        	else {
+        		String[] filters=filter.split("-");
+        		String sql = "SELECT * FROM Items WHERE (type = ? OR type = ?) LIMIT ?, ?";
+        		stmt = con.prepareStatement(sql);
+        		stmt.setString(1, filters[0]);
+        		stmt.setString(2, filters[1]);
+                stmt.setInt(3, startIndex);
+                stmt.setInt(4, count);
+        	}
+            
+            
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getFromResultSet(rs);
+    }
+	
+	public int getFilteredItemsNumber(String filter)
+	{
+		int number = 0;
+		ResultSet rs = null;
+		try {
+			if(!filter.contains("-")) {
+        		String sql = "SELECT COUNT(*) AS Quantity FROM Items WHERE type = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, filter);
+        	}
+        	else {
+        		String[] filters=filter.split("-");
+        		String sql = "SELECT COUNT(*) AS Quantity FROM Items WHERE (type = ? OR type = ?)";
+        		stmt = con.prepareStatement(sql);
+        		stmt.setString(1, filters[0]);
+        		stmt.setString(2, filters[1]);
+        	}
+			rs = stmt.executeQuery();
+			if(rs.next())
+				number = rs.getInt("Quantity");
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return number;
 	}
 	
 }
