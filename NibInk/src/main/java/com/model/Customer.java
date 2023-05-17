@@ -13,7 +13,7 @@ public class Customer {
 	public Customer () {}
 	
 	public int getID() {
-		return this.ID;
+		return ID;
 	}
 	
 	public void setID(int ID)
@@ -22,7 +22,7 @@ public class Customer {
 	}
 	
 	public String getEmail() {
-        return this.email;
+        return email;
     }
 	
     public void setEmail(String email) {
@@ -30,14 +30,14 @@ public class Customer {
     }
 
     public String getPassword() {
-    	return this.password;
+    	return password;
     }
     
     public void setPassword(String password) {
     	this.password = password; 
     }
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -45,7 +45,7 @@ public class Customer {
     }
 
     public String getSurname() {
-        return this.surname;
+        return surname;
     }
 
     public void setSurname(String surname) {
@@ -53,7 +53,7 @@ public class Customer {
     }
     
     public String getAddress() {
-        return this.address;
+        return address;
     }
 	
     public void setAddress(String address) {
@@ -61,7 +61,7 @@ public class Customer {
     }
     
     public String getCity() {
-        return this.city;
+        return city;
     }
 	
     public void setCity(String city) {
@@ -69,7 +69,7 @@ public class Customer {
     }
     
     public String getCap() {
-        return this.cap;
+        return cap;
     }
 	
     public void setCap(String cap) {

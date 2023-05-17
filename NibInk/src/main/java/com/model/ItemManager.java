@@ -22,10 +22,55 @@ public class ItemManager {
 			loadVariants();
 	}
 	
-	 public ArrayList<Item> loadItems(int startIndex, int count) {
-	        DAOItem db = new DAOItem();
-	        ArrayList<Item> al=db.getItems(startIndex, count);
-	        System.out.println("ItemManager: " +al.size());
-	        return al;
-	    }
+	public ArrayList<Item> loadItems(int startIndex, int count) {
+        DAOItem db = new DAOItem();
+        ArrayList<Item> al=db.getItems(startIndex, count);
+        //System.out.println("ItemManager: " +al.size());
+        return al;
+    }
+	 
+	
+	
+	
+	
+	public String searchDefaultItemForCart(String item){
+		 ItemVariant load = new ItemVariant();
+		 load.loadVariantsOf(item);
+		 Map<String, Integer> hash = load.getVariants();
+		 String key = null;
+		 Integer value;
+		 int state=0;
+		 for ( Map.Entry<String, Integer> entry : hash.entrySet()) {
+			 key = entry.getKey();
+			 value = entry.getValue();
+			 if (value>0) {
+				 state=1;
+				 break;
+			 }
+		 }
+		 
+		 if(state!=1) {
+			 key=null;
+		 }
+		 
+		 return key;
+	}
+	 
+	 
+	 
+	 //fatto da me
+	
+	
+	
+	 public ArrayList<Item> loadRelatedItems(float price){
+		 DAOItem db = new DAOItem();
+		 ArrayList<Item> al = db.getRelatedFromDB(price);
+		 return al;
+	 }
+	 
+	 public ArrayList<Item> loadFilteredItems(int startIndex, int count, String filter){
+		 DAOItem db = new DAOItem();
+		 ArrayList<Item> al=db.getFilteredItems(startIndex, count, filter);
+		 return al;
+	 }
 }

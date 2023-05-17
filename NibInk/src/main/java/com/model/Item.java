@@ -2,15 +2,15 @@ package com.model;
 
 public class Item 
 {
-	String codenumber;
-	String title;
-	String brand;
-	String color;
-	float price;
-	float vat;
-	int weight;
-	String dimensions;
-	String description;
+	private String codenumber;
+	private String title;
+	private String brand;
+	private String color;
+	private float price;
+	private float vat;
+	private int weight;
+	private String dimensions;
+	private String description;
 	 
 	public Item() {}
 	

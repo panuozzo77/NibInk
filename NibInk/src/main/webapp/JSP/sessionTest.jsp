@@ -13,5 +13,7 @@
     ${attr.key}=${attr.value}<br>
 </c:forEach>
 
+<button onclick="location.href = '/NibInk/JSP/catalog.jsp';">Sito</button>
+
 </body>
 </html>

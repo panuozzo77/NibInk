@@ -21,17 +21,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String email = request.getParameter("email");
     	String password = request.getParameter("password");
-    	System.out.println("email: " +email);
-    	System.out.println("pw: " +password);
     	DAOCustomer verify = new DAOCustomer();
     	int status = verify.checkLogin(email, password);
     	System.out.println(status);
     	switch (status) {
     		case 1: 
     			HttpSession session = request.getSession();
-    			System.out.println(verify.getCustomerByEmail(email).getName());
-    			System.out.println(verify.getCustomerByEmail(email).getEmail());
-    			System.out.println(verify.getCustomerByEmail(email).getPassword());
     			session.setAttribute("name", verify.getCustomerByEmail(email).getName());
     			response.sendRedirect("/NibInk/JSP/home.jsp"); //login effettuato correttamente
     			break;

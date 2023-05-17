@@ -1,0 +1,88 @@
+@charset "ISO-8859-1";
+
+*{
+	padding: 0%;
+	margin: 0%;
+	font-family: Calibri;
+	background-color: red;
+}
+
+.container {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	display: flex;
+  	flex-direction: column;
+  	border: 1px solid black;
+  	border-radius: 35px;
+  	box-shadow: 2px 2px 3px;
+}
+
+.rowUp {
+  	display: flex;
+  	margin-left: 30px;
+  	margin-right: 30px;
+  	
+}
+
+.rowDown{
+	border-top: 1px solid black;
+	margin-top: 3px;
+	margin-bottom: 5px;
+}
+
+.columLeft {
+	display: flex;
+	justify-content: center;	
+  	flex: 1;  	  
+}
+
+.columRight {
+  	flex: 1;
+} 
+
+.buttons{
+	display: flex;
+	justify-content: center;
+}
+
+.addToCart{
+	display: flex;
+	justify-content: center;
+	margin-top: 7%;
+	border-radius: 16px;
+	background-color: #1c1c1c;
+	color: white;
+	padding: 8px 25px;
+	border: none;
+	text-decoration: none;
+	font-size: 16px;
+}
+
+.addToCart:hover{
+	background-color: #808080;
+}
+
+.description{
+	margin-top: 7px;
+}
+
+.details{
+	list-style-type: none;
+}
+
+.moreProducts{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+input[type=number]{
+	width: 30px;
+	background-color: red;
+}

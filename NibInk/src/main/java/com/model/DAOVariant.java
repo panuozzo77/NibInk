@@ -136,4 +136,35 @@ public class DAOVariant extends DAOConnection {
 		return number;
 	}
 	
+	
+	
+	
+	
+	
+	
+	//Roba aggiunta da me
+	public Map<String, Integer> loadSingleItemVariants(Item item) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		ResultSet rs = null;
+		String sql = "SELECT size, quantity FROM Quantities WHERE item = ?";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, item.getCodenumber());
+			rs=stmt.executeQuery();
+			while(rs.next()){
+				map.put(rs.getString("size"), rs.getInt("quantity"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
