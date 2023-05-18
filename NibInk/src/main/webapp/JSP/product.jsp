@@ -57,7 +57,7 @@
 		    			Quantità:
 		    			<input type="hidden" name="product" value=<%=product.getCodenumber() %>>
 		    			<input type="number" name="quantity" id="quantityInput" min="1" max="10" value="1">
-		    			<button type="submit" id=button class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
+		    			<button disabled type="submit" id=button class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Scegli la taglia!</button>
 		    			</form>
 		    			
 	    				<script>

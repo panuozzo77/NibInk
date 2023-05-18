@@ -77,11 +77,4 @@ public class ItemVariant {
 	    	return quantityByVariation.isEmpty();
 	    }
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	
 }

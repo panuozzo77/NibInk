@@ -100,4 +100,11 @@ public class Item
 	public String getDescription() {
 		return description;
 	}	
+	
+	//fatto da me
+	
+	public boolean checkDisponibility() {
+		DAOVariant db = new DAOVariant();
+		return db.getQuantity(this)>0;
+	}
 }

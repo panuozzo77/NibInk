@@ -21,25 +21,49 @@
 			String cartId = (String) sessione.getAttribute("sessionId");
 			CartManager cm = new CartManager();
 			Cart carrello = cm.getCart(cartId);
-			if (carrello!=null){	
+			if (carrello!=null && !carrello.isEmpty()){	
 		%>
 		<div class="products">
-			<c:forEach items="<%= carrello.getCart()%>" var="item">
-				<div class="row">
-					<div class="product">
-						<img class="productImg" alt="" src="/NibInk/images/${item.getItem().getTitle()}.jpg">
-						<div class="productInfo">
-							<h3>${item.getItem().getTitle()}</h3>
-							<h4>Quantità: ${item.getQuantity()}</h4>
-							<h4>Taglia: ${item.getSize() }</h4><br>
-							<button class="buttons">Rimuovi</button>
-						</div>
-					</div>
-					<div class="price">
-						<h4>${item.getQuantity()*item.getItem().getPrice()}</h4>
-					</div>
-				</div>
+			<c:forEach items="<%= carrello.getCart()%>" var="item" varStatus="loop">
+			  <div class="row">
+			    <div class="product">
+			      <img class="productImg" alt="" src="/NibInk/images/${item.getItem().getTitle()}.jpg">
+			      <div class="productInfo">
+			        <h3>${item.getItem().getTitle()}</h3><br>
+			        Taglia: ${item.getSize()}
+			        <form action="/NibInk/CartServlet" method="post">
+			          Quantità:
+			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="100" value="${item.getQuantity()}">
+			
+			          <br><br>
+					  <input type="hidden" name="item" value="${item.getItem().getCodenumber()}">
+					  <input type="hidden" name="quantity" value="${item.getQuantity()}">
+					  <input type="hidden" name="size" value="${item.getSize()}">
+			          <input type="submit" name="removeButton" id="removeButton" class="buttons" value="Rimuovi">
+			          <input type="submit" name="updateButton" id="modifyButton${loop.index}" class="buttons" value="Modifica" style="display: none">
+			        </form>
+						
+			        <script>
+			          var quantityInput${loop.index} = document.getElementById("quantityInput${loop.index}");
+			          var modifyButton${loop.index} = document.getElementById("modifyButton${loop.index}");
+			          var previousQuantity${loop.index} = quantityInput${loop.index}.value;
+			
+			          quantityInput${loop.index}.addEventListener("input", function() {
+			            if (quantityInput${loop.index}.value === previousQuantity${loop.index}) {
+			              modifyButton${loop.index}.style.display = "none";
+			            } else {
+			              modifyButton${loop.index}.style.display = "inline";
+			            }
+			          });
+			        </script>
+			      </div>
+			    </div>
+			    <div class="price">
+			      <h4>${item.getQuantity() * item.getItem().getPrice()}</h4>
+			    </div>
+			  </div>
 			</c:forEach>
+
 			<div class="totalPrice">
 				<h2>Prezzo totale: <%=carrello.getTotal()%></h2>
 				<button class="buttons">COMPRA</button>

@@ -73,4 +73,31 @@ public class ItemManager {
 		 ArrayList<Item> al=db.getFilteredItems(startIndex, count, filter);
 		 return al;
 	 }
+	 
+	 public boolean[] loadDisponibility(int startIndex, int count, String filter){
+		 DAOItem db = new DAOItem();
+		 DAOVariant db2 = new DAOVariant();
+	     ArrayList<Item> al=db.getFilteredItems(startIndex, count, filter);
+	     boolean [] array = new boolean[count];
+	     int j=0;
+		 for(Item i : al) {
+			 
+			 array[j]=db2.getQuantity(i)>0;
+		 }
+			
+		 return array;
+	 }
+	 
+	 public boolean[] loadDisponibility(int startIndex, int count){
+		 DAOItem db = new DAOItem();
+		 DAOVariant db2 = new DAOVariant();
+	     ArrayList<Item> al=db.getItems(startIndex, count);
+	     boolean [] array = new boolean[count];
+	     int j=0;
+		 for(Item i : al) {
+			 array[j]=db2.getQuantity(i)>0;
+			 j++;
+		 }
+		 return array;
+	 }
 }
