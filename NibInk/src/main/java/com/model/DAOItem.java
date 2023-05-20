@@ -12,7 +12,12 @@ public class DAOItem extends DAOConnection {
 
 	public DAOItem () {
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOItem!");
+			e.printStackTrace();
+		}
 	}
 	
 	

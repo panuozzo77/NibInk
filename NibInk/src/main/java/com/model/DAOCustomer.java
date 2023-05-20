@@ -12,7 +12,12 @@ public class DAOCustomer extends DAOConnection {
 	
 	public DAOCustomer () {
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOCustomer!");
+			e.printStackTrace();
+		}
 	}
 	
 	public int checkLogin(String email, String password)

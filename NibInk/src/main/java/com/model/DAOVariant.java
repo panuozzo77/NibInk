@@ -15,7 +15,12 @@ public class DAOVariant extends DAOConnection {
 	public DAOVariant()
 	{
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOVariant!");
+			e.printStackTrace();
+		}
 	}
 	
 	public void addVariantToDB(ItemVariant variant)
