@@ -29,9 +29,6 @@ public class RegistrationServlet extends HttpServlet {
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
-        String address = request.getParameter("address");
-        String city = request.getParameter("city");
-        String cap = request.getParameter("cap");
         String password = request.getParameter("password");
         
         // Salvo le informazioni nella classe Customer
@@ -39,18 +36,14 @@ public class RegistrationServlet extends HttpServlet {
         newCustomer.setEmail(email);
         newCustomer.setName(name);
         newCustomer.setSurname(surname);
-        newCustomer.setAddress(address);
-        newCustomer.setCity(city);
-        newCustomer.setCap(cap);
         newCustomer.setPassword(password);
         
         // Salvo il Customer nel DB
         DAOCustomer dao = new DAOCustomer();
-        dao.addCustomer(newCustomer);
-        //if(result)
-        	response.sendRedirect("login.html"); //correctly registered
-        //else
-        	//response.sendRedirect("login.html"); //retry
+        if(dao.addCustomer(newCustomer))
+        	response.sendRedirect("/NibInk/JSP/login.jsp"); //correctly registered
+        else
+        	response.sendRedirect("/NibInk/JSP/login.jsp?error=1"); //retry
         
     }
 

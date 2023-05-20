@@ -32,7 +32,12 @@
 							<h3>${item.getItem().getTitle()}</h3>
 							<h4>Quantità: ${item.getQuantity()}</h4>
 							<h4>Taglia: ${item.getSize() }</h4><br>
+							<form action="/NibInk/RemoveFromCart" method="get">
+							<input type="hidden" name="code" value="${item.getItem().getCodenumber()}">
+							<input type="hidden" name="quantity" value="${item.getQuantity()}">
+							<input type="hidden" name="size" value="${item.getSize()}">
 							<button class="buttons">Rimuovi</button>
+							</form>
 						</div>
 					</div>
 					<div class="price">

@@ -17,6 +17,8 @@ public class DAOCustomer extends DAOConnection {
 	
 	public int checkLogin(String email, String password)
 	{
+		System.out.println("email inserita:"+email+";");
+		System.out.println("password inserita:"+password+";");
 		String field = null;
 		ResultSet rs = null;
 		String sql="SELECT password FROM Users WHERE email = ?";
@@ -24,8 +26,11 @@ public class DAOCustomer extends DAOConnection {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, email);
 			rs = stmt.executeQuery();
-			if(rs.next())
+			if(rs.next()) {
 				field = rs.getString("password");
+				System.out.println("field trovato:"+field+";");
+			}
+			else return 0; //user does not exists
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -35,8 +40,7 @@ public class DAOCustomer extends DAOConnection {
 			if(!Objects.equals(field, password)) {
 				return 2; //the user exists but password mismatch
 				}
-			else 
-				return 0; //user does not exists
+			return 0;
 	}
 	
 	public Customer getCustomerByEmail(String email) {
@@ -48,13 +52,11 @@ public class DAOCustomer extends DAOConnection {
 			rs = stmt.executeQuery();
 			if(rs.next()){
 				Customer customer = new Customer();
-				customer.setEmail(rs.getString("email"));
                 customer.setName(rs.getString("name"));
                 customer.setSurname(rs.getString("surname"));
+                customer.setType(rs.getString("type"));
                 customer.setPassword(rs.getString("password"));
-                customer.setAddress(rs.getString("address"));
-                customer.setCity(rs.getString("city"));
-                customer.setCap(rs.getString("cap"));
+                customer.setEmail(rs.getString("email"));
                 return customer;
 			}
 		} catch (Exception e)
@@ -66,6 +68,7 @@ public class DAOCustomer extends DAOConnection {
 	
 	public boolean addCustomer(Customer customer)
 	{
+		boolean status = true;
 		String sql="INSERT INTO Users (email, password, name, surname, address, city, cap, type) VALUES ( ?, ?, ?, ?, ?, ?, ?, 'registered');";
 		try {
 			stmt = con.prepareStatement(sql);
@@ -73,14 +76,12 @@ public class DAOCustomer extends DAOConnection {
 			stmt.setObject(2, customer.getPassword());
 			stmt.setObject(3, customer.getName());
 			stmt.setObject(4, customer.getSurname());
-			stmt.setObject(5, customer.getAddress());
-			stmt.setObject(6, customer.getCity());
-			stmt.setObject(7, customer.getCap());
 			stmt.executeUpdate();
 			return true;
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-		return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			status = false;
+		}
+		return status;
 	}
 }

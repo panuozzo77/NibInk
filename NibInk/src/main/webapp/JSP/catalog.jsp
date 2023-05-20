@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.model.ItemManager" %>
-<%@ page import="com.model.Item" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.DAOItem" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="com.model.ItemManager" %>
+<%@page import="com.model.Item" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
 <html>

@@ -46,7 +46,10 @@ public class CartManager {
         cart.modifyQuantity(itemInTheCart, quantity);
     }
     
-    
+    public void cleanCart(String cartId) {
+    	Cart c = activeCarts.get(cartId);
+    	c.cart.clear();
+    }
     
     
     

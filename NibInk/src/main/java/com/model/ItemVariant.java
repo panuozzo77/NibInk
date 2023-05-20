@@ -55,11 +55,11 @@ public class ItemVariant {
 	    
 	    
 	    
-	    public void loadVariantsOf(String item) {
+	    public Map<String, Integer> loadVariantsOf(String item) {
 			DAOVariant db = new DAOVariant();
 			DAOItem db2 = new DAOItem();
 			this.item = db2.getItemFromDB(item);
-			quantityByVariation = db.loadSingleItemVariants(this.item);
+			return quantityByVariation = db.loadSingleItemVariants(this.item);
 		}
 	    
 	    
