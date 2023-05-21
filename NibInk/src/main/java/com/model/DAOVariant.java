@@ -31,7 +31,7 @@ public class DAOVariant extends DAOConnection {
 			stmt.setObject(1, variant.getItem().getCodenumber());
 			for(Entry<String, Integer> entry : variant.getVariants().entrySet()) {
 				stmt.setObject(2, entry.getKey());
-				stmt.setObject(2, entry.getValue());
+				stmt.setObject(3, entry.getValue());
 				stmt.executeUpdate();
 			} 
 		}catch (SQLException e) {
