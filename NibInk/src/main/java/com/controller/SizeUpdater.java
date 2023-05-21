@@ -22,7 +22,6 @@ public class SizeUpdater extends HttpServlet {
      */
     public SizeUpdater() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -38,7 +37,6 @@ public class SizeUpdater extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

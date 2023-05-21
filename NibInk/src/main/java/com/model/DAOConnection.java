@@ -79,7 +79,6 @@ public class DAOConnection {
 
 			@Override
 			public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-				// TODO Auto-generated method stub
 				return null;
 			}
         };
