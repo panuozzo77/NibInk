@@ -11,6 +11,8 @@ public class ItemVariant {
         this.item=item;
         this.quantityByVariation = new HashMap<String, Integer>();
     }
+    
+    public ItemVariant() {}
 
     public void addVariation(String size, int quantity) {
         quantityByVariation.put(size, quantity);
@@ -50,6 +52,15 @@ public class ItemVariant {
 	        quantityByVariation.remove(size);
 	    }
 	    
+	    
+	    
+	    
+	    public Map<String, Integer> loadVariantsOf(String item) {
+			DAOVariant db = new DAOVariant();
+			DAOItem db2 = new DAOItem();
+			this.item = db2.getItemFromDB(item);
+			return quantityByVariation = db.loadSingleItemVariants(this.item);
+		}
 	    
 	    
 	    

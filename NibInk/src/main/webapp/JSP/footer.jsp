@@ -26,17 +26,13 @@
 		</div>
 		
 		<div class="colonna">
-			<h3>Categorie</h3>
-			<a>Penne Stilografiche</a>
-			<a>Quaderni</a>
-			<a>Inchiostri</a>
-		</div>
-		
-		<div class="colonna">
 			<a>IL MIO ACCOUNT</a>
 			<a>I miei ordini</a>
-			<a>il mio carrello</a>
+			<a>Il mio carrello</a>
 			<a>Termini e condizioni</a>
+			<%if("admin".equals(session.getAttribute("userType"))) { %>
+				<a href="/NibInk/JSP/admin.jsp">Pannello di Controllo</a>
+			<%} %>
 		</div>
 		<div class="colonna">
 			<h3>SEGUICI SUI SOCIAL</h3>

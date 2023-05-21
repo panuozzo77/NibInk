@@ -26,7 +26,7 @@
 	
 </head>
 <body>
-<jsp:include page="Navbar.jsp" />
+<jsp:include page="navbar.jsp" />
 
 	
 	<div class="container">
@@ -51,15 +51,15 @@
 			    				<%int quantityAvailable = entry.getValue(); %>
 			    				<option value="<%=entry.getKey()%>" data-quantity="<%= quantityAvailable%>" > <%=entry.getKey()%>  </option>
 			    			<% } %>
-			    			  <option hidden="" value="" selected disabled >Scegli la taglia!</option>
+			    			  <option hidden="" value="stop" selected >Scegli la taglia!</option>
 		    			</select>	
 		    			<br>
 		    			Quantità:
 		    			<input type="hidden" name="product" value=<%=product.getCodenumber() %>>
 		    			<input type="number" name="quantity" id="quantityInput" min="1" max="10" value="1">
-		    			<button type="submit" id=button class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
+		    			<button type="submit" id="button" class="addToCart"><img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello</button>
 		    			</form>
-		    			
+		    			<br>
 	    				<script>
 	    					var sizeQuantityMap = {};
    							function updateQuantityInput() {
@@ -68,17 +68,28 @@
 					
 					        var selectedSize = sizeSelect.value;
 					        var maxQuantity = parseInt(sizeSelect.options[sizeSelect.selectedIndex].getAttribute("data-quantity"));
-					
+					        
+					        //da vedere
+					        if (selectedSize === "stop") { 
+					            quantityInput.max = "0";
+					            quantityInput.value = "0";
+					            button.disabled = true;
+					            button.style.display = "none"; // da vedere
+					            button.innerHTML = '<img src="/NibInk/images/cart.png" width=20px height=20px>Non Selezionabile';
 					        if (maxQuantity > 0) {
 					            quantityInput.max = maxQuantity.toString();
 					            quantityInput.value = "1";
+					            button.style.display = "flex";
 					            button.disabled = false;
+					            button.style.display = "inline-block";
 					            button.innerHTML = '<img src="/NibInk/images/cart.png" width="20px" height="20px">Aggiungi al Carrello'
 					            sizeQuantityMap[selectedSize]
 					        } else {
 					            quantityInput.max = "0";
 					            quantityInput.value = "0";
 					            button.disabled = true;
+					            button.style.display = "flex";
+					            button.style.display = "inline-block";
 					            button.innerHTML = '<img src="/NibInk/images/cart.png" width=20px height=20px>Non disponibile'
 					        	}
 					    	}

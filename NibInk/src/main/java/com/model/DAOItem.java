@@ -12,7 +12,12 @@ public class DAOItem extends DAOConnection {
 
 	public DAOItem () {
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOItem!");
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -247,6 +252,33 @@ public class DAOItem extends DAOConnection {
         }
         return getFromResultSet(rs);
     }
+	
+	public int getFilteredItemsNumber(String filter)
+	{
+		int number = 0;
+		ResultSet rs = null;
+		try {
+			if(!filter.contains("-")) {
+        		String sql = "SELECT COUNT(*) AS Quantity FROM Items WHERE type = ?";
+                stmt = con.prepareStatement(sql);
+                stmt.setString(1, filter);
+        	}
+        	else {
+        		String[] filters=filter.split("-");
+        		String sql = "SELECT COUNT(*) AS Quantity FROM Items WHERE (type = ? OR type = ?)";
+        		stmt = con.prepareStatement(sql);
+        		stmt.setString(1, filters[0]);
+        		stmt.setString(2, filters[1]);
+        	}
+			rs = stmt.executeQuery();
+			if(rs.next())
+				number = rs.getInt("Quantity");
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return number;
+	}
 	
 }
 

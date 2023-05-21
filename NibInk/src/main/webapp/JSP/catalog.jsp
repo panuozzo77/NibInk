@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="com.model.ItemManager" %>
-<%@ page import="com.model.Item" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.DAOItem" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="com.model.ItemManager" %>
+<%@page import="com.model.Item" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,23 +15,26 @@
 </head>
 <body>
 <div class="navbar">
-	<jsp:include page="Navbar.jsp"/>
+	<jsp:include page="navbar.jsp"/>
 </div>
 
 
 	<%
+		DAOItem db=new DAOItem();
+		int items;
 		int itemPerPage=10;
-		int startIndex=request.getParameter("startIndex")==null || request.getParameter("pageNumber").equals(String.valueOf(1)) ? 0 : Integer.parseInt(request.getParameter("startIndex"));
-		int pageNumber=request.getParameter("pageNumber")==null ? 1 : Integer.parseInt(request.getParameter("pageNumber"));
+		int pageNumber=request.getParameter("pageNumber")== null ? 1 : Integer.parseInt(request.getParameter("pageNumber"));
+		int startIndex=request.getParameter("startIndex")== null || request.getParameter("pageNumber").equals(String.valueOf(1)) ? 0 : Integer.parseInt(request.getParameter("startIndex"));
 		String filter=request.getParameter("filter");
 		ItemManager im = new ItemManager();
 		ArrayList<Item> itemsLoaded;
-		if(filter==null){
+		if(filter==null || filter.contains("null")){
 			itemsLoaded=im.loadItems(startIndex, itemPerPage);
+			items = db.getItemsNumber();
 		}
 		else{
 			itemsLoaded=im.loadFilteredItems(startIndex, itemPerPage, filter);
-			
+			items = db.getFilteredItemsNumber(filter);
 		}
 		
 	%>
@@ -41,16 +44,19 @@
 		<div class="filters">
 			<p class="filterText">Filtri:</p>
 			
-			<form class="filterForm" action="/NibInk/FilterServlet" method="post">
-				<input type="checkbox" id="onlyPens" name="onlyPens" value="Pens">
+			<form class="filterForm" action="/NibInk/nextPage" method="get">
+				<input type="checkbox" id="onlyPens" name="onlyPens" value="pen-">
 				<label for="onlyPens"> Penne Stilografiche</label><br>
-				<input type="checkbox" id="onlyInks" name="onlyInks" value="Inks">
+				<input type="checkbox" id="onlyInks" name="onlyInks" value="ink-">
 				<label for="onlyInks"> Inchiostri</label><br>
-				<input type="checkbox" id="onlyNotebooks" name="onlyNotebooks" value="Notebooks">
+				<input type="checkbox" id="onlyNotebooks" name="onlyNotebooks" value="notebook">
 				<label for="onlyNotebooks"> Taccuini</label><br>
 				<br>
-				<input type="submit" class="buttons">
+				<input type="submit" class="buttons" id="submit" value="Filtra">
 			</form>
+				<% if(filter!=null){ %>
+					<button class="buttons" onclick="location.href = '/NibInk/JSP/catalog.jsp';">Azzera</button>
+				<%} %>
 		</div>
 		
 		
@@ -72,7 +78,7 @@
 								<br>${item.getTitle()}<br>
 								<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
 							 </button>
-							 <form action="/NibInk/SingleAddToCart" class="addToCartForm">
+							 <form action="/NibInk/AddToCart" method="get" class="addToCartForm">
 							 	<input type="hidden" name="product" value="${item.getCodenumber()}">
 							 	<button type="submit" class="addToCart">Add to Cart</button>
 							 </form>
@@ -90,14 +96,15 @@
 			
 			<div class="navigationKeys">
 				<% 
-					DAOItem db=new DAOItem();
-					for(int k=0, j=1; k<db.getItemsNumber();k+=itemPerPage, j++)
+					
+					for(int k=0, j=1; k<items; k+=itemPerPage, j++)
 					{
 				%>
 						<form action="/NibInk/nextPage" method="get">
-							<input type="hidden" value="<%=k+1%>" name="startIndex">
-							<input type="hidden" value="<%=j%>" name="pageNumber">
-							<input type="submit" value="Pagina <%=j%>">&emsp;
+							<input type="hidden" value="<%= filter %>" name="filters" class="invisibleButtons">
+							<input type="hidden" value="<%=k%>" name="startIndex" class="invisibleButtons">
+							<input type="hidden" value="<%=j%>" name="pageNumber" class="invisibleButtons">
+							<input type="submit" value="Pagina <%=j%>" class="navButtons">
 						</form>
 				<%
 					}

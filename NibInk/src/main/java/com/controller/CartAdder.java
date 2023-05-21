@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.model.CartManager;
+import com.model.ItemManager;
 
 /**
  * Servlet implementation class CartAdder
@@ -22,21 +23,33 @@ public class CartAdder extends HttpServlet {
        
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String code = (String) session.getAttribute("sessionId");
+		String id = request.getParameter("product");
+		ItemManager im = new ItemManager();
+		String size = im.searchDefaultItemForCart(id);
+		if(size!=null) {
+			CartManager cm = new CartManager();
+			cm.addNewCart(code);
+			cm.addItemToCart(code, id, 1, size);
+		}
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.sendRedirect("/NibInk/JSP/cart.jsp");
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String code = (String) session.getAttribute("sessionId");
 		CartManager cm = new CartManager();
-		cm.addNewCart(code);
 		String size = request.getParameter("size");
 		String id = request.getParameter("product");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		if(cm.getCart(code)==null)
+			cm.addNewCart(code);
 		cm.addItemToCart(code, id, quantity, size);
-		response.sendRedirect("/NibInk/JSP/carrello.jsp");
+		response.sendRedirect("/NibInk/JSP/cart.jsp");
 		
 	}
 

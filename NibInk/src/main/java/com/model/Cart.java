@@ -10,19 +10,39 @@ public class Cart {
 		cart=new ArrayList<ItemInTheCart>();
 	} 
 	
-	public void addToCart(Item item, int quantity, String size)
+	public void addToCart(Item item, int quantity, String size) //per adesso inutilizzato
 	{
-		ItemInTheCart toAdd = new ItemInTheCart();
-		toAdd.setItem(item);
-		toAdd.setQuantity(quantity);
-		toAdd.setSize(size);
-		cart.add(toAdd);
+		boolean itemExists = false;
+		for(ItemInTheCart c : cart) {
+			System.out.println("item: "+c.getItem().getCodenumber() +"size: "+c.getSize() );
+			if(c.getItem().getCodenumber().equals(item.getCodenumber()) && c.getSize().equals(size)) {
+				c.setQuantity(c.getQuantity()+quantity);
+				itemExists = true;
+				break;
+			}
+		}
+		if(!itemExists) {
+			ItemInTheCart toAdd = new ItemInTheCart();
+			toAdd.setItem(item);
+			toAdd.setQuantity(quantity);
+			toAdd.setSize(size);
+			cart.add(toAdd);
+		}
 		total+=quantity*item.getPrice();
 	}
 	
 	public void addToCart(ItemInTheCart item)
 	{
-		cart.add(item);
+		boolean itemExists = false;
+		for(ItemInTheCart c : cart) {
+			if(c.getItem().getCodenumber().equals(item.getItem().getCodenumber()) && c.getSize().equals(item.getSize())) {
+				c.setQuantity(c.getQuantity()+item.getQuantity());
+				itemExists = true;
+				break;
+			}
+		}
+		if(!itemExists) 
+			cart.add(item);
 		total+=item.getQuantity()*item.getItem().getPrice();
 	}
 	
