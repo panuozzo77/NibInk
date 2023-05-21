@@ -22,7 +22,7 @@
 		</div>
 		<img alt="" src="/NibInk/images/logo.png">
 		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
-		<a href="/NibInk/login.html">Login</a>
+		<a href="/NibInk/JSP/login.jsp">Login</a>
 	</div>
 	
 	<div class="menu2">
@@ -38,7 +38,7 @@
   			</div>
 		</div>
   		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
-		<a href="/NibInk/login.html">Login</a>
+		<a href="/NibInk/JSP/login.jsp">Login</a>
 	</div>
 		<img alt="" src="/NibInk/images/logo.png" class="scorrimento">
 	</div>

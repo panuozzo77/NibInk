@@ -15,7 +15,7 @@ public class DAOItem extends DAOConnection {
 		con = super.getConnection();
 	}
 	
-	
+	/*
 	public void addItemToDB(Item item)
 	{
 		String sql="INSERT INTO Items (ID,title,brand,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -35,7 +35,29 @@ public class DAOItem extends DAOConnection {
 			e.printStackTrace();
 		}
 	}
-
+	*/
+	
+	public void addItemToDB(Item item)
+	{
+		String sql="INSERT INTO Items (ID,title,price,VAT,color,dimensions,weight,description,type) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, item.getCodenumber());
+			stmt.setObject(2, item.getTitle());
+			stmt.setObject(3, item.getPrice());
+			stmt.setObject(4, item.getVat());
+			stmt.setObject(5, item.getColor());
+			stmt.setObject(6, item.getDimensions());
+			stmt.setObject(7, item.getWeight());
+			stmt.setObject(8, item.getDescription());
+			stmt.setObject(9, item.getType());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public ArrayList<Item> getItems(int startIndex, int count) {
         ResultSet rs = null;
         try {

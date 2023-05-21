@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="com.model.CartManager"%>
 <%@ page import="com.model.Cart"%>
@@ -32,7 +33,7 @@
 			        <h3>${item.getItem().getTitle()}</h3><br>
 			        Taglia: ${item.getSize()}
 			        <form action="/NibInk/CartServlet" method="post">
-			          Quantit�:
+			          Quantità:
 			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="100" value="${item.getQuantity()}">
 			
 			          <br><br>
@@ -59,18 +60,23 @@
 			      </div>
 			    </div>
 			    <div class="price">
-			      <h4>${item.getQuantity() * item.getItem().getPrice()}</h4>
+			      <h4><fmt:formatNumber value="${item.getQuantity() * item.getItem().getPrice()}" type="currency" currencySymbol="€"/></h4>
 			    </div>
 			  </div>
 			</c:forEach>
 
 			<div class="totalPrice">
-				<h2>Prezzo totale: <%=carrello.getTotal()%></h2>
+				<h2>Prezzo totale: <fmt:formatNumber value="<%=carrello.getTotal()%>" type="currency" currencySymbol="€"/></h2>
 				<button class="buttons">COMPRA</button>
 			</div>
 		</div>
 		<%}	else{%>
-			<h1>Non hai nessun prodotto nel tuo carrello</h1>
+		<div class="emptyContainer">
+			<img src="/NibInk/images/emptyCart.svg" class="bgImg"><br>
+			<h3 style="margin-top: 3%">Carrello vuoto!</h3><br>
+			<button onclick="window.location.href='/NibInk/JSP/catalog.jsp'" class="buttons">Torna al catalogo</button>
+		</div>
+			
 		<%	}%>
 
 </div>
