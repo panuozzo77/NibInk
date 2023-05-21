@@ -4,7 +4,7 @@ public class Item
 {
 	private String codenumber;
 	private String title;
-	private String brand;
+	private String type;
 	private String color;
 	private float price;
 	private float vat;
@@ -14,11 +14,11 @@ public class Item
 	 
 	public Item() {}
 	
-	public Item(String codenumber, String title, String brand, String color, String dimensions, String description, float price, float vat, int weight)
+	public Item(String codenumber, String title, String type, String color, String dimensions, String description, float price, float vat, int weight)
 	{
 		this.setCodenumber(codenumber);
 		this.setTitle(title);
-		this.setBrand(brand);
+		this.setType(type);
 		this.setColor(color);
 		this.setPrice(price);
 		this.setVat(vat);
@@ -36,8 +36,8 @@ public class Item
 		this.title = title;
 	}
 	
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public void setColor(String color) {
@@ -73,8 +73,8 @@ public class Item
 		return title;
 	}
 	
-	public String getBrand() {
-		return brand;
+	public String getType() {
+		return type;
 	}
 	
 	public String getColor() {
@@ -100,4 +100,11 @@ public class Item
 	public String getDescription() {
 		return description;
 	}	
+	
+	//fatto da me
+	
+	public boolean checkDisponibility() {
+		DAOVariant db = new DAOVariant();
+		return db.getQuantity(this)>0;
+	}
 }

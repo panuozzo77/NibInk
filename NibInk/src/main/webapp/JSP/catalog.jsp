@@ -1,17 +1,17 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@page import="com.model.ItemManager" %>
-<%@page import="com.model.Item" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="com.model.DAOItem" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.model.ItemManager" %>
+<%@ page import="com.model.Item" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Catalog</title>
-	<link href="/NibInk/CSS/catalog3.css" rel="stylesheet" type="text/css"/>
+	<link href="/NibInk/CSS/catalog.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div class="navbar">
@@ -23,6 +23,7 @@
 		DAOItem db=new DAOItem();
 		int items;
 		int itemPerPage=10;
+		boolean[] disponibility;
 		int pageNumber=request.getParameter("pageNumber")== null ? 1 : Integer.parseInt(request.getParameter("pageNumber"));
 		int startIndex=request.getParameter("startIndex")== null || request.getParameter("pageNumber").equals(String.valueOf(1)) ? 0 : Integer.parseInt(request.getParameter("startIndex"));
 		String filter=request.getParameter("filter");
@@ -31,10 +32,12 @@
 		if(filter==null || filter.contains("null")){
 			itemsLoaded=im.loadItems(startIndex, itemPerPage);
 			items = db.getItemsNumber();
+			disponibility = im.loadDisponibility(startIndex, itemPerPage);
 		}
 		else{
 			itemsLoaded=im.loadFilteredItems(startIndex, itemPerPage, filter);
 			items = db.getFilteredItemsNumber(filter);
+			disponibility = im.loadDisponibility(startIndex, itemPerPage, filter);
 		}
 		
 	%>
@@ -64,7 +67,9 @@
 		<div class=container2>
 		<h1 class="title">&emsp;&emsp;Catalog</h1> <br>
 			<div class="itemInCatalog">		
-				<% int i=0; %>			
+				<% int i=0;
+				   int p=0;
+				%>			
 				<c:forEach items="<%= itemsLoaded %>" var="item">
 					<% if(i==0){ %>
     					<div class="row"> 				
@@ -78,14 +83,23 @@
 								<br>${item.getTitle()}<br>
 								<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
 							 </button>
-							 <form action="/NibInk/AddToCart" method="get" class="addToCartForm">
-							 	<input type="hidden" name="product" value="${item.getCodenumber()}">
-							 	<button type="submit" class="addToCart">Add to Cart</button>
-							 </form>
+							 <c:choose>
+							 	<c:when test="<%=disponibility[p]%>">
+								 	<form action="/NibInk/AddToCart" method="get" class="addToCartForm">
+								 		<input type="hidden" name="product" value="${item.getCodenumber()}">
+								 		<button type="submit" class="addToCart">Add to Cart</button>
+									</form>
+							 	</c:when>
+							 	<c:otherwise>
+								 		<button disabled class="addToCart">Non Disponibile</button>
+							 	</c:otherwise>
+							 </c:choose>
+							 
 						</div>
 					 </div>
 					 
 					 <% i++; 
+					 	p++;
 					 	if (i==5){i=0; %>
 					 
 					 	</div>

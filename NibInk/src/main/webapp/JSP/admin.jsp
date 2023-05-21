@@ -78,7 +78,7 @@ items = db.getItemsNumber();
             	<input type="hidden" id="itemSize<%=i %>" name=size>
             	</form>
             </td>
-            <td><button type="button" id=toArticle onClick="window.location.href='LINK DA SISTEMARE'"> Modifica Articolo</button> 
+            <td><button type="button" id=toArticle onClick="window.location.href='/NibInk/JSP/itemEntry.jsp'"> Modifica Articolo</button> 
         </tr>
         <%
         i++;

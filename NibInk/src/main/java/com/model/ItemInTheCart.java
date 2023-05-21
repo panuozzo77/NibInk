@@ -42,4 +42,11 @@ public class ItemInTheCart {
 	{
 		return this.size;
 	}
+	
+	public boolean isEqual(ItemInTheCart i) {
+		if(i.getItem().getCodenumber().equals(this.getItem().getCodenumber()) && i.getQuantity()==this.getQuantity() && i.getSize().equals(this.getSize())) {
+			return true;	
+		}
+		return false;
+	}
 }

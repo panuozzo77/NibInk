@@ -128,7 +128,7 @@ public class DAOVariant extends DAOConnection {
 	{
 		int number = 0;
 		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) AS Quantity FROM Quantities ";
+		String sql = "SELECT COUNT(*) AS Quantity FROM Quantities";
 		try {
 			stmt = con.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -141,7 +141,13 @@ public class DAOVariant extends DAOConnection {
 		return number;
 	}
 	
-	//Roba aggiunta da Raffaele
+	
+	
+	
+	
+	
+	
+	//Roba aggiunta da me
 	public Map<String, Integer> loadSingleItemVariants(Item item) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		ResultSet rs = null;
@@ -159,6 +165,23 @@ public class DAOVariant extends DAOConnection {
 		return map;
 	}
 	
+	public int getQuantity(Item item) {
+		ResultSet rs = null;
+		String sql = "Select SUM(Quantity) AS Disponibility from Quantities WHERE item = ? GROUP BY item";
+		int quantity=0;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, item.getCodenumber());
+			rs=stmt.executeQuery();
+			if(rs.next()) {
+				quantity = rs.getInt("Disponibility");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quantity;
+	}
+
 	public boolean updateVariant(String item, String size, String quantity)
 	{
 		boolean status = true;
@@ -175,4 +198,5 @@ public class DAOVariant extends DAOConnection {
 		}
 		return status;
 	}
+	
 }

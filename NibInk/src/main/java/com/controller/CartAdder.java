@@ -31,7 +31,8 @@ public class CartAdder extends HttpServlet {
 		String size = im.searchDefaultItemForCart(id);
 		if(size!=null) {
 			CartManager cm = new CartManager();
-			cm.addNewCart(code);
+			if(cm.getCart(code)==null)
+				cm.addNewCart(code);
 			cm.addItemToCart(code, id, 1, size);
 		}
 		
@@ -49,8 +50,7 @@ public class CartAdder extends HttpServlet {
 		if(cm.getCart(code)==null)
 			cm.addNewCart(code);
 		cm.addItemToCart(code, id, quantity, size);
-		response.sendRedirect("/NibInk/JSP/cart.jsp");
-		
+		response.sendRedirect("/NibInk/JSP/cart.jsp");	
 	}
 
 }

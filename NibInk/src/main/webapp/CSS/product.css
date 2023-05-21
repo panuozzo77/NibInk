@@ -4,7 +4,6 @@
 	padding: 0%;
 	margin: 0%;
 	font-family: Calibri;
-	background-color: red;
 }
 
 .container {
@@ -56,7 +55,7 @@
 	justify-content: center;
 	margin-top: 7%;
 	border-radius: 16px;
-	background-color: #1c1c1c;
+	background-color: #A3A3A3;
 	color: white;
 	padding: 8px 25px;
 	border: none;
@@ -65,7 +64,7 @@
 }
 
 .addToCart:hover{
-	background-color: #808080;
+	background-color: #B3B3B3;
 }
 
 .description{
@@ -83,6 +82,68 @@
 }
 
 input[type=number]{
-	width: 30px;
-	background-color: red;
+	width: 50px;
+}
+
+.product_img{
+	width: 300px;
+	margin-left: 5%	
+}
+
+.moreProducts{
+	margin-top: 1%;
+	margin-bottom: 1%;	
+}
+
+.card{		
+	background-color: #e9e9ed;
+	text-align: center;
+	padding: 2%;
+	margin: 1%;
+	border: 1px solid #c1c1c1;
+	border-radius: 15px;
+	width: 20%;	
+}
+
+
+.mpRow{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin-bottom: 10px;
+}
+
+.mpCardBorder{
+	display: flex;
+	justify-content: center;
+	background-color: #e9e9ed;
+	width: 10vw;
+	border: 1px solid #1c1c1c;
+	border-radius: 15px;
+	padding: 0px;
+	
+	margin-left: 3px;
+}
+
+.mpCardContent{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	align-items: center;
+}
+
+.mpProductCard{			
+	text-align: center;
+	width: 100%;
+	border: none;
+	border-radius: 15px;
+	height: 100%;
+	padding-top: 5%;
+	padding-bottom: 3%;
+}
+
+.mpProductImg{
+	width: 80%;
+	height: 80%;
 }

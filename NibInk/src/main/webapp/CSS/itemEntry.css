@@ -1,0 +1,84 @@
+@charset "ISO-8859-1";
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	width: 100%;
+	height: 100%;
+}
+
+.disabled {
+   pointer-events: none;
+   opacity: 0;
+}
+
+.container{
+	display: flex;
+	flex-direction: column;
+	margin-top: 5%;
+	margin-left: 20%;
+	margin-right: 20%;
+	border: 1px solid black;
+	border-radius: 15px;
+	justify-content: center;
+}
+
+.containerForm{
+	display: flex;
+	flex-direction: column;
+	margin-left: 20%;
+	margin-right: 20%;
+	justify-content: center;
+}
+
+.firstHalfForm{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	margin-bottom: 30px;
+	margin-top: 10px;
+}
+
+.firstHalfForm > input{
+	margin-bottom: 3px;
+}
+
+.firstHalfForm > fieldset{
+	padding: 5px;
+}
+
+.secondHalfForm{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: center;
+	margin-bottom: 30px;
+}
+
+.secondHalfForm > p > button{
+	padding: 3px;
+}
+
+.secondHalfForm > p > input{
+	width: 80%;
+}
+
+.secondHalfForm > p > select{
+	width: 30%;
+}
+
+
+.submitButton{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2%;
+}
+
+.submitButton > button{
+	width: 80%;
+}

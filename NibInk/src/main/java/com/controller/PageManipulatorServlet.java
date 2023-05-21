@@ -21,8 +21,11 @@ public class PageManipulatorServlet extends HttpServlet{
 	}
 	
 	protected void doGet  (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("isAdmin").equals("admin")) {
-        	response.sendRedirect("/NibInk/JSP/admin3.jsp?startIndex="+request.getParameter("pageNumber")+"&pageNumber="+request.getParameter("pageNumber"));
+        String admin = null;
+        admin = request.getParameter("isAdmin");
+		if(admin!=null) {
+			if(request.getParameter("isAdmin").contains("admin"))
+        	response.sendRedirect("/NibInk/JSP/admin.jsp?startIndex="+request.getParameter("startIndex")+"&pageNumber="+request.getParameter("pageNumber"));
         }
         else {
 			String url = "/NibInk/JSP/catalog.jsp?";
