@@ -26,21 +26,6 @@
 		</div>
 		
 		<div class="colonna">
-<<<<<<< HEAD
-			<h3>Il mio account</h3>
-			<a>I miei ordini</a>
-			<a>Il mio carrello</a>
-			<a>Termini e condizioni</a>
-		</div>
-		<div class="colonna">
-			<h3>SEGUICI SUI SOCIAL</h3>
-			<div>
-				<img class="footerImg" alt="" src="/NibInk/images/instagram.png">
-				<img class="footerImg" alt="" src="/NibInk/images/telegram.png">
-			</div>
-		</div>
-	</div>
-=======
 			<h3>IL MIO ACCOUNT</h3>
 			<a>I miei ordini</a>
 			<a>Il mio carrello</a>
@@ -59,6 +44,5 @@
 	</div>
 
 
->>>>>>> refs/remotes/origin/master
 </body>
 </html>

@@ -1,3 +1,4 @@
+package com.model;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -65,3 +66,37 @@ public class DAOConnection {
             public void setLogWriter(java.io.PrintWriter out) throws SQLException {
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            public void setLoginTimeout(int seconds) throws SQLException {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public int getLoginTimeout() throws SQLException {
+                throw new UnsupportedOperationException();
+            }
+
+			@Override
+			public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+				return null;
+			}
+        };
+    }
+
+    public static Connection getConnection() throws SQLException {
+        Connection con = null;
+    	try {
+    		con = dataSource.getConnection();
+        } catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        return con;
+    }
+
+    public static void releaseConnection(Connection connection) throws SQLException {
+        if (connection != null) {
+            connection.close();
+        }
+    }
+}

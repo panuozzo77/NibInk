@@ -64,6 +64,18 @@
   gap: 10px;
 }
 
+.home{
+	text-decoration: none;	
+}
+
+a:link { text-decoration: none; }
+
+a:visited { text-decoration: none; }
+
+a:hover { text-decoration: none; }
+
+a:active { text-decoration: none; }
+
 .submenu a {
   display: block;
   text-decoration: none;
@@ -130,7 +142,11 @@
 }
 @media screen and (max-width:800px)
 {
-	
+	html, body 
+	{
+  		margin: 0;
+  		padding:0;
+	}
 	
 	.page 
 	{
@@ -190,7 +206,7 @@
 	
 	.page > .menu2 > .link > a
 	{
-		padding-top: 100px;
+		padding-top: 25px;
 		font-size: 2em;
 	}
 	.page > .menu2 > .link >.prodotti >a
@@ -199,7 +215,7 @@
   		text-decoration: none;
   		transition: transform .2s;
   		text-align: center;
-  		padding-top: 100px;
+  		padding-top: 25px;
   		padding-bottom: 0px;
   		padding-left: 0px;
   		padding-right: 0px;
