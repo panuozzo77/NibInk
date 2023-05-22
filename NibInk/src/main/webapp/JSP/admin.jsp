@@ -13,6 +13,26 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">
 <title>Pannello di Controllo</title>
+
+<script>
+    function updateQuantityInput(index) {
+        var sizeSelect = document.getElementById("sizeSelect" + index);
+        var quantityInput = document.getElementById("quantityInput" + index);
+        var span = document.getElementById("currQnt" + index);
+        var param = document.getElementById("itemSize"+ index);
+        var button = document.getElementById("modify" + index);
+
+        var selectedSize = sizeSelect.value;
+        var maxQuantity = parseInt(sizeSelect.options[sizeSelect.selectedIndex].getAttribute("data-quantity"));
+
+        if (maxQuantity > -1) {
+            span.textContent = maxQuantity.toString();
+            param.value = selectedSize.toString();
+            button.innerHTML = "Aggiorna Quantità"
+        }
+    }
+</script>
+
 </head>
 <body>
 
@@ -35,8 +55,8 @@ items = db.getItemsNumber();
     <li><a href="#">Products</a></li>
     <li><a href="#">Orders</a></li>
     <li><a href="#">Customers</a></li>
+    <li><a href="/NibInk/JSP/itemEntry.jsp"> Crea nuovo Articolo</a>
   </ul>
-</body>
 <table>
   <tr>
     <th>ID</th>
@@ -46,7 +66,6 @@ items = db.getItemsNumber();
     <th>Taglia</th>
     <th>Quantità In Magazzino</th>
     <th>Nuova Quantità</th>
-    <th></th>
   </tr>
 
   <%
@@ -78,31 +97,12 @@ items = db.getItemsNumber();
             	<input type="hidden" id="itemSize<%=i %>" name=size>
             	</form>
             </td>
-            <td><button type="button" id=toArticle onClick="window.location.href='/NibInk/JSP/itemEntry.jsp'"> Modifica Articolo</button> 
-        </tr>
         <%
         i++;
     }
 %>
 
-<script>
-    function updateQuantityInput(index) {
-        var sizeSelect = document.getElementById("sizeSelect" + index);
-        var quantityInput = document.getElementById("quantityInput" + index);
-        var span = document.getElementById("currQnt" + index);
-        var param = document.getElementById("itemSize"+ index);
-        var button = document.getElementById("modify" + index);
 
-        var selectedSize = sizeSelect.value;
-        var maxQuantity = parseInt(sizeSelect.options[sizeSelect.selectedIndex].getAttribute("data-quantity"));
-
-        if (maxQuantity > -1) {
-            span.textContent = maxQuantity.toString();
-            param.value = selectedSize.toString();
-            button.innerHTML = "Aggiorna Quantità"
-        }
-    }
-</script>
   
 </table>
 

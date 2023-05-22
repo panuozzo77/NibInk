@@ -18,7 +18,6 @@
 	<jsp:include page="navbar.jsp"/>
 </div>
 
-<!-- Commento prova per una push  -->
 
 	<%
 		DAOItem db=new DAOItem();
