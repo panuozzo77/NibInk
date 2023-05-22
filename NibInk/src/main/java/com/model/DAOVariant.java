@@ -15,7 +15,12 @@ public class DAOVariant extends DAOConnection {
 	public DAOVariant()
 	{
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOVariant!");
+			e.printStackTrace();
+		}
 	}
 	
 	public void addVariantToDB(ItemVariant variant)
@@ -175,6 +180,23 @@ public class DAOVariant extends DAOConnection {
 			e.printStackTrace();
 		}
 		return quantity;
+	}
+
+	public boolean updateVariant(String item, String size, String quantity)
+	{
+		boolean status = true;
+		String sql = "UPDATE Quantities SET Quantity = ? WHERE Item = ? AND Size = ?";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, quantity);
+			stmt.setObject(2, item);
+			stmt.setObject(3, size);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			status = false;
+		}
+		return status;
 	}
 	
 }

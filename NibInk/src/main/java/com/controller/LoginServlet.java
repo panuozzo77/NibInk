@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.model.DAOCustomer;
+import com.model.Customer;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -27,14 +28,17 @@ public class LoginServlet extends HttpServlet {
     	switch (status) {
     		case 1: 
     			HttpSession session = request.getSession();
-    			session.setAttribute("name", verify.getCustomerByEmail(email).getName());
+    			Customer customer;
+    			customer = verify.getCustomerByEmail(email);
+    			session.setAttribute("userType", customer.getType());
+    			session.setAttribute("name", customer.getName());
     			response.sendRedirect("/NibInk/JSP/home.jsp"); //login effettuato correttamente
     			break;
     		case 2:
-    			response.sendRedirect("sign_in.html");
+    			response.sendRedirect("/NibInk/JSP/login.jsp?error=2");
     			break;
     		default:
-    			response.sendRedirect("Grafica_sito/login.html"); //user non registrato
+    			response.sendRedirect("/NibInk/JSP/login.jsp?error=3"); //user non registrato
     	}
 	}
 

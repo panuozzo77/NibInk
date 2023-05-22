@@ -6,6 +6,11 @@
 	text-decoration: none;
 	list-style: none;
 }
+.return > a {
+	display:flex;
+	justify-content:center;
+	width: 100%;
+}
 :root{
 	--bg-color: #222327
 	--text-color: #fff;

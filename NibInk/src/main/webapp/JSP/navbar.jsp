@@ -5,7 +5,7 @@
 <head>
 
 	<meta charset="ISO-8859-1">
-	<link href="/NibInk/CSS/navbar3.css" rel="stylesheet" type="text/css"/>
+	<link href="/NibInk/CSS/navbar.css" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
