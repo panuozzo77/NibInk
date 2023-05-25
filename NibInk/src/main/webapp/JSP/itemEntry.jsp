@@ -9,6 +9,12 @@
 	<link href="/NibInk/CSS/itemEntry.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<%
+String admin = (String) request.getSession().getAttribute("userType");
+if(admin!=null)
+	if(!admin.equals("admin"))
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+%>
 <div class="container">
 	<% int idUrl = 0; //prendilo dall'url%>
 	<form action="/NibInk/AddProductServlet" method="post" class="containerForm" onsubmit="saveSizes()">

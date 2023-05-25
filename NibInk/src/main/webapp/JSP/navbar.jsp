@@ -40,7 +40,7 @@
   		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
 		<a href="/NibInk/JSP/login.jsp">Login</a>
 	</div>
-		<img alt="" src="/NibInk/images/logo.png" class="scorrimento">
+		<img alt="" src="/NibInk/images/menu.png" class="scorrimento">
 	</div>
 </div>
 

@@ -35,7 +35,12 @@
 
 </head>
 <body>
-
+<%
+String admin = (String) request.getSession().getAttribute("userType");
+if(admin!=null)
+	if(!admin.equals("admin"))
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+%>
 <%
 DAOItem db=new DAOItem();
 int items;
