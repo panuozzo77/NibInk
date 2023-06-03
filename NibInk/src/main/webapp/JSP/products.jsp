@@ -36,12 +36,6 @@
 </head>
 <body>
 <%
-String admin = (String) request.getSession().getAttribute("userType");
-if(admin!=null)
-	if(!admin.equals("admin"))
-		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-%>
-<%
 DAOItem db=new DAOItem();
 int items;
 int itemPerPage=30;
@@ -55,13 +49,9 @@ items = db.getItemsNumber();
 %>
 
 <body>
-  <ul class="menu">
-    <li><a href="#">Dashboard</a></li>
-    <li><a href="#">Products</a></li>
-    <li><a href="#">Orders</a></li>
-    <li><a href="#">Customers</a></li>
-    <li><a href="/NibInk/JSP/itemEntry.jsp"> Crea nuovo Articolo</a>
-  </ul>
+<div class="navbar">
+	<jsp:include page="adminNavbar.jsp"/>
+</div>
 <table>
   <tr>
     <th>ID</th>
@@ -101,6 +91,12 @@ items = db.getItemsNumber();
             	<input type="hidden" id="itemId" value="<%=item.getCodenumber() %>" name=id>
             	<input type="hidden" id="itemSize<%=i %>" name=size>
             	</form>
+            </td>
+            <td>
+            <form action="/NibInk/JSP/itemEntry.jsp" method="get">
+			<input type="hidden" value="<%=item.getCodenumber() %>" name="id" class="invisibleButtons">
+            <button type="submit">Modifica Articolo</button>
+            </form>
             </td>
         <%
         i++;
