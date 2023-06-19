@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="com.model.Item" %>
+<%@page import="com.model.DAOItem" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +12,20 @@
 </head>
 <body>
 <div class="container">
-	<% int idUrl = 0; //prendilo dall'url%>
-	<form action="/NibInk/AddProductServlet" method="post" class="containerForm" onsubmit="saveSizes()">
+	<%int id_url=0;//prendilo dall'url
+		DAOItem db_Item= new DAOItem();
+		Item item= db_Item.getItemFromDB(request.getParameter("id")); 
+	%>
+	<form action="/NibInk/AddProductServlet" method="post" class="containerForm" onsubmit="saveSizes()" enctype="multipart/form-data">
 		<div class="firstHalfForm">
 		<h3>Informazioni prodotto</h3>
-				<input name="title" id="title" type="text" onkeydown="handleKeyPress(event)" placeholder="Titolo articolo"><br>
-				<input name="price" id="price" step="0.01" type="number" min="0" placeholder="Prezzo articolo"><br>
-				<input name="vat" id="vat" step="0.01" type="number" min="0" placeholder="IVA articolo"><br>
-				<input name="color" id="color" type="text" onkeydown="handleKeyPress(event)" placeholder="Colore articolo"><br>
-				<input name="weight" id="weigth" type="text" onkeydown="handleKeyPress(event)" placeholder="Peso articolo"><br>
-				<input name="dimensions" id="dimensions" type="text" onkeydown="handleKeyPress(event)" placeholder="Dimensioni articolo"><br>
-				<input name="description" id="description" type="text" onkeydown="handleKeyPress(event)" placeholder="Descrizione articolo"><br>
+				<input name="title" id="title" type="text" onkeydown="handleKeyPress(event)" placeholder="Titolo articolo" value="<%= item.getTitle()%>"><br>
+				<input name="price" id="price" step="0.01" type="number" min="0" placeholder="Prezzo articolo" value="<%= item.getPrice()%>"><br>
+				<input name="vat" id="vat" step="0.01" type="number" min="0" placeholder="IVA articolo" value="<%= item.getVat()%>"><br>
+				<input name="color" id="color" type="text" onkeydown="handleKeyPress(event)" placeholder="Colore articolo" value="<%= item.getColor()%>"><br>
+				<input name="weight" id="weigth" type="text" onkeydown="handleKeyPress(event)" placeholder="Peso articolo" value="<%= item.getWeight()%>"><br>
+				<input name="dimensions" id="dimensions" type="text" onkeydown="handleKeyPress(event)" placeholder="Dimensioni articolo" value="<%= item.getDimensions()%>"><br>
+				<input name="description" id="description" type="text" onkeydown="handleKeyPress(event)" placeholder="Descrizione articolo" value="<%= item.getDescription()%>"><br>
 				<br>
 			<fieldset>
 			<legend>Tipologia prodotto:</legend>
@@ -32,6 +37,7 @@
 				<label for="notebook">Taccuino</label><br>
 			</fieldset>
 		</div>
+		<input type="file" name="imageFile">
 		<div class="disabled" id="secondHalf">
 		<p class="sizesText">Sizes:<br> 
 					
@@ -57,6 +63,32 @@
 
 
 </div>
+<script type="text/javascript">
+window.onload = function() 
+{
+	var url = window.location.href;
+	var url_oggetto= new URL(url);
+	var parametri=url_oggetto.searchParams;
+	var type=parametri.get("type");
+	switch (type)
+	{
+		case "pen":
+			console.log("eccomi1");
+			document.getElementById("pen").checked=true;
+		break;
+		
+		case "ink":
+			console.log("eccomi2");
+			document.getElementById("ink").checked=true;
+		break;
+		
+		case "notebook":
+			console.log("eccomi3");
+			document.getElementById("notebook").checked=true;
+		break;
+	}
+}
 	
+</script>
 </body>
 </html>
