@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#searchbar").keyup(function() {
     var searchValue = $(this).val();
-    console.log(searchValue);
+    //console.log(searchValue);
     if(searchValue===""){
 		$("#searchResults").empty();
 	}
@@ -9,9 +9,9 @@ $(document).ready(function() {
 		$.get('/NibInk/AjaxSearchServlet', {"value": searchValue}, 
     	function(resp){
 			$("#searchResults").empty();
-			console.log("Ottengo: " + resp);
+			//console.log("Ottengo: " + resp);
 			var results=resp.split(",");
-			console.log(results);
+			//console.log(results);
 			
 			if(results!=null){
 				for(var i=0; i<results.length; i++){
@@ -33,8 +33,25 @@ function showResults(r){
 	var newP=$("<p>").html(a[0]);
 	newP.css({
 		"border": "1px solid black",
-		"padding": "1%"		
+		"border-top": "0px",
+		"padding": "3%"		
 		});
+		
+	newP.hover(
+		function() {
+			$(this).css({
+				"background-color": "#e9e9ed",
+				"cursor": "pointer"
+			});
+		},
+		function() {
+			$(this).css({
+				"background-color": "transparent",
+				"cursor": "default"
+			});
+		}
+	);
+	
 	newP.click(function(){
 		 location.href="/NibInk/JSP/product.jsp?id="+a[1]; 
 	});

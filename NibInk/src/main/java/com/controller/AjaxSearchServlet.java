@@ -26,7 +26,7 @@ public class AjaxSearchServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
     	
     	String searchValue=request.getParameter("value");
-		//System.out.println("Cerco: " + searchValue);
+		System.out.println("Cerco: " + searchValue);
 		DAOItem db = new DAOItem();
 		ArrayList<Item> result = db.getItemsLike(searchValue);
 		String resp="";
@@ -38,6 +38,7 @@ public class AjaxSearchServlet extends HttpServlet {
 			resp+= ",";
 		}
 		resp = resp.replaceAll(",$", "");
+		//System.out.println("output "+resp);
 		response.getWriter().write(new Gson().toJson(resp));
 	}
 
