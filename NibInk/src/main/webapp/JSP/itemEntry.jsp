@@ -13,7 +13,7 @@
 <body>
 <jsp:include page="navbar.jsp" />
 <div class="container">
-	<%//int id_url=0;//prendilo dall'url
+	<%//int idUrl=0;//prendilo dall'url
 		DAOItem db_Item= new DAOItem();
 		Item item= db_Item.getItemFromDB(request.getParameter("id")); 
 	%>
