@@ -17,7 +17,7 @@
 <script src="/NibInk/JavaScript/jquery.js"></script>
 <script src="/NibInk/JavaScript/catalog.js"> </script>
 <div class="navbar">
-	<jsp:include page="navbar.jsp"/>
+<jsp:include page="navbar.jsp"/>
 </div>
 
 
