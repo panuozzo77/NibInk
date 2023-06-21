@@ -35,7 +35,7 @@
 
 </head>
 <body>
-
+<jsp:include page="navbar.jsp" />
 <%
 DAOItem db=new DAOItem();
 int items;

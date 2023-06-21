@@ -9,6 +9,7 @@
 	<link href="/NibInk/CSS/itemEntry.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <div class="container">
 	<% int idUrl = 0; //prendilo dall'url%>
 	<form action="/NibInk/AddProductServlet" method="post" class="containerForm" onsubmit="saveSizes()">

@@ -14,6 +14,8 @@
 	<link href="/NibInk/CSS/catalog.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<script src="/NibInk/JavaScript/jquery.js"></script>
+<script src="/NibInk/JavaScript/catalog.js"> </script>
 <div class="navbar">
 	<jsp:include page="navbar.jsp"/>
 </div>
@@ -43,6 +45,11 @@
 	%>
 	<div class="container0">
 	<div class="container">
+		<div id="search-filters">
+			<div id="search">
+			<input id="searchbar" type="text" value="" placeholder="Cerca nel catalogo"/>
+			<div id="searchResults"></div>
+		</div>
 		
 		<div class="filters">
 			<p class="filterText">Filtri:</p>
@@ -61,11 +68,14 @@
 					<button class="buttons" onclick="location.href = '/NibInk/JSP/catalog.jsp';">Azzera</button>
 				<%} %>
 		</div>
+		</div>
+		
 		
 		
 		
 		<div class=container2>
-		<h1 class="title">&emsp;&emsp;Catalog</h1> <br>
+			<h1 class="title">&emsp;&emsp;Catalog</h1>			
+			
 			<div class="itemInCatalog">		
 				<% int i=0;
 				   int p=0;

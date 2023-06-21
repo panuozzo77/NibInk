@@ -26,7 +26,7 @@
 		</div>
 		
 		<div class="colonna">
-			<h3>IL MIO ACCOUNT</h3>
+			<h3>Il mio account</h3>
 			<a>I miei ordini</a>
 			<a>Il mio carrello</a>
 			<a>Termini e condizioni</a>
