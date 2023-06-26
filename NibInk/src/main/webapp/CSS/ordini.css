@@ -1,0 +1,44 @@
+@charset "ISO-8859-1";
+
+*
+{
+	padding:0;
+	margin:0;
+}
+
+div.page
+{
+	width:100%;
+	height:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+}
+
+.title
+{
+	width:90%;
+}
+
+.prodotto
+{
+	width:90%;
+	display:felx;
+	justify-content:center;
+	align-items:center;
+}
+
+.informazione_ordine
+{
+	width:100%;
+	display: flex;
+	justify-content:space-between;
+	
+}
+
+.informazione_prodotto
+{
+	display:flex;
+	width:100%
+}

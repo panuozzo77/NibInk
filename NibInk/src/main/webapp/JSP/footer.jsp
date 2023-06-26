@@ -26,10 +26,13 @@
 		</div>
 		
 		<div class="colonna">
-			<h3>Il mio account</h3>
+			<h3>IL MIO ACCOUNT</h3>
 			<a>I miei ordini</a>
 			<a>Il mio carrello</a>
 			<a>Termini e condizioni</a>
+			<%if("admin".equals(session.getAttribute("userType"))) { %>
+				<a href="/NibInk/JSP/admin.jsp">Pannello di Controllo</a>
+			<%} %>
 		</div>
 		<div class="colonna">
 			<h3>SEGUICI SUI SOCIAL</h3>
@@ -39,5 +42,7 @@
 			</div>
 		</div>
 	</div>
+
+
 </body>
 </html>

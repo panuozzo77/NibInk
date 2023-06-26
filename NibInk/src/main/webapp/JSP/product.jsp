@@ -22,7 +22,7 @@
 		productVariants.loadVariants();
 	%>
 	<title> <%= product.getTitle() %></title>
-	<link rel="stylesheet" href="/NibInk/CSS/product3.css">
+	<link rel="stylesheet" href="/NibInk/CSS/product.css">
 	
 </head>
 <body>

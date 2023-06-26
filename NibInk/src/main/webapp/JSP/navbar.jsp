@@ -5,7 +5,7 @@
 <head>
 
 	<meta charset="ISO-8859-1">
-	<link href="/NibInk/CSS/navbar3.css" rel="stylesheet" type="text/css"/>
+	<link href="/NibInk/CSS/navbar.css" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -40,7 +40,7 @@
   		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
 		<a href="/NibInk/JSP/login.jsp">Login</a>
 	</div>
-		<img alt="" src="/NibInk/images/logo.png" class="scorrimento">
+		<img alt="" src="/NibInk/images/menu.png" class="scorrimento">
 	</div>
 </div>
 

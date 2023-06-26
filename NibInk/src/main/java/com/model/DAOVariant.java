@@ -15,7 +15,12 @@ public class DAOVariant extends DAOConnection {
 	public DAOVariant()
 	{
 		super();
-		con = super.getConnection();
+		try {
+			con = super.getConnection();
+		} catch (SQLException e) {
+			System.out.println("Error getting connection in DAOVariant!");
+			e.printStackTrace();
+		}
 	}
 	
 	public void addVariantToDB(ItemVariant variant)
@@ -119,6 +124,35 @@ public class DAOVariant extends DAOConnection {
 		return itemVariants;
 	}
 	
+	public DAOVariant(String id)
+	{
+		Map<String, ItemVariant> itemVariants = new HashMap<String, ItemVariant>();
+		String sql = "SELECT * FROM Quantities JOIN Items ON Quantities.Item = ?";
+		try {
+			ResultSet rs = con.createStatement()
+					
+					.executeQuery(sql);
+			while(rs.next()) {
+				String itemId = rs.getString("ID");
+				String size = rs.getString("size");
+				int quantity = rs.getInt("quantity");
+				
+				ItemVariant variant;
+				if(itemVariants.containsKey(itemId)) //if the element exists
+					variant = itemVariants.get(itemId); //i load from the itemVariants Map the element to get the 
+				else { //else it doesn't exists yet
+					DAOItem db = new DAOItem();
+					Item item = db.getItemFromDB(String.valueOf(itemId)); //i load the single item from the db
+					variant = new ItemVariant(item); //i define a new variant class
+				}
+				variant.addQuantity(size, quantity); //i define it's size and quantity
+				itemVariants.put(String.valueOf(itemId), variant); //i re-add it to the map with the new sizes and quantities
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public int getVariantsNumber()
 	{
 		int number = 0;
@@ -175,6 +209,23 @@ public class DAOVariant extends DAOConnection {
 			e.printStackTrace();
 		}
 		return quantity;
+	}
+
+	public boolean updateVariant(String item, String size, String quantity)
+	{
+		boolean status = true;
+		String sql = "UPDATE Quantities SET Quantity = ? WHERE Item = ? AND Size = ?";
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, quantity);
+			stmt.setObject(2, item);
+			stmt.setObject(3, size);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			status = false;
+		}
+		return status;
 	}
 	
 }

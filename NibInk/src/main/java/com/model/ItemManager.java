@@ -81,8 +81,8 @@ public class ItemManager {
 	     boolean [] array = new boolean[count];
 	     int j=0;
 		 for(Item i : al) {
-			 
 			 array[j]=db2.getQuantity(i)>0;
+			 j++;
 		 }
 			
 		 return array;

@@ -11,9 +11,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Catalog</title>
-	<link href="/NibInk/CSS/catalog3.css" rel="stylesheet" type="text/css"/>
+	<link href="/NibInk/CSS/catalog.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div class="userNavbar">
+	<jsp:include page="userNavbar.jsp"/>
+</div>
 <div class="navbar">
 	<jsp:include page="navbar.jsp"/>
 </div>
