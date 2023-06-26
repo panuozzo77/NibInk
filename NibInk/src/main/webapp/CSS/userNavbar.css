@@ -1,0 +1,11 @@
+div.lato_sinistro{
+	float:left;
+}
+
+div.lato_destro{
+	float:right;
+}
+
+a.account{
+	margin-left: 50px;
+}

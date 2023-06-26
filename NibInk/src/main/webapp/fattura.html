@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>La tua Fattura</title>
+    <link rel="stylesheet" href="CSS/fattura.css" media="all" />
+  </head>
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+        <img src="images/logo.png">
+      </div>
+      <h1>INVOICE #NUMERO</h1>
+      <div id="company" class="clearfix">
+        <div>NibInk</div>
+        <div>Via inesistente 123<br /> SA 84121, IT</div>
+        <div>(+39) 123-4567890</div>
+        <div><a href="mailto:company@example.com">info@nibink.com</a></div>
+      </div>
+      <div id="project">
+        <div><span>CLIENTE</span> John Doe</div>
+        <div><span>INDIRIZZO</span> 796 Silver Harbour, TX 79273, US</div>
+        <div><span>EMAIL</span> <a href="mailto:john@example.com">john@example.com</a></div>
+        <div><span>DATA</span> August 17, 2015</div>
+      </div>
+    </header>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th class="service">ARTICOLO</th>
+            <th class="desc">TITOLO</th>
+            <th>PREZZO</th>
+            <th>QNT.</th>
+            <th>TOTALE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="service">Design</td>
+            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">26</td>
+            <td class="total">$1,040.00</td>
+          </tr>
+          <tr>
+            <td class="service">Development</td>
+            <td class="desc">Developing a Content Management System-based Website</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">80</td>
+            <td class="total">$3,200.00</td>
+          </tr>
+          <tr>
+            <td class="service">SEO</td>
+            <td class="desc">Optimize the site for search engines (SEO)</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">20</td>
+            <td class="total">$800.00</td>
+          </tr>
+          <tr>
+            <td class="service">Training</td>
+            <td class="desc">Initial training sessions for staff responsible for uploading web content</td>
+            <td class="unit">$40.00</td>
+            <td class="qty">4</td>
+            <td class="total">$160.00</td>
+          </tr>
+          <tr>
+            <td colspan="4">SUBTOTALE</td>
+            <td class="total">$5,200.00</td>
+          </tr>
+          <tr>
+            <td colspan="4">TAX 25%</td>
+            <td class="total">$1,300.00</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="grand total">TOTALE</td>
+            <td class="grand total">$6,500.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="notices">
+        <div class="notice">La ringraziamo per l'acquisto. La fattura sarà sempre disponibile sul nostro sito.</div>
+      </div>
+    </main>
+    <footer> 
+    </footer>
+  </body>
+</html>

@@ -37,6 +37,7 @@
 			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="100" value="${item.getQuantity()}">
 			
 			          <br><br>
+			         
 					  <input type="hidden" name="item" value="${item.getItem().getCodenumber()}">
 					  <input type="hidden" name="quantity" value="${item.getQuantity()}">
 					  <input type="hidden" name="size" value="${item.getSize()}">
@@ -57,7 +58,7 @@
 			            }
 			          });
 			        </script>
-			      </div>
+			        </div>
 			    </div>
 			    <div class="price">
 			      <h4><fmt:formatNumber value="${item.getQuantity() * item.getItem().getPrice()}" type="currency" currencySymbol="€"/></h4>

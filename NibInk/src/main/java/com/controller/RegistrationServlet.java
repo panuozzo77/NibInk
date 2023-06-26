@@ -37,11 +37,12 @@ public class RegistrationServlet extends HttpServlet {
         newCustomer.setName(name);
         newCustomer.setSurname(surname);
         newCustomer.setPassword(password);
+        newCustomer.setType("registered");
         
         // Salvo il Customer nel DB
         DAOCustomer dao = new DAOCustomer();
         if(dao.addCustomer(newCustomer))
-        	response.sendRedirect("/NibInk/JSP/login.jsp"); //correctly registered
+        	response.sendRedirect("/NibInk/JSP/login.jsp?regSucc=1"); //correctly registered
         else
         	response.sendRedirect("/NibInk/JSP/login.jsp?error=1"); //retry
         

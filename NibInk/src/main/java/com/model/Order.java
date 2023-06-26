@@ -1,20 +1,22 @@
 package com.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
     private int id;
     private int user;
     private String email;
-    private int shippingAddress;
-    private int invoiceAddress;
+    private String shippingAddress;
+    private String invoiceAddress;
     private String paymentMethod;
     private float amount;
     private String status;
     private String shippingMethod;
     private Date orderDate;
+    ArrayList<OrderedItem> purchased;
 
-    public Order(int id, int user, String email, int shippingAddress, int invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod, Date orderDate) {
+    public Order(int id, int user, String email, String shippingAddress, String invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod, Date orderDate) {
         this.id = id;
         this.user = user;
         this.email = email;
@@ -25,6 +27,7 @@ public class Order {
         this.status = status;
         this.shippingMethod = shippingMethod;
         this.orderDate = orderDate;
+        this.purchased = getPurchasedItems(id);
     }
 
     public int getId() {
@@ -51,19 +54,19 @@ public class Order {
         this.email = email;
     }
 
-    public int getShippingAddress() {
+    public String getShippingAddress() {
         return shippingAddress;
     }
 
-    public void setShippingAddress(int shippingAddress) {
+    public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
 
-    public int getInvoiceAddress() {
+    public String getInvoiceAddress() {
         return invoiceAddress;
     }
 
-    public void setInvoiceAddress(int invoiceAddress) {
+    public void setInvoiceAddress(String invoiceAddress) {
         this.invoiceAddress = invoiceAddress;
     }
 
@@ -106,4 +109,14 @@ public class Order {
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
+
+    public ArrayList<OrderedItem> getPurchasedItems(int id) {
+    	DAOOrder db = new DAOOrder();
+    	return db.loadOrderedItem(id);
+    }
+    
+    public ArrayList<OrderedItem> getPurchased() {
+    	return this.purchased;
+    }
+    
 }

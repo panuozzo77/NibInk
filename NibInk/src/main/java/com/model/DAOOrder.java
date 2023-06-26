@@ -32,15 +32,13 @@ public class DAOOrder extends DAOConnection {
                 int id = rs.getInt("ID");
                 int user = rs.getInt("User");
                 String email = rs.getString("Email");
-                int shippingAddress = rs.getInt("Shipping_address");
-                int invoiceAddress = rs.getInt("Invoice_address");
+                String shippingAddress = rs.getString("Shipping_address");
+                String invoiceAddress = rs.getString("Invoice_address");
                 String paymentMethod = rs.getString("Payment_method");
                 float amount = rs.getFloat("Amount");
                 String status = rs.getString("status");
                 String shippingMethod = rs.getString("Shipping_Method");
                 Date orderDate = rs.getDate("Order_Date");
-
-                // Create an Order object with the retrieved data
                 Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
                 return order;
             }
@@ -53,7 +51,44 @@ public class DAOOrder extends DAOConnection {
 
         return null; // Return null if the order is not found
     }
+    
+    public ArrayList<OrderedItem> loadOrderedItem(int orderId) {
+        String query = "SELECT * FROM OrderedProducts WHERE OrderNumber = ?";
+        DAOItem db = new DAOItem();
+        ArrayList<OrderedItem> orderedItems = null;
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, orderId);
+            ResultSet rs = stmt.executeQuery();
+            orderedItems = db.getFromResultSet2(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(); // Close resources after retrieving the ordered items
+        }
+        return orderedItems;
+    }
+    
+    public ArrayList<Order> loadAllOrder(String UserId) {
+        String query = "SELECT * FROM Orders WHERE User = ?";
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, UserId);
+            ResultSet rs = stmt.executeQuery();
+            return getFromResultSet(rs);
+        }
+        
+        catch (SQLException e) {
+            System.out.println("Error loading order from the database!");
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
 
+        return null; // Return null if the order is not found
+        
+    }
+    
     private void closeResources() {
         try {
             if (stmt != null) {
@@ -96,8 +131,8 @@ public class DAOOrder extends DAOConnection {
 	            int id = rs.getInt("ID");
 	            int user = rs.getInt("User");
 	            String email = rs.getString("Email");
-	            int shippingAddress = rs.getInt("Shipping_address");
-	            int invoiceAddress = rs.getInt("Invoice_address");
+	            String shippingAddress = rs.getString("Shipping_address");
+	            String invoiceAddress = rs.getString("Invoice_address");
 	            String paymentMethod = rs.getString("Payment_method");
 	            float amount = rs.getFloat("Amount");
 	            String status = rs.getString("status");
