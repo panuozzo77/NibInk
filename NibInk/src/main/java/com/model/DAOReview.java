@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 public class DAOReview extends DAOConnection {
 	PreparedStatement stmt;
 	Connection con;
@@ -29,8 +30,8 @@ public class DAOReview extends DAOConnection {
         return review;
     }
 	
-	public ArrayList<Review> loadAllReviewsOf(int itemId) {
-        ArrayList<Review> reviews = new ArrayList<>();
+	public List<Review> loadAllReviewsOf(int itemId) {
+        List<Review> reviews = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM Review WHERE itemId = ?";
@@ -48,8 +49,8 @@ public class DAOReview extends DAOConnection {
         return reviews;
     }
 	
-	public ArrayList<Review> loadAllUserReviewsOf(int userId) {
-        ArrayList<Review> reviews = new ArrayList<>();
+	public List<Review> loadAllUserReviewsOf(int userId) {
+        List<Review> reviews = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM Review WHERE userId = ?";
@@ -144,8 +145,8 @@ public class DAOReview extends DAOConnection {
 		}
 	}
 	
-	boolean hasThisUserBoughtIt(int userId, int itemId) {
-        boolean hasBought = false;
+	boolean hasThisUserReviewedIt(int userId, int itemId) {
+        boolean hasReviewed = false;
         
         try {
             String sql = "SELECT COUNT(*) FROM Review WHERE userId = ? AND itemId = ?";
@@ -156,7 +157,7 @@ public class DAOReview extends DAOConnection {
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                hasBought = count > 0;
+                hasReviewed = count > 0;
             }
 
             resultSet.close();
@@ -165,7 +166,29 @@ public class DAOReview extends DAOConnection {
             e.printStackTrace();
         }
 
-        return hasBought;
+        return hasReviewed;
+	}
+	
+	boolean canThisUserReviewIt(int userId, int itemId) {
+		boolean canReview = false;
+		
+		try {
+			String sql="SELECT * FROM Orders WHERE User = ? AND status = 'delivered' AND ID IN" +
+	                   "(SELECT OrderNumber FROM OrderedProducts WHERE Item = ?)";
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, userId);
+			stmt.setInt(2, itemId);
+			ResultSet resultSet = stmt.executeQuery();
+			
+			if(resultSet.next())
+				canReview = true;
+			
+			resultSet.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return canReview;
 	}
 }
 	

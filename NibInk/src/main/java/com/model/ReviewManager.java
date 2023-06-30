@@ -1,21 +1,26 @@
 package com.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ReviewManager {
 	DAOReview db = new DAOReview();
-	ArrayList<Review> list;
+	List<Review> list;
 	
-	public void loadAllReviewsOf(int itemId) {
-		list = db.loadAllReviewsOf(itemId);
+	public List<Review> loadAllReviewsOf(int object, String which) {
+		if(which.equals("items")) 
+				return list = db.loadAllReviewsOf(object);
+		else if(which.equals("users"))
+				return list = db.loadAllUserReviewsOf(object);
+		else
+			return null;
 	}
 	
-	public void loadAllUserReviewsOf(int userId) {
-		list = db.loadAllUserReviewsOf(userId);
+	public boolean hasThisUserReviewedIt(int userId, int itemId) {
+		return db.hasThisUserReviewedIt(userId, itemId);
 	}
 	
-	public boolean hasThisUserBoughtIt(int userId, int itemId) {
-		return db.hasThisUserBoughtIt(userId, itemId);
+	public boolean canThisUserReviewIt(int userId, int itemId) {
+		return db.canThisUserReviewIt(userId, itemId);
 	}
 	
 	public void addReview(Review review) {
