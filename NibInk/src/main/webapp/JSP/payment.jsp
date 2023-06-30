@@ -40,19 +40,19 @@
 					</div>
 				</div>
 				<div id="inputBAddr">
-							<p>Paese</p>
+							<p class="required">Paese*</p>
 							<select></select>
-							<p>Nome e Cognome</p>
+							<p class="required">Nome e Cognome*</p>
 							<input type="text">
-							<p>Via</p>
+							<p class="required">Via*</p>
 							<input type="text">
 							<p>Appartamento/Interno/Altro</p>
 							<input type="text">
-							<p>Codice Postale</p>
+							<p class="required">Codice Postale*</p>
 							<input type="text">
-							<p>Città</p>
+							<p class="required">Città*</p>
 							<input type="text">
-							<p>Provincia</p>
+							<p class="required">Provincia*</p>
 							<select></select>
 						</div>
 					
