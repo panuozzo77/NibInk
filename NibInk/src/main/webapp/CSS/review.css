@@ -1,0 +1,74 @@
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#nota {
+	margin-left: 20px;
+}
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 0%; height: 18px; background-color: #04AA6D;}
+.bar-4 {width: 0%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 0%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 0%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 0%; height: 18px; background-color: #f44336;}
+
+.bar-1, .bar-2, .bar-3, .bar-4, .bar-5 {
+  transition-duration: 2s; /* Add a transition effect for smoother width change */
+  transition-property: width;
+}
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  /* Hide the right column on small screens */
+  .right {
+    display: none;
+  }
+  
+  #review {
+	  width: 100%;
+  }
+}

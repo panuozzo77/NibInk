@@ -34,7 +34,7 @@ public class DAOReview extends DAOConnection {
         List<Review> reviews = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM Review WHERE itemId = ?";
+            String sql = "SELECT * FROM Reviews WHERE itemId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, itemId);
             ResultSet resultSet = stmt.executeQuery();
@@ -53,7 +53,7 @@ public class DAOReview extends DAOConnection {
         List<Review> reviews = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM Review WHERE userId = ?";
+            String sql = "SELECT * FROM Reviews WHERE userId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
             ResultSet resultSet = stmt.executeQuery();
@@ -68,10 +68,10 @@ public class DAOReview extends DAOConnection {
         return reviews;
     }
 	
-	public Review loadReviewOf(int itemId, int userId) {
+	public Review loadReviewOf(int userId, int itemId) {
 		Review review = null;
 		try {
-            String sql = "SELECT * FROM Review WHERE itemId = ? AND userId = ?";
+            String sql = "SELECT * FROM Reviews WHERE itemId = ? AND userId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, itemId);
             stmt.setInt(2, userId);
@@ -90,12 +90,12 @@ public class DAOReview extends DAOConnection {
 	
 	public void addReview(Review review) {
 		try {
-			String sql="INSERT INTO Review (userId, itemId, starRating, date, text) VALUES (?, ?, ?, ?, ?)";
+			String sql="INSERT INTO Reviews (userId, itemId, starRating, date, text) VALUES (?, ?, ?, ?, ?)";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, review.getUserId());
 	        stmt.setInt(2, review.getItemId());
 	        stmt.setInt(3, review.getStarRating());
-	        stmt.setDate(4, new java.sql.Date(review.getDate().getTime()));
+	        stmt.setDate(4, review.getDate());
 	        stmt.setString(5, review.getText());
 	        stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -105,7 +105,7 @@ public class DAOReview extends DAOConnection {
 	
 	public void modifyReviewUser(Review review) {
 		try {
-            String sql = "UPDATE Review SET starRating = ?, date = ?, text = ? WHERE userId = ? AND itemId = ?";
+            String sql = "UPDATE Reviews SET starRating = ?, date = ?, text = ? WHERE userId = ? AND itemId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, review.getStarRating());
             stmt.setDate(2, new java.sql.Date(review.getDate().getTime()));
@@ -121,7 +121,7 @@ public class DAOReview extends DAOConnection {
 	
 	public void removeReview(Review review) {
 		try {
-            String sql = "DELETE FROM Review WHERE userId = ? AND itemId = ?";
+            String sql = "DELETE FROM Reviews WHERE userId = ? AND itemId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, review.getUserId());
             stmt.setInt(2, review.getItemId());
@@ -134,7 +134,7 @@ public class DAOReview extends DAOConnection {
 	
 	public void removeReview(int userId, int itemId) {
 		try {
-            String sql = "DELETE FROM Review WHERE userId = ? AND itemId = ?";
+            String sql = "DELETE FROM Reviews WHERE userId = ? AND itemId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
             stmt.setInt(2, itemId);
@@ -149,7 +149,7 @@ public class DAOReview extends DAOConnection {
         boolean hasReviewed = false;
         
         try {
-            String sql = "SELECT COUNT(*) FROM Review WHERE userId = ? AND itemId = ?";
+            String sql = "SELECT COUNT(*) FROM Reviews WHERE userId = ? AND itemId = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
             stmt.setInt(2, itemId);

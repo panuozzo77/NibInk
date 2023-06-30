@@ -7,10 +7,6 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import com.model.CartManager;
 
-/**
- * Application Lifecycle Listener implementation class SessionListener
- *
- */
 @WebListener
 public class SessionListener implements HttpSessionListener {
 
