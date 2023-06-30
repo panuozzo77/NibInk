@@ -20,6 +20,7 @@ $(document).ready(function() {
 					}
 				}
 			}
+			$('#searchResults :last-child').css({"border-radius": "0 0 10px 10px"});
 		})
 		.fail(function(){
 			console.log("ho fallito!");
