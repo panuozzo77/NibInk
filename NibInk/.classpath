@@ -18,7 +18,7 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/cristian/Documents/eclipse-workspace/NibInk/NibInk/src/main/webapp/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.32.jar">
+	<classpathentry kind="lib" path="C:/Users/TheNi/git/NibInk/NibInk/src/main/webapp/WEB-INF/lib/mysql-connector-j-8.0.32.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/cristian/Documents/eclipse-workspace/NibInk/NibInk/src/main/webapp/WEB-INF/lib"/>
 		</attributes>

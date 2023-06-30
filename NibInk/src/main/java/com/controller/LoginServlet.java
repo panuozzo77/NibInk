@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
     			customer = verify.getCustomerByEmail(email);
     			session.setAttribute("userType", customer.getType());
     			session.setAttribute("name", customer.getName());
+    			session.setAttribute("id", customer.getID());
     			response.sendRedirect("/NibInk/JSP/home.jsp"); //login effettuato correttamente
     			break;
     		case 2:

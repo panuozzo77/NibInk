@@ -22,8 +22,8 @@ public class DAOCustomer extends DAOConnection {
 	
 	public int checkLogin(String email, String password)
 	{
-		System.out.println("email inserita:"+email+";");
-		System.out.println("password inserita:"+password+";");
+		//System.out.println("email inserita:"+email+";");
+		//System.out.println("password inserita:"+password+";");
 		String field = null;
 		ResultSet rs = null;
 		String sql="SELECT password FROM Users WHERE email = ?";
@@ -33,7 +33,7 @@ public class DAOCustomer extends DAOConnection {
 			rs = stmt.executeQuery();
 			if(rs.next()) {
 				field = rs.getString("password");
-				System.out.println("field trovato:"+field+";");
+				//System.out.println("field trovato:"+field+";");
 			}
 			else return 0; //user does not exists
 		} catch (Exception e) {
@@ -55,34 +55,58 @@ public class DAOCustomer extends DAOConnection {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, email);
 			rs = stmt.executeQuery();
-			if(rs.next()){
-				Customer customer = new Customer();
-                customer.setName(rs.getString("name"));
-                customer.setSurname(rs.getString("surname"));
-                customer.setType(rs.getString("type"));
-                customer.setPassword(rs.getString("password"));
-                customer.setEmail(rs.getString("email"));
-                return customer;
-			}
-		} catch (Exception e)
+		} catch (SQLException e)
 		{
 			e.printStackTrace();
 		}
-		return null;
+			return getFromResultSet(rs);
+	}
+	
+	public Customer getCustomerById(int id) {
+		String sql="SELECT * FROM Users WHERE ID = ?;";
+		ResultSet rs = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+			return getFromResultSet(rs);
+	}
+	
+	private Customer getFromResultSet(ResultSet rs) {
+		try {
+		if(rs.next()){
+			Customer customer = new Customer();
+            customer.setName(rs.getString("name"));
+            customer.setSurname(rs.getString("surname"));
+            customer.setType(rs.getString("type"));
+            customer.setPassword(rs.getString("password"));
+            customer.setEmail(rs.getString("email"));
+            customer.setID(rs.getInt("ID"));
+            return customer;
+		}
+	} catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+	return null;
 	}
 	
 	public boolean addCustomer(Customer customer)
 	{
 		boolean status = true;
-		String sql="INSERT INTO Users (email, password, name, surname, address, city, cap, type) VALUES ( ?, ?, ?, ?, ?, ?, ?, 'registered');";
+		String sql="INSERT INTO Users (email, password, name, surname, type) VALUES (?, ?, ?, ?, ?);";															 
 		try {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, customer.getEmail());
 			stmt.setObject(2, customer.getPassword());
 			stmt.setObject(3, customer.getName());
 			stmt.setObject(4, customer.getSurname());
+			stmt.setObject(5, customer.getType());
 			stmt.executeUpdate();
-			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			status = false;
