@@ -1,3 +1,5 @@
+package com.model;
+
 import java.time.LocalDateTime;
 
 public class Message {
@@ -25,6 +27,13 @@ public class Message {
         this.hasUserReadIt = user; 
     }
 
+    //costruttore per i messaggi da inviare per aprire una nuova conversazione
+    public Message(int userId, String email, String subject, String text) {
+    	this.userId = userId;
+    	this.userEmail = email;
+    	this.subject = subject;
+    	this.text = text;
+    }
     public int getId() {
         return conversationId;
     }

@@ -55,6 +55,7 @@ public class DAOMessage extends DAOConnection {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
+        System.out.println("Sono qui getMessageIntestationOf");
         return null;
 	}
     
@@ -152,6 +153,7 @@ public class DAOMessage extends DAOConnection {
     public boolean answerMessage(int conversationId, String answer, String sender) {
     	boolean status = false;
 		Message message = getMessageIntestationOf(conversationId);
+		System.out.println(message);
     	String sql = "INSERT INTO Messages (id, userId, userEmail, subject, text, messageNumber, ";
     	if(sender.equals("admin")) { 
     		sql += "hasAdminReadIt)";
@@ -162,7 +164,7 @@ public class DAOMessage extends DAOConnection {
     	sql += " VALUES (?, ?, ?, ?, ?, ?, ?);";
     	try {
     		stmt = con.prepareStatement(sql);
-    		stmt.setInt(1, message.getId());
+    		stmt.setInt(1, conversationId);
     		stmt.setInt(2, message.getUserId()); //NOTA: l'userID è stato cambiato se è l'admin a rispondere
     		stmt.setString(3, message.getUserEmail());
     		stmt.setString(4, message.getSubject());
