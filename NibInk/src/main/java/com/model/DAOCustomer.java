@@ -3,7 +3,9 @@ package com.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class DAOCustomer extends DAOConnection {
@@ -112,5 +114,42 @@ public class DAOCustomer extends DAOConnection {
 			status = false;
 		}
 		return status;
+	}
+	
+	//Aggiunto da me R
+	
+	public ArrayList<Customer> getAllUsers() {
+		String sql="SELECT * FROM Users;";
+		ResultSet rs = null;
+		try {
+			Statement stmt = con.createStatement();
+			rs = stmt.executeQuery(sql);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+			return getMultipleFromResultSet(rs);
+	}
+	
+	private ArrayList<Customer> getMultipleFromResultSet(ResultSet rs) {
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		try {
+		if(rs.next()){
+			Customer customer = new Customer();
+            customer.setName(rs.getString("name"));
+            customer.setSurname(rs.getString("surname"));
+            customer.setType(rs.getString("type"));
+            customer.setPassword(rs.getString("password"));
+            customer.setEmail(rs.getString("email"));
+            customer.setID(rs.getInt("ID"));
+            customers.add(customer);
+            
+            return customers;
+		}
+	} catch (Exception e)
+	{
+		e.printStackTrace();
+	}
+		return null;
 	}
 }

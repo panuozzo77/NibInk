@@ -16,48 +16,65 @@
 	<div class="container0">
 		<div class="container1">
 		<h3>Pagamento ordine</h3>
-			<form>
-				<p>Intestatario Carta</p>	
+			<form id="paymentForm">
+				<p class="required">Intestatario Carta</p>	
 				<input type="text" id="cardName"><br>
-				<p>Numero della Carta</p>
+				<p class="required">Numero della Carta</p>
 				<input type="text" id="cardNumber"><br>
 				<div  class="secondHalf">
 					<div class="shContent">
-						<p>Data di Scadenza</p>
+						<p class="required">Data di Scadenza</p>
 						<br>
 						<select id="expMonth"></select><select id="expYear"></select>
 					</div>
 					<div class="shContent">
-						<p>Codice di Sicurezza</p>
+						<p class="required">Codice di Sicurezza</p>
 						<input type="text" id="cardCode">	
 					</div>
 				</div>
 				<div class="billingAddr">
-				<input type="checkbox" onclick="toggleBillingAddr()" checked> 
+				<input type="checkbox" onclick="toggleBillingAddr()" id="addrCheckbox" checked> 
 					<div class="cbText">
 						<div><p>Indirizzo di fatturazione e spedizione coincidono</p></div>
-						<div><p>''Indirizzo utente''<p></div>
+						<div><p id="userSavedAddr"> <%= session.getAttribute("addr") %><p></div>
 					</div>
 				</div>
-				<div id="inputBAddr">
-							<p class="required">Paese*</p>
-							<select></select>
-							<p class="required">Nome e Cognome*</p>
-							<input type="text">
-							<p class="required">Via*</p>
-							<input type="text">
+				<div id="inputBAddr" class="inputBAddrHidden">
+							<p class="required">Paese</p>
+							<br>
+							<select id="country" onchange="toggleItaly()">
+							</select>
+							
+							<p class="required">Nome e Cognome</p>
+							<input id="baNameSurname" type="text">
+							
+							<div class="addr">
+								<div class="addrFirst">
+									<p class="required">Via</p>
+									<input id="baStreet"type="text">
+								</div>
+								<div class="addrSecond">
+									<p class="required">N° Civico</p>
+									<input id="baNumber"type="text">
+								</div>
+							</div>
+							
 							<p>Appartamento/Interno/Altro</p>
-							<input type="text">
-							<p class="required">Codice Postale*</p>
-							<input type="text">
-							<p class="required">Città*</p>
-							<input type="text">
-							<p class="required">Provincia*</p>
-							<select></select>
+							<input id="baMoreInfo" type="text">
+							
+							<p class="required italyOnly">Codice Postale</p>
+							<input id="baZipCode" class="italyOnly" type="text">
+							
+							<p class="required">Città</p>
+							<input id="baCity" type="text">
+							
+							<p class="required italyOnly">Provincia</p>
+							<br>
+							<select id="state" class="italyOnly"></select>
 						</div>
 					
 				<div class="shButtons">	
-					<button id="submit" onclick="checkAndSubmit()">Rivedi il tuo Ordine</button>
+					<button id="submit" onclick="checkAndSubmit(event)">Rivedi il tuo Ordine</button>
 				</div>	
 			</form>
 		</div>

@@ -1,23 +1,7 @@
 $(document).ready(function startUp(){
-	generateExpMonth();
-	generateExpYear();
 	generateCountry();
 	generateStates();
 })
-
-function generateExpMonth(){
-	for(let i=1; i<13; i++){
-		$("#expMonth").append($("<option>").text(i));
-	}
-}
-
-function generateExpYear(){
-	var year=new Date();
-	year=year.getFullYear();
-	for(let j=0; j<11; j++){
-		$("#expYear").append($("<option>").text(year+j));
-	}
-}
 
 function generateCountry(){
 	
@@ -46,20 +30,20 @@ function generateCountry(){
 					"Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
 	
 	
-	$("#country").append($("<option disabled>").text("Seleziona un Paese"));
-	$("#country").append($("<option disabled>").text("------------------"));
+	$("#Country").append($("<option disabled>").text("Seleziona un Paese"));
+	$("#Country").append($("<option disabled>").text("------------------"));
 	
 	for(let i=0; i<mostUsedCountry.length; i++){
-		$("#country").append($("<option>").text(mostUsedCountry[i]));
+		$("#Country").append($("<option>").text(mostUsedCountry[i]));
 	}
 	
-	$("#country").append($("<option disabled>").text("------------------"));
+	$("#Country").append($("<option disabled>").text("------------------"));
 	
 	for(let i=0; i<countryArr.length; i++){
-		$("#country").append($("<option>").text(countryArr[i]));
+		$("#Country").append($("<option>").text(countryArr[i]));
 	}
 	
-	$("#country option:contains('Italia'):first").prop("selected", true);
+	$("#Country option:contains('Italia'):first").prop("selected", true);
 }
 
 function generateStates(){
@@ -73,74 +57,46 @@ function generateStates(){
 					   "Ragusa", "Ravenna", "Reggio Calabria", "Reggio Emilia", "Rieti", "Rimini", "Roma", "Rovigo", "Salerno", "Sassari", "Savona", "Siena",
 					   "Siracusa", "Sondrio", "Taranto", "Teramo", "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste", "Udine", "Varese", "Venezia",
 					   "Verbano-Cusio-Ossola", "Vercelli", "Verona", "Vibo Valentia", "Vicenza", "Viterbo"];
-    var italianInitials=["AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA", "BT", "BL", "BN", "BG", "BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE",
+	var italianInitials=["AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA", "BT", "BL", "BN", "BG", "BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE",
 						 "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI", "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "AQ", "LT", 
 						 "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT", "VS", "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", 
 						 "PV", "PG", "PU", "PE", "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", 
 						 "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT"];
 					   
-	$("#state").append($("<option disabled>").text("Seleziona una Provincia"));
+	$("#State").append($("<option disabled>").text("Seleziona una Provincia"));
 	
     for(let i=0; i<italianStates.length; i++){
-		$("#state").append($("<option>").text(italianStates[i]).val(italianInitials[i]));
+		$("#State").append($("<option>").text(italianStates[i]).val(italianInitials[i]));
 	}
 }
 
-function toggleBillingAddr(){
-	var classes=["inputBAddrHidden", "inputBAddrShow"];
-	$("#inputBAddr").toggleClass(classes);
-}
-
 function toggleItaly(){
-	if($("#country").val()!="Italia"){
+	if($("#Country").val()!="Italia"){
 		$(".italyOnly").addClass("Hidden");
 	} else{
 		$(".italyOnly").removeClass("Hidden");
 	}
 }
 
-function checkAndSubmit(event){
-	event.preventDefault();
-	if($("#addrCheckbox").prop("checked")){
-		if(checkCard()){
-			//$("#paymentForm").submit();
-		}
-	}else{		
-		if(checkCard() && checkAddr()){
-			//$("#paymentForm").submit();
-		}
-	}
+function showAddressInput(){
+	var classes=["Hidden", "inputAddrShow"];
+	var btnClasses=["Hidden", "buttonShow"];
+	$("#inputAddr").toggleClass(classes);
+	$("#newAddrBtn").toggleClass(btnClasses);
+	$("#addBtn").toggleClass(btnClasses);
+	
 }
 
-function checkCard(){
-	var cardName=$("#cardName").val();
-	var cardNumber=$("#cardNumber").val();
-	var expMonth=$("#expMonth").val();
-	var cardCode=$("#cardCode").val();
-	
-	
-	var testName = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
-	var testCardNumber = /^\d{16}$/
-	var testCardCode = /^\d{3}$/
-	var testExpMonth = new Date();
-	testExpMonth=testExpMonth.getMonth()+1;
-	
-	
-	if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<=expMonth)){
-		console.log("Cardtest PASS!");
-		return true;
-	}else{
-		console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
-		return false;
-	}
+function guestOnly(){
+	//Nascondi tutto e mostra solo inputAddr
 }
 
 function checkAddr(){
-	var nameSurname=$("#baNameSurname").val();
-	var addr=$("#baAddr").val();
-	var moreInfo=$("#baMoreInfo").val();
-	var zipCode=$("#baZipCode").val();
-	var city=$("#baCity").val();
+	var nameSurname=$("#NameSurname").val();
+	var addr=$("#Addr").val();
+	var moreInfo=$("#MoreInfo").val();
+	var zipCode=$("#ZipCode").val();
+	var city=$("#City").val();
 	
 	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCity = /^[A-Za-z\s]+$/
@@ -151,19 +107,41 @@ function checkAddr(){
 	if($("#country").val()=="Italia"){
 		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo) && testZipCode.test(zipCode)){
 			console.log("Addrtest PASS!");
-			return true;
+			//$("#addrForm").submit;
 		} else{
 			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo)+", zip: "+ testZipCode.test(zipCode));
-			return false;
+			//Mostra errori graficamente
 		}
 	}else{
 		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo)){
-		console.log("Addrtest PASS!");
-		return true;
-	} else{
-		console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo));
-		return false;
-	}
+			console.log("Addrtest PASS!");
+			//$("#addrForm").submit;
+		} else{
+			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo));
+			//Mostra errori graficamente
+		}
 		
 	}
+}
+
+function addAddress(){
+	var user=$("#userId").val();
+	var country=$("#Country").val();
+	var nameSurname=$("#NameSurname").val();
+	var street=$("#Street").val();
+	var number=$("#Number").val();
+	var moreInfo=$("#MoreInfo").val();
+	var zipCode=$("#ZipCode").val();
+	var city=$("#City").val();
+	var state=$("#State").val();
+	var isBA=$("#isBA").val();
+	var isDefault=$("#isDefault").val();
+	
+	$.post('/NibInk/AjaxAddressServlet', {"user": user, "country": country, "nameSurname": nameSurname, "street": street, "number": number, "moreInfo": moreInfo, "zipCode": zipCode, "city": city, "state": state, "isBA": isBA, "isDefault": isDefault, function(resp){
+		showNewAddr(resp);
+	}});
+}
+
+function showNewAddr(resp){
+	console.log(resp+"mostrami i risultati");
 }

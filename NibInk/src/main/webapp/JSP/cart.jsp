@@ -14,6 +14,8 @@
 	<link rel="stylesheet" href="/NibInk/CSS/cart.css">
 </head>
 <body>
+<script src="/NibInk/JavaScript/jquery.js"></script>
+
 <jsp:include page="navbar.jsp" />
 <div class="container">
 	<h1 class="title">CARRELLO</h1>
@@ -32,7 +34,7 @@
 			      <div class="productInfo">
 			        <h3>${item.getItem().getTitle()}</h3><br>
 			        Taglia: ${item.getSize()}
-			        <form action="/NibInk/CartServlet" method="post">
+			        <form id="cartForm" action="/NibInk/CartServlet" method="post">
 			          Quantità:
 			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="100" value="${item.getQuantity()}">
 			
@@ -68,7 +70,7 @@
 
 			<div class="totalPrice">
 				<h2>Prezzo totale: <fmt:formatNumber value="<%=carrello.getTotal()%>" type="currency" currencySymbol="€"/></h2>
-				<button class="buttons">COMPRA</button>
+				<button name="buyButton" class="buttons" onclick="submit()">Procedi all'acquisto</button>
 			</div>
 		</div>
 		<%}	else{%>
@@ -81,6 +83,10 @@
 		<%	}%>
 
 </div>
-
+<script>
+	function submit(){
+		$("#cartForm").submit();
+	}
+</script>
 </body>
 </html>

@@ -15,12 +15,13 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
+
 <%
-/*String admin = (String) request.getSession().getAttribute("userType");
-if(admin!=null)
-	if(!admin.equals("admin"))
-		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-*/%>
+	String admin = (String) request.getSession().getAttribute("userType");
+	if(admin!=null)
+		if(!admin.equals("admin"))
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+%>
 
 	<% String id = request.getParameter("id");
 	
