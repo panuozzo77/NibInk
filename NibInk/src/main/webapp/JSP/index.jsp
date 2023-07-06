@@ -9,6 +9,7 @@
 <title>NibInk - Home</title>
 <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 <header>
     <div>
@@ -23,7 +24,7 @@
       </ul>
     </nav>
     </div>
-  </header>
+</header>
 
   <main>
     <section>
@@ -58,7 +59,7 @@
         </div>
       </a>
 
-      <a href="catalog.jsp"> Scopri di più...</a>
+      <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
 
     </div>
     </section>
@@ -96,7 +97,7 @@
         </div>
       </a>
 
-      <a href="catalog.jsp"> Scopri di più...</a>
+      <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
 
     </div>
     </section>
@@ -137,7 +138,7 @@
         </a>
 
 
-        <a href="catalog.jsp"> Scopri di più...</a>
+        <a class="catalogo" href="catalog.jsp" > Scopri di più...</a>
 
     </div>
     </section>
