@@ -90,6 +90,10 @@ function saveSizes(){
     output.value=sizes;
 }
 
+function openPopUp() {
+	var popup = document.getElementById("popup");
+	popup.style.display = "flex";
+}
 
 function closePopUp() {
 	var popup = document.getElementById("popup");
@@ -101,23 +105,91 @@ document.getElementById("closePopup").addEventListener("click", function() {
   popup.style.display = "none";
 });
 
+function deleteImage(imageUrl) {
+  fetch('/NibInk/deleteImage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'imageUrl=' + imageUrl,
+  })
+    .then(function(response) {
+      if (response.ok) {
+        // Image deleted successfully
+        console.log('Image deleted.');
+      } else {
+        // Error occurred while deleting the image
+        console.log('Failed to delete image.');
+      }
+    })
+    .catch(function(error) {
+      console.log('Error occurred:', error);
+    });
+    showUploadedPhotos();
+}
 
 function displayImages(images) {
   var thumbnailPreview = document.getElementById("thumbnailPreview");
   var photosPreview = document.getElementById("photosPreview");
-  
+
   thumbnailPreview.innerHTML = "";
   photosPreview.innerHTML = "";
 
-  images.forEach(function(image) {
+  images.forEach(function (image) {
     var img = document.createElement("img");
     img.src = image;
     img.alt = "Preview";
-    thumbnailPreview.appendChild(img);
-    
-    var fullImg = document.createElement("img");
-    fullImg.src = image;
-    fullImg.alt = "Preview";
-    photosPreview.appendChild(fullImg);
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
+      deleteImage(image);
+      thumbnailPreview.removeChild(img);
+      photosPreview.removeChild(img);
+    });
+
+    var container = document.createElement("div");
+    container.appendChild(img);
+    container.appendChild(deleteButton);
+
+    if (image.includes("thumbnail")) {
+      thumbnailPreview.appendChild(container);
+    } else {
+      photosPreview.appendChild(container);
+    }
   });
 }
+
+
+function showUploadedPhotos() {
+	openPopUp();
+    var url = new URL(window.location.href);
+    var id = url.searchParams.get('id');
+    var photosPreview = document.getElementById("photosPreview");
+
+    // Clear the existing preview
+    photosPreview.innerHTML = "";
+
+    // Make AJAX request to fetch the image URLs
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/NibInk/getImages?id=" + id, true);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var imageUrls = response.images;
+            displayImages(imageUrls);
+        }
+    };
+
+    xhr.send();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    var showPopupButton = document.getElementById("showPopup");
+
+    // Add the click event listener to the button
+    showPopupButton.addEventListener("click", function() {
+        showUploadedPhotos();
+    });
+});

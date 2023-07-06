@@ -4,25 +4,28 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/GetImages")
+import com.google.gson.Gson;
+
+@WebServlet("/getImages")
 public class GetImages extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String imagesFolderPath = getServletContext().getRealPath("/")+"images/"+request.getParameter("id")+"/";
-        System.out.println("Getting images from: " + imagesFolderPath);
-        List<String> imageUrls = new ArrayList<>();
-        
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ServletContext context = request.getServletContext();
+        String imagesFolderPath = context.getRealPath("/") + "images/" + request.getParameter("id") + "/";
+
         File folder = new File(imagesFolderPath);
+        List<String> imageUrls = new ArrayList<>();
+
         if (folder.exists() && folder.isDirectory()) {
             File[] imageFiles = folder.listFiles(new FilenameFilter() {
                 @Override
@@ -32,15 +35,17 @@ public class GetImages extends HttpServlet {
             });
 
             for (File imageFile : imageFiles) {
-                Path imagePath = imageFile.toPath();
-                String imageUrl = imagePath.toString();
-                imageUrls.add(imageUrl);
+                String imageName = imageFile.getName();
+                String imagePath = "/NibInk/images/"+request.getParameter("id") + "/" + imageName;
+                System.out.println(imagePath);
+                imageUrls.add(imagePath);
             }
         }
-        
+
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.print("{ \"images\": " + imageUrls.toString() + " }");
+        out.print("{ \"images\": " + new Gson().toJson(imageUrls) + " }");
         out.flush();
     }
+
 }
