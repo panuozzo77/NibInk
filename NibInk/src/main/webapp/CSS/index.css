@@ -2,81 +2,130 @@ body {
     background-color: #E2ECE7;
     color: #131C1F;
     font-family: Arial, sans-serif;
-  }
+}
   
-  header {
+header {
     background-color: #7D6B5B;
     padding: 20px;
+    width: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+}
 
-  .menu {
+.menu{
+    display: flex-start;
+    justify-content: center;
+	  -webkit-justify-content: center;
+}
+
+.menu ul {
     width: 100%;
     list-style-type: none;
     display: flex;
-  }
+}
 
-  .menu li {
-    display: inline;
+.menu li {
+    display: inline-block;
     margin: 0 10;
     flex-grow: 1;
     font-size: 16px;
     font-family: serif;
-  }
+}
 
-  .menu a {
+.menu a {
     text-decoration: none;
     color: #131C1F;
     font-family: serif;
-  }
+}
+  
+.menu-link {
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    padding: 10px;
+}
 
-  
-  section {
+.menu-link:hover {
+    background-color: #131C1F;
+    color: #E2ECE7;
+}
+
+section {
     margin: 20px 0;
-  }
+}
   
-  h2 {
+h2 {
     color: #131C1F;
     text-align: center;
-  }
+    font-family: serif;
+}
   
-  footer {
+footer {
     background-color: #94938F;
     padding: 20px;
     color: #E7F1EB;
     text-align: center;
-  }
+}
 
-  #logo {
+p{
+    font-family: serif;
+}
+
+#logo {
     width: 60;
     height: auto;
-  }
+}
   
-   h1 {
+#titolo {
     text-align: center;
     color:#131C1F;
     font-family: serif;
-  }
+}
 
-  .product {
+.product-list {
+    scroll-snap-type: x mandatory;
+}
+
+.product-list {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}  
+
+.product {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-  }
+    display: inline-block;
+}
+
+.product {
+    scroll-snap-align: start;
+}
   
-  .product img {
+.product img {
     width: 200px;
     height: auto;
     border-radius: 8px;
-  }
+}
   
-  .product-name {
+.product-name {
     margin-top: 10px;
     text-align: center;
     font-size: 16px;
     font-weight: bold;
     color: #131C1F;
-  }
+}
+
+a{
+  text-decoration: none;
+    color: #131C1F;
+    font-family: serif;
+}
+
+.product-list p{
+  margin-left: 50px;
+}
+
