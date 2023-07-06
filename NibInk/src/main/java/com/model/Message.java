@@ -6,7 +6,7 @@ public class Message {
     private int conversationId;
     private int userId;
     private String userEmail;
-    private LocalDateTime sent;
+    public LocalDateTime sent;
     private String subject;
     private String text;
     private String status;

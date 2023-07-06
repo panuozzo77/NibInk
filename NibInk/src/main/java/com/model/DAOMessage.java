@@ -23,6 +23,39 @@ public class DAOMessage extends DAOConnection {
             e.printStackTrace();
         }
     }
+    
+    public List<Message> getAllConversationsHeaders() {
+    	List<Message> messages = new ArrayList<>();
+    	String sql = "SELECT * FROM Messages where messageNumber = 0 ORDER BY CASE WHEN status = 'open' THEN 0 ELSE 1 END, sent DESC;";
+    	try {
+    		Statement statement = con.createStatement();
+    		ResultSet rs = statement.executeQuery(sql);
+    		while(rs.next()) {
+    			messages.add(getFromResultSet(rs));
+    		}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return messages;
+    }
+    
+    public int getUnreadMessageCount(int conversationId, String reader) {
+    	int unreadCount = 0;
+    	String column = reader.equals("admin") ? "hasAdminReadIt" : "hasUserReadIt";
+    	String sql = "SELECT COUNT(*) AS unreadCount FROM Messages WHERE id = ? AND " +column+ " = FALSE;";
+    	try {
+    		stmt = con.prepareStatement(sql);
+    		stmt.setInt(1, conversationId);
+    		ResultSet rs = stmt.executeQuery();
+    		if(rs.next()) {
+    			unreadCount = rs.getInt("unreadCount");
+    		}
+    		rs.close();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return unreadCount;
+    }
 
     public List<Message> getMessagesOf(int conversationId) {
         List<Message> messages = new ArrayList<>();
@@ -78,6 +111,8 @@ public class DAOMessage extends DAOConnection {
     	return null;
     }
     
+    
+    //per l'utente
     public Map<Integer, List<Message>> getConversationsByUser(int userId, String email) {
         Map<Integer, List<Message>> conversations = new HashMap<>();
 

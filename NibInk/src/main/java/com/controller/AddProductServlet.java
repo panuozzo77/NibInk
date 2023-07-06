@@ -36,7 +36,7 @@ public class AddProductServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		float price = Float.valueOf(request.getParameter("price"));
 		float vat = Float.valueOf(request.getParameter("vat"));
-		int weight = Integer.parseInt(request.getParameter("weight"));
+		float weight = Float.valueOf(request.getParameter("weight"));
 		
 		int qnt = 0;
 		
@@ -44,7 +44,6 @@ public class AddProductServlet extends HttpServlet {
 		db1 = new DAOItem();
 		db1.addItemToDB(it);
 		
-		if(type.equals("pen")) {
 			ItemVariant itemV=new ItemVariant(it);
 			
 			String sizes[]=request.getParameter("optionValues").split(",");
@@ -53,9 +52,8 @@ public class AddProductServlet extends HttpServlet {
 			}
 			DAOVariant db2 = new DAOVariant();
 			db2.addVariantToDB(itemV);
-		}
 		
-		response.sendRedirect("/NibInk/JSP/itemEntry.jsp");	
+		response.sendRedirect("/NibInk/JSP/itemEntry.jsp?id="+codenumber);	
 	}
 
 }

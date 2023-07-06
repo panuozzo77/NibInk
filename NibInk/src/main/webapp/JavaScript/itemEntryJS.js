@@ -89,3 +89,35 @@ function saveSizes(){
     }
     output.value=sizes;
 }
+
+
+function closePopUp() {
+	var popup = document.getElementById("popup");
+	popup.style.display = "none";
+}
+
+document.getElementById("closePopup").addEventListener("click", function() {
+  var popup = document.getElementById("popup");
+  popup.style.display = "none";
+});
+
+
+function displayImages(images) {
+  var thumbnailPreview = document.getElementById("thumbnailPreview");
+  var photosPreview = document.getElementById("photosPreview");
+  
+  thumbnailPreview.innerHTML = "";
+  photosPreview.innerHTML = "";
+
+  images.forEach(function(image) {
+    var img = document.createElement("img");
+    img.src = image;
+    img.alt = "Preview";
+    thumbnailPreview.appendChild(img);
+    
+    var fullImg = document.createElement("img");
+    fullImg.src = image;
+    fullImg.alt = "Preview";
+    photosPreview.appendChild(fullImg);
+  });
+}

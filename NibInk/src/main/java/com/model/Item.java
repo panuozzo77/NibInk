@@ -8,13 +8,13 @@ public class Item
 	private String color;
 	private float price;
 	private float vat;
-	private int weight;
+	private float weight;
 	private String dimensions;
 	private String description;
 	 
 	public Item() {}
 	
-	public Item(String codenumber, String title, String type, String color, String dimensions, String description, float price, float vat, int weight)
+	public Item(String codenumber, String title, String type, String color, String dimensions, String description, float price, float vat, float weight)
 	{
 		this.setCodenumber(codenumber);
 		this.setTitle(title);
@@ -52,7 +52,7 @@ public class Item
 		this.vat = vat;
 	}
 	
-	public void setWeight(int weight) {
+	public void setWeight(float weight) {
 		this.weight = weight;
 	}
 	
@@ -89,7 +89,7 @@ public class Item
 		return vat;
 	}
 
-	public int getWeight() {
+	public float getWeight() {
 		return weight;
 	}
 

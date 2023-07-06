@@ -39,7 +39,7 @@ public class SendMessage extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MessageManager mm = new MessageManager();
-		int userId = 0;
+		int senderUserId = 0;
 		String email = request.getParameter("email");
 		String subject = request.getParameter("subject");
 		String text = request.getParameter("text");
@@ -47,22 +47,23 @@ public class SendMessage extends HttpServlet {
 		String userType = (String) session.getAttribute("userType");
 		switch (userType) {
 		case "unregistered":
-			userId = -1;
+			senderUserId = -1;
 			break;
 		case "registered":
-			userId = (int) session.getAttribute("id");
+			senderUserId = (int) session.getAttribute("id");
 			break;
-		case "admin": //TestMessage
-			userId = 0;
+		case "admin": 
+			senderUserId = 0;
 			break;
 		default:
 			//errore 
 		}
-		Message toSend = new Message(userId, email, subject, text);
-		if(request.getParameter("threadNumber")==null)
+		if(request.getParameter("conversationId")==null) {
+			Message toSend = new Message(senderUserId, email, subject, text);
 			mm.newConversation(toSend, userType);
+		}
 		else
-			mm.answerMessage(Integer.parseInt(request.getParameter("threadNumber")), text, userType);
+			mm.answerMessage(Integer.parseInt(request.getParameter("conversationId")), text, userType);
 	}
 
 }

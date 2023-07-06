@@ -10,6 +10,16 @@ public class MessageManager {
 		return db.getMessagesOf(conversationId);
 	}
 	
+	//riservato per l'admin
+	public List<Message> getAllConversationsHeaders() {
+		return db.getAllConversationsHeaders();
+	}
+	
+	public int getUnreadMessagesCount(int conversationId, String reader) {
+		return db.getUnreadMessageCount(conversationId, reader);
+	}
+	
+	//principalmente usato dagli utenti
 	public Map<Integer, List<Message>> getConversationByUser(int userId, String email) {
 		return db.getConversationsByUser(userId, email);
 	}

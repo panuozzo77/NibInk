@@ -182,16 +182,7 @@ public class DAOItem extends DAOConnection {
 		try {
 		while (rs.next())
 		{
-			Item item = new Item();
-			item.setCodenumber(rs.getString("ID"));
-			item.setTitle(rs.getString("Title"));
-            item.setPrice(rs.getFloat("Price"));
-            item.setVat(rs.getFloat("VAT"));
-            item.setColor(rs.getString("Color"));
-            item.setDimensions(rs.getString("Dimensions"));
-            item.setWeight(rs.getInt("Weight"));
-            item.setDescription(rs.getString("description"));
-            items.add(item);
+            items.add(getItemFromResultSet(rs));
             //System.out.println("Oggetto: "+item.getTitle());
 		}
 			rs.close();
@@ -237,6 +228,7 @@ public class DAOItem extends DAOConnection {
             item.setColor(rs.getString("Color"));
             item.setDimensions(rs.getString("Dimensions"));
             item.setWeight(rs.getInt("Weight"));
+            item.setType(rs.getString("Type"));
             item.setDescription(rs.getString("description"));
 		}
 			rs.close();
