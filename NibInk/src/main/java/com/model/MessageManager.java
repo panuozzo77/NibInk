@@ -38,4 +38,8 @@ public class MessageManager {
 	public int setReadStatus(int conversationId, String user) {
 		return db.setReadStatus(conversationId, user);
 	}
+	
+	public void closeConversation(int conversationId) {
+		db.setConversationStatusAsClosed(conversationId);
+	}
 }

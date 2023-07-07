@@ -61,6 +61,7 @@ public class SendMessage extends HttpServlet {
 		if(request.getParameter("conversationId")==null) {
 			Message toSend = new Message(senderUserId, email, subject, text);
 			mm.newConversation(toSend, userType);
+			response.sendRedirect(request.getHeader("referer")+"?result=success"); //ricarica la pagina che ha inviato la richiesta con parametro dell'esito
 		}
 		else
 			mm.answerMessage(Integer.parseInt(request.getParameter("conversationId")), text, userType);

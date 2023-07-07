@@ -225,4 +225,15 @@ public class DAOMessage extends DAOConnection {
     	}
     	return 0;
     }
+    
+    public void setConversationStatusAsClosed(int conversationId) {
+    	String sql = "UPDATE Messages SET status = 'closed' WHERE (`id` = ?)";
+    	try {
+    		stmt = con.prepareStatement(sql);
+    		stmt.setInt(1, conversationId);
+    		stmt.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
 }

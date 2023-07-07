@@ -12,7 +12,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/391827d54c.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/NibInk/CSS/TESTmessaggi.css">
+  <link rel="stylesheet" href="/NibInk/CSS/messageCenter.css">
   <title>Centro Messaggi</title>
   
   <script>
@@ -22,6 +22,18 @@
 	closeMessageForm();
 	var chatBoxes = document.querySelectorAll('.chat-box');
 	var clickedChatBox = document.getElementById("cb-" + element);
+	var input = document.querySelector('.chatbox-input input[type="text"]');
+	var button = document.getElementById("check");
+	if(clickedChatBox.classList.contains("closed")) {
+		input.placeholder = "Conversazione terminata";
+		input.readOnly = true;
+		button.style.display = "none";
+	}
+	if(!clickedChatBox.classList.contains("closed")) {
+		input.placeholder = "Scrivi un messaggio";
+		input.readOnly = false;
+		button.style.display = "flex";
+	}
 	chatBoxes.forEach(function(chatBox) {
 		if(chatBox === clickedChatBox ) {
 			chatBox.classList.add('active');
@@ -102,6 +114,24 @@
 	  var messageFormContainer = document.getElementById('messageFormContainer');
 	  messageFormContainer.style.display = 'none';
 	}
+	
+	function markAsSolved() {
+	  var id = conversationIdInput.value;
+	  
+	  var xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function() {
+	      if (xhr.readyState === XMLHttpRequest.DONE) {
+	        if (xhr.status === 200) {
+	        	location.reload();
+	        } else {
+	          // Handle error case
+	          console.error('Failed to mark messages');
+	        }
+	      }
+	    };
+	    xhr.open('GET', '/NibInk/closeConversation?id=' + id);
+	    xhr.send();
+	}
 </script>
 </head>
 <body>
@@ -117,10 +147,8 @@
           <img class="dp" src="https://www.codewithfaraz.com/InstaPic.png" alt="">
         </div>
         <div class="nav-icons">
-          <li><i class="fa-solid fa-users"></i></li>
           <li><i class="fa-solid fa-message" onclick="openMessageForm()">
  </i></li>
-          <li><i class="fa-solid fa-ellipsis-vertical"></i></li>
         </div>
       </div>
 
@@ -137,9 +165,12 @@
       <div class="chat-list">
       	<%MessageManager mm = new MessageManager(); 
       	int i=0;
-      	%>
-        <%for(Message message : mm.getAllConversationsHeaders()) { %>
-        <div class="chat-box" id="cb-<%=i%>" onclick="openChat('<%=message.getId() %>', '<%=i%>')">
+      	for(Message message : mm.getAllConversationsHeaders()) { 
+      		String add = "";
+       		if(message.getStatus().equals("closed")) { 
+       			add = "closed";%>
+		 <% } %>
+        <div class="chat-box" id="cb-<%=i%>"  onclick="openChat('<%=message.getId() %>', '<%=i%>')">
           <div class="img-box">
             <img class="img-cover" src="/NibInk/images/userIcon.png" alt="">
           </div>
@@ -148,8 +179,9 @@
             <%  int id = message.getUserId();
 	        	String userName = "Non Registrato";
 	        	String email = message.getUserEmail();
-	        	
-            	if(id != -1){
+	        	if(id == 0)
+	        		userName = "Admin";
+            	if(id > 0){
             		DAOCustomer db = new DAOCustomer();
             		Customer cust = db.getCustomerById(id);
             		userName = cust.getName() + " " + cust.getSurname();
@@ -164,7 +196,13 @@
             </div>
           </div>
         </div>
-        <%} %>
+        <script>
+        	if("<%=add%>" =="closed") {
+   				var toClose = document.getElementById("cb-<%=i%>");
+   				toClose.classList.add("closed");
+        	}
+   		</script>
+        <% i++;} %>
       </div>
 
     </div>
@@ -179,8 +217,8 @@
           <h4>Invia Messaggio<br><span>email</span></h4>
         </div>
         <div class="nav-icons">
-          <li><i class="fa-solid fa-magnifying-glass"></i></li>
-          <li><i class="fa-solid fa-ellipsis-vertical"></i></li>
+          <li><i></i></li>
+          <li id="check">Segna come risolto<i onclick="markAsSolved()"class="fa-solid fa-circle-check"></i></li>
         </div>
       </div>
 
@@ -191,16 +229,14 @@
       <div id="messageFormContainer">
   		<h3>Invia un nuovo messaggio a:</h3>
   		<form id="messageForm" method="post" action="/NibInk/sendMessage">
-	    	<label for="userId">User ID:</label>
-	    	<input type="text" id="userId" name="userId" required><br>
 	
 	    	<label for="email">Email:</label>
 	    	<input type="email" id="email" name="email" required><br>
 	
-	    	<label for="subject">Subject:</label>
+	    	<label for="subject">Oggetto:</label>
 	    	<input type="text" id="subject" name="subject" required><br>
 	
-	    	<label for="message">Message:</label><br>
+	    	<label for="message">Messaggio:</label><br>
 	    	<textarea id="message" name="text" rows="4" cols="50" required></textarea><br>
 	
 	    	<button type="submit">Invia</button>
@@ -231,6 +267,22 @@
               console.log('Message sent successfully');
               // Clear the input field after sending the message
               messageInput.value = '';
+              var xhr2 = new XMLHttpRequest();
+              xhr2.onreadystatechange = function() {
+                if (xhr2.readyState === XMLHttpRequest.DONE) {
+                  if (xhr2.status === 200) {
+                    // Request successful, update the right container with the messages
+                    var messages = JSON.parse(xhr2.responseText);
+                    updateRightContainer(messages);
+                  } else {
+                    // Handle error case
+                    console.error('Failed to retrieve messages');
+                  }
+                }
+              };
+              xhr2.open('GET', '/NibInk/retrieveMessage?id=' + conversationId);
+              xhr2.send(); 
+              
             } else {
               // Error sending message, handle it appropriately
               console.error('Failed to send message');
@@ -242,28 +294,15 @@
         const params = 'conversationId=' + encodeURIComponent(conversationId) + '&text=' + encodeURIComponent(message);
         xhr.send(params);
         
-        /* var xhr2 = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-          if (xhr2.readyState === XMLHttpRequest.DONE) {
-            if (xhr2.status === 200) {
-              // Request successful, update the right container with the messages
-              var messages = JSON.parse(xhr.responseText);
-              updateRightContainer(messages);
-            } else {
-              // Handle error case
-              console.error('Failed to retrieve messages');
-            }
-          }
-        };
-        xhr.open('GET', '/NibInk/retrieveMessage?id=' + encodeURIComponent(conversationId));
-        xhr.send(); */
       }
 
       // Add event listener to the input field or trigger the sendMessage() function when needed
       messageInput.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
           event.preventDefault(); // Prevent the default form submission behavior
-          sendMessage();
+          if (messageInput.value.trim() !== '') {
+              sendMessage();
+            }
         }
       });
       </script>

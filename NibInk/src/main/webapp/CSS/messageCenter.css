@@ -237,6 +237,9 @@ body {
   overlay: hidden;
 }
 
+.closed {
+	background-color: darkslategray;
+}
 img {
   width: 100%;
   object-fit: cover;
@@ -432,4 +435,8 @@ img {
   border: 1px solid #ccc;
   padding: 20px;
   display: none;
+}
+
+#check {
+	display: none;
 }
