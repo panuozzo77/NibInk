@@ -39,6 +39,23 @@ public class DAOMessage extends DAOConnection {
     	return messages;
     }
     
+    public List<Message> getUserConversationsHeaders(int userId, String email) {
+        List<Message> messages = new ArrayList<>();
+    	String sql = "SELECT * FROM Messages where messageNumber = 0 AND (userEmail = ? OR userId = ?) ORDER BY CASE WHEN status = 'open' THEN 0 ELSE 1 END, sent DESC;";
+    	try {
+    		stmt = con.prepareStatement(sql);
+    		stmt.setString(1, email);
+    		stmt.setInt(2, userId);
+    		ResultSet rs = stmt.executeQuery();
+    		while (rs.next()) {
+                messages.add(getFromResultSet(rs));
+            }
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return messages;
+    }
+    
     public int getUnreadMessageCount(int conversationId, String reader) {
     	int unreadCount = 0;
     	String column = reader.equals("admin") ? "hasAdminReadIt" : "hasUserReadIt";
@@ -91,6 +108,7 @@ public class DAOMessage extends DAOConnection {
         System.out.println("Sono qui getMessageIntestationOf");
         return null;
 	}
+    
     
     private Message getFromResultSet(ResultSet rs) {
     	try {

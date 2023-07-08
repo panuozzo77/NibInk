@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 @MultipartConfig(
-fileSizeThreshold = 0, // Size threshold for storing files in memory (in bytes)
-maxFileSize = 1048576, // Maximum file size allowed (in bytes)
+fileSizeThreshold = 0, 
+maxFileSize = 1048576, 
 maxRequestSize = 2097152
-)// Maximum request size allowed (in bytes)
+)
 @WebServlet("/UploadServlet")
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -5,6 +5,7 @@
 <%@ page import="com.model.Message" %>
 <%@ page import="com.model.DAOCustomer" %>
 <%@ page import="com.model.Customer" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,10 @@
   <script src="https://kit.fontawesome.com/391827d54c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/NibInk/CSS/messageCenter.css">
   <title>Centro Messaggi</title>
-  
+  <% String str = (String) request.getSession().getAttribute("userType");
+  if (str != null && str.equals("unregistered")) {
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	} %>
   <script>
   var name;
   var email;
@@ -98,10 +102,20 @@
     messageBox.appendChild(content);
     messageBox.appendChild(timestamp);
 
-    if(message.userId == '0') {
-    	messageBox.classList.add('my-message');
+    <% String user = (String) request.getSession().getAttribute("userType");%>
+    var user = "<%=user%>";
+    if(user == "admin") {
+	    if(message.userId == '0') {
+	    	messageBox.classList.add('my-message');
+	    }
+	    else messageBox.classList.add('friend-message');
     }
-    else messageBox.classList.add('friend-message');
+    if(user == "registered") {
+    	if(message.userId == '0') {
+	    	messageBox.classList.add('friend-message');
+    	}
+    	else messageBox.classList.add('my-message');
+    }
     return messageBox;
   }
 
@@ -163,9 +177,21 @@
 
 <!--chats (conversazioni sulla sinistra)-->
       <div class="chat-list">
-      	<%MessageManager mm = new MessageManager(); 
+      	<%MessageManager mm = new MessageManager();
+      	String placeholder = "";
+      	user = (String) request.getSession().getAttribute("userType");
+      	int id = 0;
+      	String email = "";
+      	if(!user.equals("admin")) { //se non è l'admin, carica i dati dell'utente
+	      	id = (int) request.getSession().getAttribute("id");
+	      	DAOCustomer db = new DAOCustomer();
+			Customer cust = db.getCustomerById(id);
+			email = cust.getEmail();
+			placeholder = email;
+      	}
+      	List<Message> list = user.equals("admin") ? mm.getAllConversationsHeaders() : mm.getUserConversationsHeaders(id, email);
       	int i=0;
-      	for(Message message : mm.getAllConversationsHeaders()) { 
+      	for(Message message : list) { 
       		String add = "";
        		if(message.getStatus().equals("closed")) { 
        			add = "closed";%>
@@ -176,23 +202,29 @@
           </div>
           <div class="chat-details">
             <div class="text-head">
-            <%  int id = message.getUserId();
-	        	String userName = "Non Registrato";
-	        	String email = message.getUserEmail();
-	        	if(id == 0)
-	        		userName = "Admin";
-            	if(id > 0){
-            		DAOCustomer db = new DAOCustomer();
-            		Customer cust = db.getCustomerById(id);
-            		userName = cust.getName() + " " + cust.getSurname();
-            		email = cust.getEmail();
-            	} %>
+            <%  String userName = "";
+            	if(user.equals("admin")) { //se l'utente è admin, carica i dati delle intestazioni
+	            	id = message.getUserId();
+		        	userName = "Non Registrato";
+		        	email = message.getUserEmail();
+		        	if(id == 0)
+		        		userName = "Admin";
+	            	if(id > 0){
+	            		DAOCustomer db = new DAOCustomer();
+	            		Customer cust = db.getCustomerById(id);
+	            		userName = cust.getName() + " " + cust.getSurname();
+	            		email = cust.getEmail();
+	            	}
+            	} else {
+            		userName = "Oggetto:";
+            	}
+           	%>
               <h4><%=userName %></h4>
               <p style="hidden"><%=email %></p>
             </div>
             <div class="text-message">
               <p><%=message.getSubject() %></p>
-              <b><%=mm.getUnreadMessagesCount(message.getId(), "admin") %></b>
+              <b><%=mm.getUnreadMessagesCount(message.getId(), user) %></b>
             </div>
           </div>
         </div>
@@ -231,7 +263,7 @@
   		<form id="messageForm" method="post" action="/NibInk/sendMessage">
 	
 	    	<label for="email">Email:</label>
-	    	<input type="email" id="email" name="email" required><br>
+	    	<input type="email" id="email" name="email" <% if (user.equals("registered")) { %>value="<%= placeholder %>"<% } %>required><br>
 	
 	    	<label for="subject">Oggetto:</label>
 	    	<input type="text" id="subject" name="subject" required><br>

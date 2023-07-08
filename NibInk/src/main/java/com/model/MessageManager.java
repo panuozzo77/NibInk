@@ -15,6 +15,10 @@ public class MessageManager {
 		return db.getAllConversationsHeaders();
 	}
 	
+	public List<Message> getUserConversationsHeaders(int userId, String email) {
+		return db.getUserConversationsHeaders(userId, email);
+	}
+	
 	public int getUnreadMessagesCount(int conversationId, String reader) {
 		return db.getUnreadMessageCount(conversationId, reader);
 	}
