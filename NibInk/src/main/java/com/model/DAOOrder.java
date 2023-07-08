@@ -38,11 +38,11 @@ public class DAOOrder extends DAOConnection {
                 float amount = rs.getFloat("Amount");
                 String status = rs.getString("status");
                 String shippingMethod = rs.getString("Shipping_Method");
-                Date orderDate = rs.getDate("Order_Date");
+                //Date orderDate = rs.getDate("Order_Date");
                 int Progressive_N = rs.getInt("Progressive_N");
 
                 // Create an Order object with the retrieved data
-                Order order = new Order(id,Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
+                Order order = new Order(id,Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod);
                 return order;
             }
         } catch (SQLException e) {
@@ -55,14 +55,31 @@ public class DAOOrder extends DAOConnection {
         return null; // Return null if the order is not found
     }
     
+    public ArrayList<OrderedItem> loadOrderedItem(int orderId) {
+        String query = "SELECT * FROM OrderedProducts WHERE OrderNumber = ?";
+        DAOItem db = new DAOItem();
+        ArrayList<OrderedItem> orderedItems = null;
+        try {
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, orderId);
+            ResultSet rs = stmt.executeQuery();
+            orderedItems = db.getFromResultSet2(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(); // Close resources after retrieving the ordered items
+        }
+        return orderedItems;
+    }
+    
     public ArrayList<Order> loadAllOrder(int UserId) {
-        String query = "SELECT * FROM Orders WHERE User = ?";
+        String query = "SELECT * FROM orders WHERE User = ?";
         try {
             stmt = con.prepareStatement(query);
             stmt.setInt(1, UserId);
             ResultSet rs = stmt.executeQuery();
 
-            ArrayList<Order> order= new ArrayList();
+            ArrayList<Order> order= new ArrayList<Order>();
             while(rs.next()) {
             
                 int id = rs.getInt("ID");
@@ -75,9 +92,11 @@ public class DAOOrder extends DAOConnection {
                 float amount = rs.getFloat("Amount");
                 String status = rs.getString("status");
                 String shippingMethod = rs.getString("Shipping_Method");
-                Date orderDate = rs.getDate("Order_Date");
-
-                order.add(new Order(id, Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate));
+                
+                
+                System.out.println(id + user + Progressive_N + email);
+                
+                order.add(new Order(id, Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod));
                 // Create an Order object with the retrieved data
                 //Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
                 //return order;
@@ -146,9 +165,9 @@ public class DAOOrder extends DAOConnection {
 	            float amount = rs.getFloat("Amount");
 	            String status = rs.getString("status");
 	            String shippingMethod = rs.getString("Shipping_Method");
-	            Date orderDate = rs.getDate("Order_Date");
+	            //Date orderDate = rs.getDate("Order_Date");
 	            int Progressive_N = rs.getInt("Progressive_N");
-	            Order order = new Order(id, Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
+	            Order order = new Order(id, Progressive_N, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod);
 	            list.add(order);
     		} 
     	} catch (SQLException e) {

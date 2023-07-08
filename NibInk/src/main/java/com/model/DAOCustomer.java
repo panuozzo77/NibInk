@@ -57,6 +57,7 @@ public class DAOCustomer extends DAOConnection {
 			rs = stmt.executeQuery();
 			if(rs.next()){
 				Customer customer = new Customer();
+				customer.setID(rs.getInt("id"));
                 customer.setName(rs.getString("name"));
                 customer.setSurname(rs.getString("surname"));
                 customer.setType(rs.getString("type"));
@@ -88,5 +89,98 @@ public class DAOCustomer extends DAOConnection {
 			status = false;
 		}
 		return status;
+	}
+	
+	public Customer getCustomerById(String id) {
+		String sql="SELECT * FROM Users WHERE id = ?;";
+		ResultSet rs = null;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, id);
+			rs = stmt.executeQuery();
+			if(rs.next()){
+				Customer customer = new Customer();
+				customer.setID(rs.getInt("id"));
+                customer.setName(rs.getString("name"));
+                customer.setSurname(rs.getString("surname"));
+                customer.setType(rs.getString("type"));
+                customer.setPassword(rs.getString("password"));
+                customer.setEmail(rs.getString("email"));
+                return customer;
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//aggiungo metodi per modificare i dati degli utenti
+	public boolean setCustomerName(String name, String id)
+	{
+		String sql= "UPDATE Users SET name = ? WHERE id = ?";
+		int rs = 0;
+		try 
+		{
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, name);
+			stmt.setObject(2, id);
+			rs = stmt.executeUpdate();
+			if(rs>=0)
+			{
+				return true;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean setCustomerEmail(String email, String id)
+	{
+		String sql= "UPDATE Users SET email = ? WHERE id = ?";
+		int rs = 0;
+		try 
+		{
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, email);
+			stmt.setObject(2, id);
+			rs = stmt.executeUpdate();
+			if(rs>=0)
+			{
+				return true;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
+	public boolean setCustomerPassword(String password, String id) 
+	{
+		String sql= "UPDATE Users SET password = ? WHERE id = ?";
+		int rs = 0;
+		try 
+		{
+			stmt = con.prepareStatement(sql);
+			stmt.setObject(1, password);
+			stmt.setObject(2, id);
+			rs = stmt.executeUpdate();
+			if(rs>=0)
+			{
+				return true;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return false;
 	}
 }

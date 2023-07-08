@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
@@ -14,8 +15,9 @@ public class Order {
     private String shippingMethod;
     private Date orderDate;
     private int Progressive_N;//agginto Progressive_N che indica il tipo di prodotto dal DB
-
-    public Order(int id,int Progressive_N, int user, String email, int shippingAddress, int invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod, Date orderDate) {
+    ArrayList<OrderedItem> purchased;
+    
+    public Order(int id,int Progressive_N, int user, String email, int shippingAddress, int invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod) {
         this.id = id;
         this.Progressive_N = Progressive_N;
         this.user = user;
@@ -27,8 +29,15 @@ public class Order {
         this.status = status;
         this.shippingMethod = shippingMethod;
         this.orderDate = orderDate;
+        this.purchased = getPurchasedItems(id);
     }
-
+    
+    public Order(int id, int user) 
+    {
+    	 this.id = id;
+    	 this.user = user;
+    }
+    		
     public int getId() {
         return id;
     }
@@ -112,5 +121,14 @@ public class Order {
     public int getProgessive_N()
     {
     	return Progressive_N;
+    }
+    
+    public ArrayList<OrderedItem> getPurchasedItems(int id) {
+    	DAOOrder db = new DAOOrder();
+    	return db.loadOrderedItem(id);
+    }
+    
+    public ArrayList<OrderedItem> getPurchased() {
+    	return this.purchased;
     }
 }

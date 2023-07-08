@@ -223,9 +223,28 @@ public class DAOItem extends DAOConnection {
 		return item;
 	}
 	
-	
-	
-	
+	public ArrayList<OrderedItem> getFromResultSet2(ResultSet rs){
+		ArrayList<OrderedItem> items = new ArrayList<OrderedItem>();
+		try {
+			while (rs.next())
+			{
+				OrderedItem item = new OrderedItem();
+				item.setItemId(rs.getString("Item"));
+				item.setSize(rs.getString("Size"));
+				item.setName(rs.getString("Name"));
+	            item.setPrice(rs.getFloat("Price"));
+	            item.setVAT(rs.getFloat("VAT"));
+	            item.setQuantity(rs.getInt("Quantity"));
+	            items.add(item);
+	            //System.out.println("Oggetto: "+item.getTitle());
+			}
+			rs.close();
+			} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		System.out.println("totalSize: "+items.size());
+		return items;
+	}
 	
 	
 	//fatto da me

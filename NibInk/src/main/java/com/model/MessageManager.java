@@ -1,0 +1,31 @@
+package com.model;
+
+import java.util.List;
+import java.util.Map;
+
+public class MessageManager {
+	DAOMessage db = new DAOMessage();
+	
+	public List<Message> getMessagesOf(int conversationId) {
+		return db.getMessagesOf(conversationId);
+	}
+	
+	public Map<Integer, List<Message>> getConversationByUser(int userId, String email) {
+		return db.getConversationsByUser(userId, email);
+	}
+	
+	//String user VA NECESSARIAMENTE PRESO DALLA SESSIONE DALL'ATTRIBUTO USERTYPE
+	public boolean newConversation(Message message, String user) {
+		return db.newConversation(message, user);
+	}
+	
+	//String user VA NECESSARIAMENTE PRESO DALLA SESSIONE DALL'ATTRIBUTO USERTYPE
+	public boolean answerMessage(int conversationId, String answer, String user) {
+		return db.answerMessage(conversationId, answer, user);
+	}
+	
+	//String user VA NECESSARIAMENTE PRESO DALLA SESSIONE DALL'ATTRIBUTO USERTYPE
+	public int setReadStatus(int conversationId, String user) {
+		return db.setReadStatus(conversationId, user);
+	}
+}
