@@ -140,7 +140,7 @@ a:active { text-decoration: none; }
 	width:100%;
 	background-color:black;
 }
-@media screen and (max-width:800px)
+@media screen and (max-width:1000px)
 {
 	html, body 
 	{
