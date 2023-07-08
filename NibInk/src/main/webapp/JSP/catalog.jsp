@@ -20,11 +20,6 @@
 <div class=navbar>
 <jsp:include page="navbar.jsp"/>
 </div>
-<div class="userNavbar">
-	<jsp:include page="userNavbar.jsp"/>
-</div>
-
-
 	<%
 		DAOItem db=new DAOItem();
 		int items;

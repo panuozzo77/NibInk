@@ -126,44 +126,155 @@ function checkCard(){
 	testExpMonth=testExpMonth.getMonth()+1;
 	
 	
-	if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<=expMonth)){
+	if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
 		console.log("Cardtest PASS!");
+		showErrorsCard();
 		return true;
 	}else{
 		console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
+		showErrorsCard();
 		return false;
 	}
 }
 
+	
+
 function checkAddr(){
+	
 	var nameSurname=$("#baNameSurname").val();
-	var addr=$("#baAddr").val();
-	var moreInfo=$("#baMoreInfo").val();
+	var addr=$("#baStreet").val();
 	var zipCode=$("#baZipCode").val();
 	var city=$("#baCity").val();
+	var number=$("#baNumber").val();
 	
 	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCity = /^[A-Za-z\s]+$/
-	var testAddr = /^[A-Za-z\s]+\d+$/
-	var testMoreInfo = /^[A-Za-z\s]+\d*$/
+	var testAddr = /^[A-Za-z\s]+\d*$/
 	var testZipCode = /^\d{5}$/
+	var testNumber = /^\d+$/
 	
 	if($("#country").val()=="Italia"){
-		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo) && testZipCode.test(zipCode)){
+		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number) && testZipCode.test(zipCode)){
 			console.log("Addrtest PASS!");
+			showErrors();
 			return true;
 		} else{
-			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo)+", zip: "+ testZipCode.test(zipCode));
+			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+ testNumber.test(number)+", zip: "+ testZipCode.test(zipCode));
+			showErrors();
 			return false;
 		}
 	}else{
-		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo)){
-		console.log("Addrtest PASS!");
-		return true;
-	} else{
-		console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo));
-		return false;
-	}
+		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number)){
+			console.log("Addrtest PASS!");
+			showErrors();
+			return true;
+		} else{
+			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr));
+			showErrors();
+			return false;
+		}
 		
 	}
+	
+}
+
+function showErrors(){
+	var nameSurname=$("#NameSurname").val();
+	var addr=$("#Street").val();
+	var zipCode=$("#ZipCode").val();
+	var city=$("#City").val();
+	var number=$("#Number").val();
+	
+	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
+	var testCity = /^[A-Za-z\s]+$/
+	var testAddr = /^[A-Za-z\s]+\d*$/
+	var testZipCode = /^\d{5}$/
+	var testNumber = /^\d+$/
+	
+	
+	if(!testNS.test(nameSurname)){
+		$("#NameSurname").addClass("showError");
+	}else{
+		$("#NameSurname").removeClass("showError");
+	}
+	
+	if(!testCity.test(city)){
+		$("#City").addClass("showError");
+	}else{
+		$("#City").removeClass("showError");
+	}
+	
+	if(!testAddr.test(addr) || addr===undefined){
+		$("#Street").addClass("showError");
+	}else{
+		$("#Street").removeClass("showError");
+	}
+	
+	if(!testNumber.test(number) || number===undefined){
+		$("#Number").addClass("showError");
+	}else{
+		$("#Number").removeClass("showError");
+	}
+	
+	if(!testZipCode.test(zipCode)){
+		$("#ZipCode").addClass("showError");
+	}else{
+		$("#ZipCode").removeClass("showError");
+	}
+}
+
+function showErrorsCard(){
+	
+	var cardName=$("#cardName").val();
+	var cardNumber=$("#cardNumber").val();
+	var expMonth=$("#expMonth").val();
+	var cardCode=$("#cardCode").val();
+	
+	
+	var testName = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
+	var testCardNumber = /^\d{16}$/
+	var testCardCode = /^\d{3}$/
+	var testExpMonth = new Date();
+	testExpMonth=testExpMonth.getMonth()+1;
+	
+	if(!testName.test(cardName)){
+		$("#cardName").addClass("showError");
+	}else{
+		$("#cardName").removeClass("showError");
+	}
+	
+	if(!testCardNumber.test(cardNumber)){
+		$("#cardNumber").addClass("showError");
+	}else{
+		$("#cardNumber").removeClass("showError");
+	}
+	
+	if(!testCardCode.test(cardCode)){
+		$("#cardCode").addClass("showError");
+	}else{
+		$("#cardCode").removeClass("showError");
+	}
+	
+	if(!(testExpMonth<expMonth)){
+		$("#expMonth").removeClass("selectColor");
+		$("#expMonth").addClass("showError");
+		$("option").removeClass("showError");
+	}else{
+		$("#expMonth").removeClass("showError");
+		$("#expMonth").addClass("selectColor");
+	}
+
+}
+
+function revertColor(){
+	$("#expMonth").removeClass("showError");
+	$("#expMonth").addClass("selectColor");
+}
+
+
+function handleKeyPress(event) {
+    if (event.keyCode === 13) {
+    	event.preventDefault();
+        return false;
+    }
 }

@@ -16,7 +16,7 @@
 	<div class="container0">
 		<div class="container1">
 		<h3>Pagamento ordine</h3>
-			<form id="paymentForm">
+			<form id="paymentForm" onkeydown="handleKeyPress(event)">
 				<p class="required">Intestatario Carta</p>	
 				<input type="text" id="cardName"><br>
 				<p class="required">Numero della Carta</p>
@@ -25,7 +25,7 @@
 					<div class="shContent">
 						<p class="required">Data di Scadenza</p>
 						<br>
-						<select id="expMonth"></select><select id="expYear"></select>
+						<select id="expMonth" class="selectColor" onclick="revertColor()"></select><select id="expYear" class="selectColor"></select>
 					</div>
 					<div class="shContent">
 						<p class="required">Codice di Sicurezza</p>
@@ -40,6 +40,7 @@
 					</div>
 				</div>
 				<div id="inputBAddr" class="inputBAddrHidden">
+					<h3>Indirizzo di Fatturazione</h3>
 							<p class="required">Paese</p>
 							<br>
 							<select id="country" onchange="toggleItaly()">

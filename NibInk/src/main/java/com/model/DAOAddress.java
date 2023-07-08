@@ -62,15 +62,14 @@ public class DAOAddress extends DAOConnection {
 	
 	public <T> void modifyAddrToDB(Address addr, String field, T value)
 	{
-		String sql="UPDATE Addresses SET ? = ? WHERE User=? AND City=? AND Street=? AND Number=?;";
+		String sql="UPDATE Addresses SET "+field+" = ? WHERE User=? AND City=? AND Street=? AND Number=?;";
 		try {
 			stmt = con.prepareStatement(sql);
-			stmt.setObject(1, field);
-			stmt.setObject(2, value);
-			stmt.setObject(3, addr.getUser());
-			stmt.setObject(4, addr.getCity());
-			stmt.setObject(5, addr.getStreet());
-			stmt.setObject(6, addr.getNumber());
+			stmt.setObject(1, value);
+			stmt.setObject(2, addr.getUser());
+			stmt.setObject(3, addr.getCity());
+			stmt.setObject(4, addr.getStreet());
+			stmt.setObject(5, addr.getNumber());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

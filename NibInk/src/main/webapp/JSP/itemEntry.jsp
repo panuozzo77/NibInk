@@ -70,8 +70,7 @@
 		</form>
 	</div>
 	
-	<% } 
-		else { 
+	<% }else { 
 		DAOItem db = new DAOItem();
         Item item = db.getItemFromDB(id);%> 
    	<div class="container">
@@ -93,14 +92,14 @@
 		        <input id="textBox" type="text" style="display: inline" onkeydown="handleKeyPress(event)">
 		        <select id="options">
 		            <% 
-		            DAOVariant dbsize = new DAOVariant();
-		            Map<String, Integer> variants = dbsize.loadSingleItemVariants(item);
-		            for (Map.Entry<String, Integer> entry : variants.entrySet()) {
-		                String size = entry.getKey();
-		                %>
-		                <option value="<%= size %>"><%= size %></option>
-		                <%
-		            }
+			            DAOVariant dbsize = new DAOVariant();
+			            Map<String, Integer> variants = dbsize.loadSingleItemVariants(item);
+			            for (Map.Entry<String, Integer> entry : variants.entrySet()) {
+			                String size = entry.getKey();
+			                %>
+			                <option value="<%= size %>"><%= size %></option>
+			                <%
+			            }
 		            %>
 		        </select>
 		        <button id="addButton" style="display: inline" onclick="addOption()" type="button">+</button>

@@ -7,6 +7,8 @@
 	visibility: hidden;
 	display: none;
 	pointer-events: none;
+	width: 0 px;
+	height: 0px;
 }
 
 .container0{
@@ -28,6 +30,69 @@
 	align-items: center;
 	justify-content: center;
 	border: 1px solid black;
+}
+
+.regAddrs{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10%;
+}
+
+.regA{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
+	padding: 15px 25px;
+	margin-bottom: 5px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+.addrContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.default{
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: lightgray;
+	border-radius: 10px;
+}
+
+.addrText{
+	margin-left: 5%;
+}
+.addrButtons{
+	display: flex;
+	flex-direction: column;
+	width: 25%;
+}
+.sndBttn{
+	padding: 10px 5px;
+	background-color:#222222;
+	color: white;
+	border-radius: 10px;
+	width: 100%;
+	transition: transform 0.3s;
+}
+
+.sndBttn:hover {
+ 	transform: scale(1.1);
+ 	cursor: pointer;
+}
+
+.mdfBttn, .rmBttn{
+	margin-top: 5px;
+	padding: 3px;
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid black;
+	cursor: pointer;
+	width: 100%;
 }
 
 .forumDiv{
@@ -78,6 +143,7 @@ input[type=text]{
 	padding: 5px;
 	border: none;
 	border-bottom: 1px solid black; 
+	border-radius: 5px 5px 3px 3px;
 }
 
 .inputAddrShow{
@@ -101,4 +167,9 @@ input[type=text]{
 	border: none;
 	padding: 15px 30px;
 	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.showError{
+	background-color: #fddcd8;
 }

@@ -35,6 +35,9 @@ public class AddressManager {
 	}
 	
 	public void newDefault(Address addr) {
+		DAOAddress db = new DAOAddress();
+		Addresses = db.getAllAddressesFromDB();
+		
 		for(Address aDB : Addresses) {
 			if(addr.getUser()==aDB.getUser()) {
 				if(aDB.getDefault()) {
@@ -42,7 +45,6 @@ public class AddressManager {
 				}
 			}
 		}
-		DAOAddress db = new DAOAddress();
 		db.addAddressToDB(addr);
 	}
 	

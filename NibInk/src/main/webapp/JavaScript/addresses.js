@@ -78,70 +78,328 @@ function toggleItaly(){
 	}
 }
 
-function showAddressInput(){
-	var classes=["Hidden", "inputAddrShow"];
-	var btnClasses=["Hidden", "buttonShow"];
-	$("#inputAddr").toggleClass(classes);
-	$("#newAddrBtn").toggleClass(btnClasses);
-	$("#addBtn").toggleClass(btnClasses);
-	
-}
-
-function guestOnly(){
-	//Nascondi tutto e mostra solo inputAddr
-}
+//---------------------------------------------
 
 function checkAddr(){
+	
 	var nameSurname=$("#NameSurname").val();
-	var addr=$("#Addr").val();
-	var moreInfo=$("#MoreInfo").val();
+	var addr=$("#Street").val();
 	var zipCode=$("#ZipCode").val();
 	var city=$("#City").val();
+	var number=$("#Number").val();
 	
 	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCity = /^[A-Za-z\s]+$/
-	var testAddr = /^[A-Za-z\s]+\d+$/
-	var testMoreInfo = /^[A-Za-z\s]+\d*$/
+	var testAddr = /^[A-Za-z\s]+\d*$/
 	var testZipCode = /^\d{5}$/
+	var testNumber = /^\d+$/
 	
-	if($("#country").val()=="Italia"){
-		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo) && testZipCode.test(zipCode)){
-			console.log("Addrtest PASS!");
-			//$("#addrForm").submit;
+	if($("#Country").val()=="Italia"){
+		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number) && testZipCode.test(zipCode)){
+			//console.log("Addrtest PASS! Italy");
+			return true;
 		} else{
-			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo)+", zip: "+ testZipCode.test(zipCode));
-			//Mostra errori graficamente
+			//console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+ testNumber.test(number) +", zip: "+ testZipCode.test(zipCode));
 		}
 	}else{
-		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testMoreInfo.test(moreInfo)){
-			console.log("Addrtest PASS!");
-			//$("#addrForm").submit;
+		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number)){
+			//console.log("Addrtest PASS! No Ita");
+			return true
 		} else{
-			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+", moreInfo: "+ testMoreInfo.test(moreInfo));
-			//Mostra errori graficamente
+			//console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr));
 		}
-		
+	}
+	return false;
+}
+
+function showErrors(){
+	var nameSurname=$("#NameSurname").val();
+	var addr=$("#Street").val();
+	var zipCode=$("#ZipCode").val();
+	var city=$("#City").val();
+	var number=$("#Number").val();
+	
+	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
+	var testCity = /^[A-Za-z\s]+$/
+	var testAddr = /^[A-Za-z\s]+\d*$/
+	var testZipCode = /^\d{5}$/
+	var testNumber = /^\d+$/
+	
+	
+	if(!testNS.test(nameSurname)){
+		$("#NameSurname").addClass("showError");
+	}else{
+		$("#NameSurname").removeClass("showError");
+	}
+	
+	if(!testCity.test(city)){
+		$("#City").addClass("showError");
+	}else{
+		$("#City").removeClass("showError");
+	}
+	
+	if(!testAddr.test(addr) || addr===undefined){
+		$("#Street").addClass("showError");
+	}else{
+		$("#Street").removeClass("showError");
+	}
+	
+	if(!testNumber.test(number) || number===undefined){
+		$("#Number").addClass("showError");
+	}else{
+		$("#Number").removeClass("showError");
+	}
+	
+	if(!testZipCode.test(zipCode)){
+		$("#ZipCode").addClass("showError");
+	}else{
+		$("#ZipCode").removeClass("showError");
 	}
 }
 
-function addAddress(){
-	var user=$("#userId").val();
-	var country=$("#Country").val();
-	var nameSurname=$("#NameSurname").val();
-	var street=$("#Street").val();
-	var number=$("#Number").val();
-	var moreInfo=$("#MoreInfo").val();
-	var zipCode=$("#ZipCode").val();
-	var city=$("#City").val();
-	var state=$("#State").val();
-	var isBA=$("#isBA").val();
-	var isDefault=$("#isDefault").val();
+function toggleAddressInput(){
+	var regAddrs = ["Hidden", "regAddrs"];
+	var inputAddrs=["Hidden", "inputAddrShow"];
+	var btnClasses=["Hidden", "buttonShow"];	
 	
-	$.post('/NibInk/AjaxAddressServlet', {"user": user, "country": country, "nameSurname": nameSurname, "street": street, "number": number, "moreInfo": moreInfo, "zipCode": zipCode, "city": city, "state": state, "isBA": isBA, "isDefault": isDefault, function(resp){
-		showNewAddr(resp);
-	}});
+	$("#registeredAddresses").toggleClass(regAddrs);
+	$("#inputAddr").toggleClass(inputAddrs);
+	$("#newAddrBtn").toggleClass(btnClasses); 
+	$("#goBack").toggleClass(btnClasses);
 }
 
-function showNewAddr(resp){
-	console.log(resp+"mostrami i risultati");
+function guestOnly(){
+	var checkClasses=["containerCheckbox", "Hidden"];
+	
+	toggleAddressInput();
+	if($("#addBtn").hasClass("Hidden")){
+		$("#addBtn").removeClass("Hidden");
+		$("#addBtn").addClass("buttonShow");
+		$("#addBtn").text("Usa questo indirizzo");
+	}
+	
+	$(".containerCheckbox").toggleClass(checkClasses);
+	$("#registeredAddresses").addClass("Hidden");
+}
+
+function Reload(){
+	window.location.href ="addresses.jsp";
+}
+
+//---------------------------------------------
+
+function addNewAddress(){
+	$("#NameSurname").val("");
+	$("#Street").val("");
+	$("#Number").val("");
+	$("#ZipCode").val("");	
+	$("#City").val("");
+	$("#Country option:contains('Italy'):first").prop("selected", true);
+	$("#State option:contains('Agrigento'):first").prop("selected", true);
+	$("#MoreInfo").val("");
+	
+	$("#isBA").prop("checked", false);
+	$("#isDefault").prop("checked", false);
+	
+	if($("#addBtn").hasClass("Hidden")){
+		$("#addBtn").removeClass("Hidden");
+		$("#addBtn").addClass("buttonShow");
+	}
+	
+	if($("#modifyDb").hasClass("buttonShow")){
+		$("#modifyDb").removeClass("buttonShow");
+		$("#modifyDb").addClass("Hidden");
+	}
+	
+	toggleAddressInput();
+}
+
+
+function addAddress(){
+	
+	var isGuest=$("#userId").val();
+	
+	if(checkAddr()==true){
+		if(isGuest===undefined){
+				saveForGuest();
+			}else{
+				saveForUser();
+			}
+	}else{
+		showErrors();
+	}
+}
+
+
+function saveForGuest(){
+	
+	var addr;
+	
+	addr=$("#NameSurname").val()+", "+$("#Street").val()+" "+$("#Number").val()+ " " + $("#ZipCode").val()+", ";
+	if(!($("#MoreInfo").val()=="")){
+		addr+=$("#MoreInfo").val()+", ";
+	}
+	
+	addr+=$("#City").val()+" "+$("#State").val()+", "+$("#Country").val();
+	//console.log(addr);
+	
+	
+	$.get('/NibInk/AjaxAddressServlet', {"addr": addr}, 
+    	function(){
+			window.location.href ="payment.jsp";
+		});
+}
+
+function saveForUser(){
+	var nameSurname = $("#NameSurname").val();
+	var street = $("#Street").val();
+	var number = $("#Number").val();
+	var zipCode = $("#ZipCode").val();	
+	var city = $("#City").val();
+	var state = $("#State").val();
+	var country= $("#Country").val();
+	var moreInfo=$("#MoreInfo").val();
+	var isBA=$("#isBA").prop("checked");
+	var isDe=$("#isDefault").prop("checked");
+	var id=$("#userId").val();
+	
+	$.post('/NibInk/AjaxAddressServlet', {"toDo": "add", "id": id, "nameSurname": nameSurname, "street": street, 
+										  "number": number, "moreInfo": moreInfo, "zipCode": zipCode, "city": city, 
+										  "state": state, "country": country, "isBA": isBA, "isDefault": isDe}, 
+    	function(){
+			Reload();
+		}).fail(function(){
+			Reload();
+		});
+		
+}
+
+//---------------------------------------------
+
+function modifyAddr(index){
+	
+	if($("#addBtn").hasClass("buttonShow")){
+		$("#addBtn").removeClass("buttonShow");
+		$("#addBtn").addClass("Hidden");
+	}
+	
+	if($("#modifyDb").hasClass("Hidden")){
+		$("#modifyDb").removeClass("Hidden");
+		$("#modifyDb").addClass("buttonShow");
+	}
+	
+	var nameSurname = $("#nameSurname"+index).text();
+	var street = $("#street"+index).text();
+	var number = $("#number"+index).text();
+	var zipCode = $("#zipCode"+index).text();
+	var city = $("#city"+index).text();
+	var state = $("#state"+index).text();
+	var country= $("#country"+index).text();
+	var moreInfo=$("#moreInfo"+index).text();
+	var isBa=$("#isBa"+index).val();
+	var isDe=$("#isDe"+index).val();
+	
+	//console.log("ns: "+ nameSurname+" st: " + street+" number: "+ number+ " zc: "+ zipCode+" ct: "+ city + " state: "+ state + " country: "+ country+" moreinfo "+ moreInfo+ " isBA isDE "+ isBa+isDe);
+	
+	$("#NameSurname").val(nameSurname);
+	$("#Street").val(street);
+	$("#Number").val(number);
+	$("#ZipCode").val(zipCode);	
+	$("#City").val(city);
+	$("#State").val(state);
+	$("#Country option:contains('"+country+"'):first").prop("selected", true);
+	$("#MoreInfo").val(moreInfo);
+	
+	toggleAddressInput("modify");
+	
+	if(isBa=="true"){
+		$("#isBA").prop("checked", true);
+	}else{
+		$("#isBA").prop("checked", false);
+	}
+	if(isDe=="true"){
+		$("#isDefault").prop("checked", true);
+	}else{
+		$("#isDefault").prop("checked", false);
+	}
+	
+	
+	$("#modifyDb").val(index);
+}
+
+function modifyAddrDb(){
+	
+	var nameSurname = $("#NameSurname").val();
+	var street = $("#Street").val();
+	var number = $("#Number").val();
+	var zipCode = $("#ZipCode").val();	
+	var city = $("#City").val();
+	var state = $("#State").val();
+	var country= $("#Country").val();
+	var moreInfo=$("#MoreInfo").val();
+	var isBA=$("#isBA").prop("checked");
+	var isDe=$("#isDefault").prop("checked");
+	var id=$("#userId").val();
+	var index=$("#modifyDb").val();
+	
+	if(checkAddr()){
+		$.post('/NibInk/AjaxAddressServlet', {"toDo": "modify", "index": index, "id": id, "nameSurname": nameSurname, "street": street, 
+											  "number": number, "moreInfo": moreInfo, "zipCode": zipCode, "city": city, "state": state, 
+											  "country": country, "isBA": isBA, "isDefault": isDe}, 
+		  function(){
+			Reload();  
+		  }).fail(function(){
+			Reload();
+		});; 		
+	}
+	showErrors();
+}
+
+//---------------------------------------------
+
+function removeAddr(index){
+	var nameSurname = $("#nameSurname"+index).text();
+	var street = $("#street"+index).text();
+	var number = $("#number"+index).text();
+	var zipCode = $("#zipCode"+index).text();
+	var city = $("#city"+index).text();
+	var state = $("#state"+index).text();
+	var country= $("#country"+index).text();
+	var moreInfo=$("#moreInfo"+index).text();
+	var isBa=$("#isBa"+index).val();
+	var isDe=$("#isDe"+index).val();
+	var id=$("#userId").val();
+	
+	$("#regA"+index).addClass("Hidden");
+	
+	$.post('/NibInk/AjaxAddressServlet', {"toDo": "remove", "index": index, "id": id, "nameSurname": nameSurname, "street": street, 
+										  "number": number, "moreInfo": moreInfo, "zipCode": zipCode, "city": city, "state": state, 
+										  "country": country, "isBA": isBa, "isDefault": isDe}) 
+}
+
+function sendAddr(index){
+	var nameSurname = $("#nameSurname"+index).text();
+	var street = $("#street"+index).text();
+	var number = $("#number"+index).text();
+	var zipCode = $("#zipCode"+index).text();
+	var city = $("#city"+index).text();
+	var state = $("#state"+index).text();
+	var country= $("#country"+index).text();
+	var moreInfo=$("#moreInfo"+index).text();
+	var isBa=$("#isBa"+index).val();
+	
+	addr=nameSurname+", "+street+" "+number+ " " + zipCode +", ";
+	if(!(moreInfo=="")){
+		addr+=moreInfo+", ";
+	}
+	
+	addr+=city+" "+state+", "+country;
+	
+	
+	$.get('/NibInk/AjaxAddressServlet', {"addr": addr, "isBA": isBa}, 
+    	function(){
+			window.location.href ="payment.jsp";
+		});
+	
+	
 }

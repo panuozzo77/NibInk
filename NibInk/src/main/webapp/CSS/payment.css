@@ -70,7 +70,6 @@ input[type=text]{
 	margin: 0;
 	width: 40%;
 	padding: 5px;
-	background-color: transparent;
 	border: 1px solid black;
 }
 
@@ -157,4 +156,12 @@ input[type=text]{
 	border-radius: 5px;	
 	width: 60%;
 	cursor: pointer;
+}
+
+.selectColor{
+	background-color: transparent;
+}
+
+.showError{
+	background-color: #fddcd8;
 }
