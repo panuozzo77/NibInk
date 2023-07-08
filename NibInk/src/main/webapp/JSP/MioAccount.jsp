@@ -10,69 +10,67 @@
 <body>
 <div class="pagina">
 	<h1>Mio Account</h1>
-	<div class="opzioni">
 	
 		<div class="riga">
-			<a href="/NibInk/mieiOrdini" class="link">
-				<div class="opzione">
+				<div class="opzione" onClick="Ordini()">
 					<img alt="" src="/NibInk/images/ordini.png">
-					<div calss="spiegazione">
+					<div class="spiegazione">
 						<h2 class="title"> Ordini</h2>
 						<p>Ordini effettuati.</p>
 					</div>
 				</div>
-			
-			<a>
-				<div class="opzione">
+				
+				<div class="opzione" onClick="AccessoeSicurezza()">
 					<img alt="" src="/NibInk/images/accesso.png">
-					<div calss="spiegazione">
-						<h2 class="title">Accesso</h2>
+					<div class="spiegazione">
+						<h2 class="title">Accesso e Sicurezza</h2>
 						<p>Metodi di accesso.</p>
 					</div>
 				</div>
-			</a>
-			<a>
+				
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/comunicazioni.png">
-					<div calss="spiegazione">
+					<div class="spiegazione">
 						<h2 class="title">Comunicazioni</h2>
 						<p>Avvisi e comunicazioni.</p>
 					</div>
 				</div>
-			</a>
 		</div>
 		
 		<div class="riga">
-			<a>
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/Contattaci.png">
-					<div calss="spiegazione">
+					<div class="spiegazione">
 						<h2 class="title">Contattaci</h2>
 						<p>Contatta il nostro <br>servizio clienti</p>
 					</div>
 				</div>
-			</a>
-			<a>
-				<div class="opzione">
+				
+				<div class="opzione" onClick="Indirizzi()">
 					<img alt="" src="/NibInk/images/indirizzi.png">
-					<div calss="spiegazione">
+					<div class="spiegazione">
 						<h2 class="title">Indirizzi</h2>
 						<p>Gestisci gli indirizzi<br> di consegna</p>
 					</div>
 				</div>
-			</a>
-			<a>
-				<div class="opzione">
-					<img alt="" src="/NibInk/images/sicurezza.png">
-					<div calss="spiegazione">
-						<h2 class="title">Sicurezza</h2>
-						<p>Sicurezza e controllo</p>
-					</div>
-				</div>
-			</a>
 		</div>
 		
 	</div>
-</div>
+<script type="text/javascript">
+function Ordini()
+{
+	window.location.href = "/NibInk/JSP/ordini.jsp";	
+}
+
+function AccessoeSicurezza()
+{
+	window.location.href = "/NibInk/JSP/Accesso.jsp";	
+}
+
+function Indirizzi()
+{
+	window.location.href = "/NibInk/JSP/indirizzi.jsp";	
+}
+</script>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <%@ page import="com.model.Item" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.model.DAOItem" %>
+<%@ page errorPage="/JSP/login.jsp?error=3" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +19,35 @@
 		<div class="title">
 			<h2>I miei ordini</h2>
 		</div>
-		<div class="prodotto">
+		
 		<% 
 		DAOOrder DaoOrder= new DAOOrder();
 		DAOItem item = new DAOItem();
-		String utente = (String)session.getAttribute("id"); 
+		
+		String utente = session.getAttribute("id").toString();
+		if(utente==null)
+		{
+			throw new Exception("Utente non autenticato");
+		}
 		ArrayList<Order> orders = DaoOrder.loadAllOrder(Integer.parseInt(utente));
-		for(Order ord : orders){
-			Integer IdItem = ord.getProgessive_N();
-			Item ItemPresent = item.getItemFromDB(IdItem.toString());
+		if(orders==null)
+		{
+			System.out.println("non ci sono ordini per questo utente");
 		%>
-			<div class="informaizone_oridne">
+			<div class="informazione_ordine">
+				<h2>Non hai ordini</h2>
+			</div>
+		<%
+		}
+		else
+		{
+			for(Order ord : orders){
+				Integer IdItem = ord.getProgessive_N();
+				System.out.println(IdItem);
+				Item ItemPresent = item.getItemFromDB(IdItem.toString());
+		%>
+		<div class="prodotto">
+			<div class="informazione_ordine">
 				<div class="info">
 					<h3>Data Ordine</h3>
 					<p><%= ord.getOrderDate()%></p>
@@ -38,14 +57,14 @@
 					<p><%= ItemPresent.getPrice()*ord.getAmount()%></p>
 				</div>
 				<div class="info">
-					<h3>Ordine: <%= ord.getId()%></h3>
+					<h3>Codice Ordine : <%= ord.getId()%></h3>
 				</div>
 			</div>
 			<div class="informazione_consegna">
 				<div class="prodotto">
 					<h3>Consegnato il <%= ord.getOrderDate()%></h3>
 					<div class="dettagli_ordine">
-						<img alt="" src="">
+						<img alt="" src="/NibInk/images/Product A.jpg">
 						<h2><%= ItemPresent.getTitle()%></h2>
 					</div>
 				</div>
@@ -57,8 +76,8 @@
 					</form>
 				</div>
 			</div>
-		<%} %>
 		</div>
+		<%} }%>
 	</div>
 </body>
 </html>

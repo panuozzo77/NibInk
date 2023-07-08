@@ -102,7 +102,7 @@
     		</div>
   		</div>
 		<div class="rowDown">
-			<h3>Scheda Tecnica</h3>
+			<h2>Scheda Tecnica</h2>
 				<ul class="details">
 					<li><b>&emsp;Codice Prodotto:</b>	<%= product.getCodenumber()%></li>
 					<li><b>&emsp;Nome:</b>				<%= product.getTitle()%></li>
@@ -111,6 +111,7 @@
 					<li><b>&emsp;Dimensioni:</b>		<%= product.getDimensions()%></li>
 				</ul>		
 		</div>
+		<jsp:include page="review.jsp" />
 		<div class="rowDown">
 			<h4>Prodotti Correlati</h4>	
 			<div class="moreProducts">
@@ -138,6 +139,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<jsp:include page="footer.jsp" />
 </body>
