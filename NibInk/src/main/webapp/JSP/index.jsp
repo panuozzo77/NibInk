@@ -11,144 +11,140 @@
 </head>
 
 <body>
-<header>
+    <div class="userNavbar">
+        <jsp:include page="userNavbar.jsp"/>
+    </div>
     <div>
-    <h1 id="titolo">NibInk</h1>
-    <nav class="menu">
-      <ul>
-        <li><a class="menu-link" href="/NibInk/JSP/homepage.jsp">Home</a></li>
-        <li><a class="menu-link" href="/NibInk/JSP/products.jsp">Prodotti</a></li>
-        <li><img id="logo" src="logo.jpg" title="logo" alt="logo"></li> <!-- Non so se le misure sono corrette e quale sia la directory del logo sia quella-->
-        <li><a class="menu-link" href="/NibInk/JSP/cart.jsp">Carrello</a></li>
-        <li><a class="menu-link" href="/NibInk/JSP/login.jsp">Login</a></li>
-      </ul>
-    </nav>
+        <jsp:include page="navbar.jsp"/>
     </div>
-</header>
 
-  <main>
-    <section>
-      <h2>Articoli più venduti</h2>
-
-      <div class="product-list">
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaX')">
-          <img src="PennaX.jpg" alt="Penna X">
-          <p> Penna X</p>
-        </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaY')">
-            <img src="PennaY.jpg" alt="Penna Y">
-            <p> Penna Y</p>
-        </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaSigma')">
-            <img src="PennaSigma.jpg" alt="Penna Sigma">
-            <p> Penna Sigma</p>
-        </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaOmega')">
-            <img src="PennaOmega.jpg" alt="Penna Omega">
-            <p> Penna Omega</p>
-        </div>
-      </a>
-
-      <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
-
-    </div>
-    </section>
-
-    <section>
+    <main>
+        <section>
+          <h2>Articoli più venduti</h2>
     
-    <h2>Nuovi arrivi</h2>
-    <div class="product-list">
+          <div class="product-list">
 
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaX')">
-          <img src="PennaX.jpg" alt="Penna X">
-          <p> Penna X</p>
+
+          <a href="product.jsp?id=4">
+            <div class="product" onclick="redirectToProductPage('Fontain Pen C')">
+              <img src="Product_4.jpg" alt="Fountain Pen C">
+              <p>Fountain Pen C</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=22?">
+            <div class="product" onclick="redirectToProductPage('Fountain Pen B')">
+                <img src="Product_22.jpg" alt="Fountain Pen B">
+                <p>Fountain Pen C</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=15?">
+            <div class="product" onclick="redirectToProductPage('Ink Bottle G')">
+                <img src="Product_15.jpg" alt="Ink Bottle G">
+                <p>Ink Bottle G</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=20">
+            <div class="product" onclick="redirectToProductPage('Fountain Pen K')">
+                <img src="Product_20.jpg" alt="Fountain Pen K">
+                <p>Fountain Pen K </p>
+            </div>
+          </a>
+    
+          <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
+    
         </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaAlfa')">
-            <img src="PennaAlfa.jpg" alt="Penna Alfa">
-            <p> Penna Alfa</p>
-        </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaBeta')">
-            <img src="PennaBeta.jpg" alt="Penna Beta">
-            <p> Penna Beta</p>
-        </div>
-      </a>
-
-      <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaGamma')">
-            <img src="PennaGamma.jpg" alt="Penna Gamma">
-            <p> Penna Gamma</p>
-        </div>
-      </a>
-
-      <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
-
-    </div>
-    </section>
-
-    <section>
-    <h2>Trend del momento</h2>
-
-      <div class="product-list">
-
+        </section>
+    
+        <section>
         
-        <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaX')">
-          <img src="PennaX.jpg" alt="Penna X">
-          <p> Penna X</p>
+        <h2>Nuovi arrivi</h2>
+        <div class="product-list">
+    
+          <a href="product.jsp?id=19">
+            <div class="product" onclick="redirectToProductPage('Ink Bottle I')">
+              <img src="Product_4.jpg" alt="Ink Bottle I">
+              <p>Ink Bottle I</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=2">
+            <div class="product" onclick="redirectToProductPage('Product B')">
+                <img src="Product B.jpg" alt="Product B">
+                <p> Product B</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=3">
+            <div class="product" onclick="redirectToProductPage('Product C')">
+                <img src="Product C.jpg" alt="Product C">
+                <p> Product C</p>
+            </div>
+          </a>
+    
+          <a href="product.jsp?id=7">
+            <div class="product" onclick="redirectToProductPage('Ink Bottle C')">
+                <img src="Product_7.jpg" alt="Ink Bottle C">
+                <p>Ink Bottle C</p>
+            </div>
+          </a>
+    
+          <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
+    
         </div>
-        </a>
-
-        <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaAlfa')">
-            <img src="PennaAlfa.jpg" alt="Penna Alfa">
-            <p> Penna Alfa</p>
+        </section>
+    
+        <section>
+        <h2>Trend del momento</h2>
+    
+          <div class="product-list">
+    
+            
+            <a href="product.jsp?id=20">
+            <div class="product" onclick="redirectToProductPage('Fountain Pen K')">
+              <img src="Product_20.jpg" alt="Fountain Pen K">
+              <p>Fountain Pen K</p>
+            </div>
+            </a>
+    
+            <a href="product.jsp?id=4">
+            <div class="product" onclick="redirectToProductPage('Fountain Pen C')">
+                <img src="Product_4.jpg" alt="Fountain Pen C">
+                <p>Fountain Pen C</p>
+            </div>
+            </a>
+    
+            <a href="product.jsp?id=7">
+            <div class="product" onclick="redirectToProductPage('Ink Bottle C')">
+                <img src="Product_7.jpg" alt="Ink Bottle C">
+                <p>Ink Bottle C</p>
+            </div>
+            </a>
+    
+    
+            <a href="product.jsp?id=19">
+                <div class="product" onclick="redirectToProductPage('Ink Bottle I')">
+                  <img src="Product_4.jpg" alt="Ink Bottle I">
+                  <p>Ink Bottle I</p>
+                </div>
+            </a>
+    
+    
+            <a class="catalogo" href="catalog.jsp" > Scopri di più...</a>
+    
         </div>
-        </a>
+        </section>
+      </main>
 
-        <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaSigma')">
-            <img src="PennaSigma.jpg" alt="Penna Sigma">
-            <p> Penna Sigma</p>
-        </div>
-        </a>
-
-
-        <a href="product.jsp">
-        <div class="product" onclick="redirectToProductPage('PennaGamma')">
-            <img src="PennaGamma.jpg" alt="Penna Gamma">
-            <p> Penna Gamma</p>
-        </div>
-        </a>
-
-
-        <a class="catalogo" href="catalog.jsp" > Scopri di più...</a>
-
+    <div>
+        <jsp:include page="footer.jsp"/>
     </div>
-    </section>
-  </main>
 
-  <footer>
-    <p>Serve aiuto? Contattaci: </p> <!-- Non ho trovato i link ai contatti/eventuali numeri -->
-    <p>© 2023 NibInk. All rights reserved </p>
-  </footer>
+    <script>
 
-
+    </script>
+    
 </body>
 </html>
