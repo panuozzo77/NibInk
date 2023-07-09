@@ -21,28 +21,6 @@ public class DAOItem extends DAOConnection {
 		}
 	}
 	
-	/*
-	public void addItemToDB(Item item)
-	{
-		String sql="INSERT INTO Items (ID,title,brand,price,VAT,color,dimensions,weight,description) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setObject(1, item.getCodenumber());
-			stmt.setObject(2, item.getTitle());
-			stmt.setObject(3, item.getBrand());
-			stmt.setObject(4, item.getPrice());
-			stmt.setObject(5, item.getVat());
-			stmt.setObject(6, item.getColor());
-			stmt.setObject(7, item.getDimensions());
-			stmt.setObject(8, item.getWeight());
-			stmt.setObject(9, item.getDescription());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	*/
-	
 	public void addItemToDB(Item item)
 	{
 		String sql="INSERT INTO Items (ID,title,price,VAT,color,dimensions,weight,description,type) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -202,8 +180,18 @@ public class DAOItem extends DAOConnection {
 		try {
 		while (rs.next())
 		{
-            items.add(getItemFromResultSet(rs));
-            //System.out.println("Oggetto: "+item.getTitle());
+			Item item = new Item();
+            item.setCodenumber(rs.getString("ID"));
+            item.setTitle(rs.getString("Title"));
+            item.setPrice(rs.getFloat("Price"));
+            item.setVat(rs.getFloat("VAT"));
+            item.setColor(rs.getString("Color"));
+            item.setDimensions(rs.getString("Dimensions"));
+            item.setWeight(rs.getFloat("Weight"));
+            item.setDescription(rs.getString("description"));
+            item.setType(rs.getString("Type"));
+            items.add(item);
+            System.out.println("Oggetto caricato: "+item.getTitle());
 		}
 			rs.close();
 		} catch (SQLException e) {
@@ -258,14 +246,6 @@ public class DAOItem extends DAOConnection {
 		return item;
 	}
 	
-	
-	
-	
-	
-	
-	//fatto da me
-	
-	
 	public ArrayList<Item> getRelatedFromDB(float filterValue){
 		ResultSet rs = null;
 		try {
@@ -302,7 +282,6 @@ public class DAOItem extends DAOConnection {
                 stmt.setInt(4, count);
         	}
             
-            
             rs = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -336,13 +315,11 @@ public class DAOItem extends DAOConnection {
 		}
 		return number;
 	}
-	
-
 
 	public ArrayList<Item> getItemsLike(String filterValue) {
 		ResultSet rs = null;
 		try {
-			String sql= "SELECT * FROM items WHERE title LIKE ? LIMIT 4";
+			String sql= "SELECT * FROM Items WHERE title LIKE ? LIMIT 4";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, "%"+filterValue+"%");
 			rs = stmt.executeQuery();

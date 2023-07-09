@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*" %>
-<%@ page import="javax.servlet.http.*" %>
-<%@ page import="com.model.AddressManager"%>
-<%@ page import="com.model.Address"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@page import="java.util.*" %>
+<%@page import="javax.servlet.http.*" %>
+<%@page import="com.model.AddressManager"%>
+<%@page import="com.model.Address"%>
 
 <!DOCTYPE html>
 <html>

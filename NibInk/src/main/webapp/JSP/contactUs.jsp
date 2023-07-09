@@ -126,7 +126,6 @@
                       </div>
                     </div>
                     <footer class="form-footer text-sm-right">
-                      </style>
                       <input class="btn btn-primary" type="submit" name="submitMessage" value="Invia">
                     </footer>
                   </section>

@@ -1,8 +1,9 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.model.DAOOrder" %>
-<%@ page import="com.model.Order" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="com.model.DAOOrder" %>
+<%@page import="com.model.Order" %>
+<%@page import="java.text.SimpleDateFormat" %>
 
 <%
     DAOOrder daoOrder = new DAOOrder();

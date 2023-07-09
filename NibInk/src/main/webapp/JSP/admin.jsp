@@ -71,6 +71,7 @@ items = db.getItemsNumber();
   <%
     int i = 0;
     for (Item item : itemsLoaded) {
+    	System.out.println("JSP: " + item);
         %>
         <tr>
             <td><%=item.getCodenumber() %></td>

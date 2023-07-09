@@ -16,7 +16,7 @@
 	<div class="container0">
 		<div class="container1">
 		<h3>Pagamento ordine</h3>
-			<form id="paymentForm" onkeydown="handleKeyPress(event)">
+			<form id="paymentForm" onkeydown="preventSubmitWithEnter(event)">
 				<p class="required">Intestatario Carta</p>	
 				<input type="text" id="cardName"><br>
 				<p class="required">Numero della Carta</p>
@@ -32,18 +32,26 @@
 						<input type="text" id="cardCode">	
 					</div>
 				</div>
-				<div class="billingAddr">
-				<input type="checkbox" onclick="toggleBillingAddr()" id="addrCheckbox" checked> 
-					<div class="cbText">
-						<div><p>Indirizzo di fatturazione e spedizione coincidono</p></div>
-						<div><p id="userSavedAddr"> <%= session.getAttribute("addr") %><p></div>
+				<div class="checkBoxes">
+					<div id="firstCheckBox" class="billingAddr">
+						<input type="checkbox" onclick="toggleSecondCB()" id="BACheckBox"> 
+						<div class="cbText">
+							<div><p>Desidero ricevere la fattura</p></div>
+						</div>
+					</div>
+					<div  id="secondCheckBox" class="Hidden">
+						<input type="checkbox" onclick="toggleBillingAddr()" id="addrCheckbox" checked> 
+						<div class="cbText">
+							<div><p>Indirizzo di fatturazione e spedizione coincidono</p></div>
+							<div><p id="userSavedAddr"> <%= session.getAttribute("addr") %><p></div>
+						</div>	
 					</div>
 				</div>
-				<div id="inputBAddr" class="inputBAddrHidden">
+				<div id="inputBAddr" class="Hidden">
 					<h3>Indirizzo di Fatturazione</h3>
 							<p class="required">Paese</p>
 							<br>
-							<select id="country" onchange="toggleItaly()">
+							<select id="Country" onchange="toggleItaly()">
 							</select>
 							
 							<p class="required">Nome e Cognome</p>
@@ -71,7 +79,7 @@
 							
 							<p class="required italyOnly">Provincia</p>
 							<br>
-							<select id="state" class="italyOnly"></select>
+							<select id="State" class="italyOnly"></select>
 						</div>
 					
 				<div class="shButtons">	
