@@ -113,4 +113,22 @@ public class DAOCustomer extends DAOConnection {
 		}
 		return status;
 	}
+	
+	public boolean changePassword(int userId, String newPassword) {
+        boolean status = false;
+		String updateQuery = "UPDATE Users SET Password = ? WHERE ID = ?";
+        try {
+            stmt = con.prepareStatement(updateQuery);
+            stmt.setString(1, newPassword);
+            stmt.setInt(2, userId);
+
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                status = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
 }
