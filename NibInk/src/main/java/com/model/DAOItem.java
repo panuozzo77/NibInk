@@ -103,6 +103,25 @@ public class DAOItem extends DAOConnection {
 		}
 	}
 	
+	public void modifyItemInDB(Item item) {
+	    String sql = "UPDATE Items SET title = ?, price = ?, VAT = ?, color = ?, dimensions = ?, weight = ?, description = ?, type = ? WHERE ID = ?;";
+	    try {
+	        stmt = con.prepareStatement(sql);
+	        stmt.setString(1, item.getTitle());
+	        stmt.setFloat(2, item.getPrice());
+	        stmt.setFloat(3, item.getVat());
+	        stmt.setString(4, item.getColor());
+	        stmt.setString(5, item.getDimensions());
+	        stmt.setFloat(6, item.getWeight());
+	        stmt.setString(7, item.getDescription());
+	        stmt.setString(8, item.getType());
+	        stmt.setString(9, item.getCodenumber());
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public ArrayList<Item> getAllItemsFromDB()
 	{
 		ResultSet rs = null;

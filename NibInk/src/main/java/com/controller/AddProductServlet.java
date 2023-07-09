@@ -27,8 +27,9 @@ public class AddProductServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean modify = (request.getParameter("item")!= null) ? true : false;
 		DAOItem db1 = new DAOItem();
-		String codenumber = String.valueOf(db1.getItemsNumber()+1);
+		String codenumber = (modify == true) ? request.getParameter("item") : String.valueOf(db1.getItemsNumber()+1);
 		String title = request.getParameter("title");
 		String type = request.getParameter("type");
 		String color = request.getParameter("color");
@@ -42,7 +43,12 @@ public class AddProductServlet extends HttpServlet {
 		
 		Item it = new Item(codenumber, title, type, color, dimensions, description, price, vat, weight);
 		db1 = new DAOItem();
-		db1.addItemToDB(it);
+		if(!modify)
+			db1.addItemToDB(it);
+		else {
+			System.out.println("ho modificato");
+			db1.modifyItemInDB(it);
+		}
 		
 			ItemVariant itemV=new ItemVariant(it);
 			
