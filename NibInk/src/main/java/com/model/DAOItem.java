@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 public class DAOItem extends DAOConnection {
 	PreparedStatement stmt;
 	Connection con;
@@ -336,5 +337,19 @@ public class DAOItem extends DAOConnection {
 		return number;
 	}
 	
-}
 
+
+	public ArrayList<Item> getItemsLike(String filterValue) {
+		ResultSet rs = null;
+		try {
+			String sql= "SELECT * FROM items WHERE title LIKE ? LIMIT 4";
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, "%"+filterValue+"%");
+			rs = stmt.executeQuery();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return getFromResultSet(rs);
+		
+	}
+}

@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +31,7 @@ public class CartManipulatorServlet extends HttpServlet {
     		String size=request.getParameter("size");
     		
     		cm.removeItemFromCart(code, item, quantity, size);
+    		response.sendRedirect("/NibInk/JSP/cart.jsp");
     		
     	 }
     	else if (request.getParameter("updateButton") != null){
@@ -42,8 +44,11 @@ public class CartManipulatorServlet extends HttpServlet {
     		String size=request.getParameter("size");
     		
     		cm.modifyQuantityFromCart(code, item, quantity, size);
-    	 }
     		response.sendRedirect("/NibInk/JSP/cart.jsp");
+    	 }
+    	else {
+    		response.sendRedirect("/NibInk/JSP/addresses.jsp");
+    	}
     		
 	}
 

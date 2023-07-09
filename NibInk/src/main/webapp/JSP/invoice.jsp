@@ -105,7 +105,11 @@ Customer customer = db2.getCustomerById(order.getUser());
           margin: 1,
           filename: 'fattura.pdf',
           image: { type: 'jpeg', quality: 0.98 },
+<<<<<<< HEAD
           html2canvas: { scale: 2 },
+=======
+          html2canvas: { scale: 1 },
+>>>>>>> refs/heads/Raffaele
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 

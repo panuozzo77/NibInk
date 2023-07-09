@@ -1,0 +1,167 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.Hidden{
+	visibility: hidden;
+	display: none;
+	pointer-events: none;
+}
+
+.container0{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.container1{
+	width: 30%;
+	margin-top: 1%;
+	padding: 5%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid black;
+}
+
+form{
+	width: 80%;
+}
+
+.required::after{
+	color: red;
+	content: ' *';
+}
+
+h3{
+	margin-bottom: 7%;
+}
+
+input[type=text]{
+	margin-top: 3%;
+	margin-bottom: 6%;
+	width: 100%;
+	padding: 5px;
+	border: none;
+	border-bottom: 1px solid black; 
+}
+
+.secondHalf{
+	display: flex;
+	flex-direction: row;
+}
+
+.shContent{
+	text-align: center;
+	width: 50%;
+}
+
+#cardCode{
+	width: 50%;
+	margin-left: 5%;
+}
+
+.secondHalf select{
+	margin: 0;
+	width: 40%;
+	padding: 5px;
+	border: 1px solid black;
+}
+
+#expMonth{
+	border-radius: 10px 0 0 10px;
+	cursor: pointer;
+}
+
+#expYear{
+	border-radius: 0 10px 10px 0;
+	cursor: pointer;	
+}
+
+#userSavedAddr{
+	font-size: 10px;
+	color: gray;
+}
+
+.billingAddr{
+	margin-top: 4%;
+	margin-bottom: 4%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.billingAddr > input[type=checkbox]{
+	margin-right: 2%;
+	border: none;
+	cursor: pointer;
+}
+
+.cbText{
+	width: 100%;
+}
+
+.inputBAddrHidden{
+	visibility: hidden;
+	display: none;
+	pointer-events: none;
+}
+
+.inputBAddrShow{
+	display: flex;
+	flex-direction: column;
+}
+
+#inputBAddr select{
+	margin: 0;
+	margin-bottom: 10px;
+	margin-top: 1%;
+	width: 100%;
+	padding: 9px;
+	background-color: transparent;
+	border: 1px solid black;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.addr{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.addrFirst{
+	width: 60%;
+}
+
+.addrSecond{
+	width: 30%;
+}
+
+.shButtons{
+	margin-top: 6%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#submit{
+	border: none;
+	padding: 15px 30px;
+	border-radius: 5px;	
+	width: 60%;
+	cursor: pointer;
+}
+
+.selectColor{
+	background-color: transparent;
+}
+
+.showError{
+	background-color: #fddcd8;
+}
