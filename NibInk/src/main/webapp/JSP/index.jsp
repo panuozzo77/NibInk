@@ -1,16 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.model.Item" %>
+<%@ page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
-<html>
 <head>
-<meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NibInk - Home</title>
-<link rel="stylesheet" href="index.css">
+    <meta charset="ISO-8859-1">
+    <title>NibInk - Home</title>
+    <link rel="stylesheet" href="/NibInk/CSS/index.css">
+    <script type="text/javascript" src="NibInk/JavaScript.js"></script>
 </head>
 
+
 <body>
+
+  <% DAOItem daoItem = new DAOItem(); %>
+
     <div class="userNavbar">
         <jsp:include page="userNavbar.jsp"/>
     </div>
@@ -20,40 +25,44 @@
 
     <main>
         <section>
-          <h2>Articoli più venduti</h2>
+          <h2>Articoli pi&#249 venduti</h2>
     
           <div class="product-list">
 
 
           <a href="product.jsp?id=4">
             <div class="product" onclick="redirectToProductPage('Fontain Pen C')">
-              <img src="Product_4.jpg" alt="Fountain Pen C">
-              <p>Fountain Pen C</p>
+              <img src="../images/Product_4.jpg" alt="Fountain Pen C">
+              <p>Fountain Pen C</p> <br>
+              <p class="price"> <%= daoItem.getItemFromDB("4").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=22?">
             <div class="product" onclick="redirectToProductPage('Fountain Pen B')">
-                <img src="Product_22.jpg" alt="Fountain Pen B">
-                <p>Fountain Pen C</p>
+                <img src="../images/Product_22.jpg" alt="Fountain Pen B">
+                <p>Fountain Pen C</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("22").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=15?">
             <div class="product" onclick="redirectToProductPage('Ink Bottle G')">
-                <img src="Product_15.jpg" alt="Ink Bottle G">
-                <p>Ink Bottle G</p>
+                <img src="../images/Product_15.jpg" alt="Ink Bottle G">
+                <p>Ink Bottle G</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("15").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=20">
             <div class="product" onclick="redirectToProductPage('Fountain Pen K')">
-                <img src="Product_20.jpg" alt="Fountain Pen K">
-                <p>Fountain Pen K </p>
+                <img src="../images/Product_20.jpg" alt="Fountain Pen K">
+                <p>Fountain Pen K </p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("20").getPrice() %> </p>
             </div>
           </a>
     
-          <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
+          <a class="catalogo" href="catalog.jsp"> Scopri di pi&#249...</a>
     
         </div>
         </section>
@@ -65,33 +74,37 @@
     
           <a href="product.jsp?id=19">
             <div class="product" onclick="redirectToProductPage('Ink Bottle I')">
-              <img src="Product_4.jpg" alt="Ink Bottle I">
-              <p>Ink Bottle I</p>
+              <img src="../images/Product_4.jpg" alt="Ink Bottle I">
+              <p>Ink Bottle I</p> <br>
+              <p class="price"> <%= daoItem.getItemFromDB("4").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=2">
             <div class="product" onclick="redirectToProductPage('Product B')">
-                <img src="Product B.jpg" alt="Product B">
-                <p> Product B</p>
+                <img src="../images/Product B.jpg" alt="Product B">
+                <p> Product B</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("2").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=3">
             <div class="product" onclick="redirectToProductPage('Product C')">
-                <img src="Product C.jpg" alt="Product C">
-                <p> Product C</p>
+                <img src="../images/Product C.jpg" alt="Product C">
+                <p> Product C</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("3").getPrice() %> </p>
             </div>
           </a>
     
           <a href="product.jsp?id=7">
             <div class="product" onclick="redirectToProductPage('Ink Bottle C')">
-                <img src="Product_7.jpg" alt="Ink Bottle C">
-                <p>Ink Bottle C</p>
+                <img src="../images/Product_7.jpg" alt="Ink Bottle C">
+                <p>Ink Bottle C</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("7").getPrice() %> </p>
             </div>
           </a>
     
-          <a class="catalogo" href="catalog.jsp"> Scopri di più...</a>
+          <a class="catalogo" href="catalog.jsp"> Scopri di pi&#249...</a>
     
         </div>
         </section>
@@ -104,35 +117,39 @@
             
             <a href="product.jsp?id=20">
             <div class="product" onclick="redirectToProductPage('Fountain Pen K')">
-              <img src="Product_20.jpg" alt="Fountain Pen K">
-              <p>Fountain Pen K</p>
+              <img src="../images/Product_20.jpg" alt="Fountain Pen K">
+              <p>Fountain Pen K</p> <br>
+              <p class="price"> <%= daoItem.getItemFromDB("20").getPrice() %> </p>
             </div>
             </a>
     
             <a href="product.jsp?id=4">
             <div class="product" onclick="redirectToProductPage('Fountain Pen C')">
-                <img src="Product_4.jpg" alt="Fountain Pen C">
-                <p>Fountain Pen C</p>
+                <img src="../images/Product_4.jpg" alt="Fountain Pen C">
+                <p>Fountain Pen C</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("4").getPrice() %> </p>
             </div>
             </a>
     
             <a href="product.jsp?id=7">
             <div class="product" onclick="redirectToProductPage('Ink Bottle C')">
-                <img src="Product_7.jpg" alt="Ink Bottle C">
-                <p>Ink Bottle C</p>
+                <img src="../images/Product_7.jpg" alt="Ink Bottle C">
+                <p>Ink Bottle C</p> <br>
+                <p class="price"> <%= daoItem.getItemFromDB("7").getPrice() %> </p>
             </div>
             </a>
     
     
             <a href="product.jsp?id=19">
                 <div class="product" onclick="redirectToProductPage('Ink Bottle I')">
-                  <img src="Product_4.jpg" alt="Ink Bottle I">
-                  <p>Ink Bottle I</p>
+                  <img src="../images/Product_19.jpg" alt="Ink Bottle I">
+                  <p>Ink Bottle I</p> <br>
+                  <p class="price"> <%= daoItem.getItemFromDB("19").getPrice() %> </p>
                 </div>
             </a>
     
     
-            <a class="catalogo" href="catalog.jsp" > Scopri di più...</a>
+            <a class="catalogo" href="catalog.jsp" > Scopri di pi&#249...</a>
     
         </div>
         </section>
@@ -142,9 +159,5 @@
         <jsp:include page="footer.jsp"/>
     </div>
 
-    <script>
-
-    </script>
-    
 </body>
 </html>
