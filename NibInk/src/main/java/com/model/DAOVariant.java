@@ -25,18 +25,9 @@ public class DAOVariant extends DAOConnection {
 	
 	public void addVariantToDB(ItemVariant variant)
 	{
-		String sql="INSERT INTO Quantities (Item,size,quantity) VALUES(?,?,?);";
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setObject(1, variant.getItem().getCodenumber());
-			for(Entry<String, Integer> entry : variant.getVariants().entrySet()) {
-				stmt.setObject(2, entry.getKey());
-				stmt.setObject(3, entry.getValue());
-				stmt.executeUpdate();
-			} 
-		}catch (SQLException e) {
-				e.printStackTrace();
-		}
+			String id = variant.getItem().getCodenumber();
+			for(Entry<String, Integer> entry : variant.getVariants().entrySet()) 
+				addVariantToDB(id, entry.getKey(), 0);
 	}
 	
 	public void addVariantToDB(String item, String size, int quantity)
@@ -46,7 +37,7 @@ public class DAOVariant extends DAOConnection {
 			stmt = con.prepareStatement(sql);
 			stmt.setObject(1, item);
 			stmt.setObject(2, size);
-			stmt.setObject(2, quantity);
+			stmt.setObject(3, quantity);
 			stmt.executeUpdate();
 		}catch (SQLException e) {
 				e.printStackTrace();

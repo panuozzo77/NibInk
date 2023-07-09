@@ -46,7 +46,6 @@ public class AddProductServlet extends HttpServlet {
 		if(!modify)
 			db1.addItemToDB(it);
 		else {
-			System.out.println("ho modificato");
 			db1.modifyItemInDB(it);
 		}
 		
@@ -54,6 +53,7 @@ public class AddProductServlet extends HttpServlet {
 			
 			String sizes[]=request.getParameter("optionValues").split(",");
 			for(String s : sizes) {
+				System.out.println("taglia: " + s);
 				itemV.addVariation(s.toUpperCase(), qnt);
 			}
 			DAOVariant db2 = new DAOVariant();
