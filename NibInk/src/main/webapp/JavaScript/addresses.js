@@ -235,17 +235,19 @@ function saveForGuest(){
 	
 	var addr;
 	
-	addr=$("#NameSurname").val()+", "+$("#Street").val()+" "+$("#Number").val()+ " " + $("#ZipCode").val()+", ";
+	addr=$("#NameSurname").val()+", "+$("#Street").val()+" "+$("#Number").val()+ " " + $("#ZipCode").val();
 	if(!($("#MoreInfo").val()=="")){
-		addr+=$("#MoreInfo").val()+", ";
+		addr+=", "+$("#MoreInfo").val();
 	}
 	
-	addr+=$("#City").val()+" "+$("#State").val()+", "+$("#Country").val();
+	addr+=", "+$("#City").val()+" "+$("#State").val()+", "+$("#Country").val();
 	//console.log(addr);
 	
 	
-	$.get('/NibInk/AjaxAddressServlet', {"addr": addr}, 
+	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne" ,"addr": addr, "isBA": false}, 
     	function(){
+			window.location.href ="payment.jsp";
+		}).fail(function(){
 			window.location.href ="payment.jsp";
 		});
 }
@@ -396,10 +398,8 @@ function sendAddr(index){
 	addr+=city+" "+state+", "+country;
 	
 	
-	$.get('/NibInk/AjaxAddressServlet', {"addr": addr, "isBA": isBa}, 
+	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInBoth","addr": addr, "isBA": isBa}, 
     	function(){
 			window.location.href ="payment.jsp";
 		});
-	
-	
 }

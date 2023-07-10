@@ -1,3 +1,4 @@
+
 package com.model;
 
 import java.sql.Connection;
@@ -259,7 +260,7 @@ public class DAOItem extends DAOConnection {
 		ResultSet rs = null;
 		try {
 			String sql= "SELECT * FROM Items";
-				sql += " WHERE price >= ?";		
+				sql += " WHERE price > ?";		
 				sql += " ORDER BY price ASC"; 
 				sql += " LIMIT 4";
 			stmt = con.prepareStatement(sql);

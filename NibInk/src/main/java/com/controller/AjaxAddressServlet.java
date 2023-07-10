@@ -23,14 +23,23 @@ public class AjaxAddressServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession sessione = request.getSession();
-    	String guest = (String) sessione.getAttribute("userType");
-    	if(!guest.equals("unregistered")) {
-    		sessione.setAttribute("isBA", request.getParameter("isBA"));
+    	
+    	String toDo = request.getParameter("toDo");
+    	
+    	if(toDo.equals("saveInBoth")) {
     		if(request.getParameter("isBA").equals("true")) {
     			sessione.setAttribute("addrBA", request.getParameter("addr"));
-    		}
+        	}
+        	sessione.setAttribute("addr", request.getParameter("addr"));
+    	}else if(toDo.equals("saveInOne")) {
+    		if(request.getParameter("isBA").equals("true")) {
+    			sessione.setAttribute("addrBA", request.getParameter("addr"));
+        	}else {
+        		sessione.setAttribute("addr", request.getParameter("addr"));
+        	}    		
     	}
-    	sessione.setAttribute("addr", request.getParameter("addr"));
+    	
+    	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
