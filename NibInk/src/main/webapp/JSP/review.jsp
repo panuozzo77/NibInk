@@ -12,6 +12,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/NibInk/CSS/review.css">
+	<link rel="stylesheet" href="/NibInk/CSS/stelle.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -138,23 +139,34 @@ for (Review rev : rm.list) { %>
                   <div class="userReviewModify">
                       <h2>Modifica la recensione</h2>
                       <form action="/NibInk/AddReviewServlet" method="post">
-                          <textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
-                          <label for="stars">Rating:</label><br>
-                          <div class="stars">
-                              <input type="radio" id="star5" name="rating" value="5" />
-                              <label for="star5">&#9733;</label>
-                              <input type="radio" id="star4" name="rating" value="4" />
-                              <label for="star4">&#9733;</label>
-                              <input type="radio" id="star3" name="rating" value="3" />
-                              <label for="star3">&#9733;</label>
-                              <input type="radio" id="star2" name="rating" value="2" />
-                              <label for="star2">&#9733;</label>
-                              <input type="radio" id="star1" name="rating" value="1" />
-                              <label for="star1">&#9733;</label>
-                          </div><br>
-                          <input type="hidden" name="modify" value="yes">
-                          <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-                          <input type="submit" value="Modifica">
+                          <div class="rating">
+						  <input value="5" name="rating" id="star-1" type="radio">
+						  <label for="star-1">
+						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+						  </label>
+						  <input value="4" name="rating" id="star-2" type="radio">
+						  <label for="star-2">
+						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+						  </label>
+						  <input value="3" name="rating" id="star-3" type="radio">
+						  <label for="star-3">
+						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+						  </label>
+						  <input value="2" name="rating" id="star-4" type="radio">
+						  <label for="star-4">
+						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+						  </label>
+						  <input value="1" name="rating" id="star-5" type="radio">
+						  <label for="star-5">
+						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+						  </label>
+					</div>
+					<div class="reviewdiv">
+					<textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
+					</div>
+			        <input type="hidden" name="modify" value="yes">
+			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
+			        <input type="submit" value="Modifica" class="button">
                       </form>
                   </div>
               <% } %>
@@ -162,22 +174,31 @@ for (Review rev : rm.list) { %>
               <div class="userReviewWrite">
                   <h2>Scrivi una recensione</h2>
                   <form action="/NibInk/AddReviewServlet" method="post">
-                      <textarea id="review" name="review" rows="4" placeholder="Scrivi una recensione..."></textarea><br>
-                      <label for="stars">Rating:</label><br>
-                      <div class="stars">
-                          <input type="radio" id="star5" name="rating" value="5" />
-                          <label for="star5">&#9733;</label>
-                          <input type="radio" id="star4" name="rating" value="4" />
-                          <label for="star4">&#9733;</label>
-                          <input type="radio" id="star3" name="rating" value="3" />
-                          <label for="star3">&#9733;</label>
-                          <input type="radio" id="star2" name="rating" value="2" />
-                          <label for="star2">&#9733;</label>
-                          <input type="radio" id="star1" name="rating" value="1" />
-                          <label for="star1">&#9733;</label>
-                      </div><br>
-                      <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-                      <input type="submit" value="Invia">
+                      <div class="rating">
+					  <input value="5" name="rating" id="star-1" type="radio">
+					  <label for="star-1">
+					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+					  </label>
+					  <input value="4" name="rating" id="star-2" type="radio">
+					  <label for="star-2">
+					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+					  </label>
+					  <input value="3" name="rating" id="star-3" type="radio">
+					  <label for="star-3">
+					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+					  </label>
+					  <input value="2" name="rating" id="star-4" type="radio">
+					  <label for="star-4">
+					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+					  </label>
+					  <input value="1" name="rating" id="star-5" type="radio">
+					  <label for="star-5">
+					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
+					  </label>
+					</div>
+					<textarea id="review" name="review" rows="4" placeholder="Scrivi una recensione..."></textarea><br>
+			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
+			        <input type="submit" value="Invia" class="button">
                   </form>
               </div>
           <% } } }%>
