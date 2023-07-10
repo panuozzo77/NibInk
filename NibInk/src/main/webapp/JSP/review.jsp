@@ -100,7 +100,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   var bar4Width = (statistics[4] / totalReviews) * 100;
   var bar5Width = (statistics[5] / totalReviews) * 100;
 
-  // Update the CSS width property of the bars TEST PUSH
+  // Update the CSS width property of the bars
   var bar1Element = document.querySelector('.bar-1');
   var bar2Element = document.querySelector('.bar-2');
   var bar3Element = document.querySelector('.bar-3');
