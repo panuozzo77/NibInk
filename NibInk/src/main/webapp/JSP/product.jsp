@@ -13,7 +13,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<meta charset="UTF-8">
 	<% 
 		DAOItem db = new DAOItem();
@@ -23,7 +22,60 @@
 	%>
 	<title> <%= product.getTitle() %></title>
 	<link rel="stylesheet" href="/NibInk/CSS/product.css">
-	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        	var url = new URL(window.location.href);
+            var id = url.searchParams.get('id'); 
+            $.ajax({
+                url: "/NibInk/getImages?id=" + id, 
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                	
+                    var imageUrls = response.images;
+                    for (var i = 0; i < imageUrls.length; i++) {
+                        var imageUrl = imageUrls[i];
+                        var imgElement = $("<img>").attr("src", imageUrl).attr("alt", "Immagine").attr("class","slide").attr("id","img"+i);
+                        $("#columLeft").append(imgElement);
+                    }
+                    var imgElement = $("<div>").attr("class", "radio-input");
+                    $("#columLeft").append(imgElement);
+                    if(imageUrls.length>=1)
+                    {
+                    	var imgElement = $("<input>").attr("type", "radio").attr("value","img0").attr("onClick","change('img0')").attr("class","input").attr("checked","").attr("name","radio");
+                    	$(".radio-input").append(imgElement);
+	                    for (var i = 1; i < imageUrls.length; i++) {
+	                    	var imgElement = $("<input>").attr("type", "radio").attr("value","img"+i).attr("onClick","change('img"+i+"')").attr("class","input").attr("name","radio");
+	                        $(".radio-input").append(imgElement);
+	                    
+	                    }
+                    }
+                    else
+                    	{
+                    	
+                    	}
+                },
+                error: function() {
+                    console.log("Errore durante la richiesta AJAX");
+                }
+            });
+            //parte per la gesitone dei slide delle immagini
+        });
+        window.onload= function()
+        {
+        	var divElement = document.getElementById('columLeft');
+        	var imgElements = divElement.getElementsByTagName('img');
+        	for(var i=0; i<imgElements.length; i++)
+        		{
+        		if(i===0)
+        			imgElements[i].style.display='flex';
+        		else
+        			imgElements[i].style.display='none';
+        		}
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="navbar.jsp" />
@@ -31,8 +83,8 @@
 	
 	<div class="container">
   		<div class="rowUp">
-    		<div class="columLeft">
-    			<img class="product_img" src="/NibInk/images/<%=product.getTitle()%>.jpg">
+    		<div id="columLeft">
+    			
     		</div>
     		<div class="columRight">
     			<h2><%=product.getTitle()%></h2><br>		    	
@@ -128,7 +180,7 @@
 							<div class="mpCardContent">
 								<button class="mpProductCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">
 								<div>
-								<img class="mpProductImg" src="/NibInk/images/${item.getTitle()}.jpg">
+								<img class="mpProductImg" src="/NibInk/images/${item.getCodenumber()}/thumbnail.jpg">
 								</div>
 									<br>${item.getTitle()}<br>
 									<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
@@ -139,7 +191,18 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<jsp:include page="footer.jsp" />
+	<script type="text/javascript">
+		function change(i)
+		{
+			var divElement = document.getElementById("columLeft");
+			var imgElements = divElement.querySelectorAll('img[style="display: flex;"]');
+			imgElements[0].style.display="none";
+			var selectedImage = document.getElementById(i);
+			selectedImage.style.display="flex";
+		}
+	</script>
 </body>
 </html>

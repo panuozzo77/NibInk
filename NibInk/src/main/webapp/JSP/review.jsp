@@ -126,89 +126,60 @@ for (Review rev : rm.list) { %>
 	<% } %>
 	</div>
 </div>
-<%
-if (!session.getAttribute("userType").equals("unregistered")) {
-	if (rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) {
-		if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { %>
-			<% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id"))); %>
-			<!--  PER QUALCHE RAGIONE QUESTO PEZZO DI CODICE NON VIENE PROPRIO UTILIZZATO. MODIFICARE DIRETTAMENTE LO STESSO CODICE PIÙ IN BASSO NEL SECONDO ELSE -->
-			<div class="userReviewModify">
-				<h2>Modifica la recensione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        <textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
-			        <label for="stars">Rating:</label><br>
-			        <div class="stars">
-			            <input type="radio" id="star5" name="rating" value="5" />
-			            <label for="star5">&#9733;</label>
-			            <input type="radio" id="star4" name="rating" value="4" />
-			            <label for="star4">&#9733;</label>
-			            <input type="radio" id="star3" name="rating" value="3" />
-			            <label for="star3">&#9733;</label>
-			            <input type="radio" id="star2" name="rating" value="2" />
-			            <label for="star2">&#9733;</label>
-			            <input type="radio" id="star1" name="rating" value="1" />
-			            <label for="star1">&#9733;</label>
-			        </div><br>
-			        <input type="hidden" name="modify" value="yes">
-			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-			        <input type="submit" value="Modifica">
-			    </form>
-			</div>
-		<% } else { %>
-			<div class="userReviewWrite">
-				<h2>Scrivi una recensione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        <textarea id="review" name="review" rows="4" placeholder="Scrivi una recensione..."></textarea><br>
-			        <label for="stars">Rating:</label><br>
-			        <div class="stars">
-			            <input type="radio" id="star5" name="rating" value="5" />
-			            <label for="star5">&#9733;</label>
-			            <input type="radio" id="star4" name="rating" value="4" />
-			            <label for="star4">&#9733;</label>
-			            <input type="radio" id="star3" name="rating" value="3" />
-			            <label for="star3">&#9733;</label>
-			            <input type="radio" id="star2" name="rating" value="2" />
-			            <label for="star2">&#9733;</label>
-			            <input type="radio" id="star1" name="rating" value="1" />
-			            <label for="star1">&#9733;</label>
-			        </div><br>
-			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-			        <input type="submit" value="Invia">
-			    </form>
-			</div>
-		<% } %>
-	<% } else { %>
-		<div class="userReviewLimit">
-			<h2>Hai già recensito questo articolo</h2>
-			<% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id"))); %>
-			<div class="userReviewModify">
-				<h2>Modifica la recensione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        <textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
-			        <label for="stars">Rating:</label><br>
-			        <div class="stars">
-			            <input type="radio" id="star5" name="rating" value="5" />
-			            <label for="star5">&#9733;</label>
-			            <input type="radio" id="star4" name="rating" value="4" />
-			            <label for="star4">&#9733;</label>
-			            <input type="radio" id="star3" name="rating" value="3" />
-			            <label for="star3">&#9733;</label>
-			            <input type="radio" id="star2" name="rating" value="2" />
-			            <label for="star2">&#9733;</label>
-			            <input type="radio" id="star1" name="rating" value="1" />
-			            <label for="star1">&#9733;</label>
-			        </div><br>
-			        <input type="hidden" name="modify" value="yes">
-			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-			        <input type="submit" value="Modifica">
-			    </form>
-			</div>
-		</div>
-	<% } %>
-<% } else { %>
+<% if (session.getAttribute("userType").equals("unregistered")) { System.out.println("recensione: utente non registrato");%>
 	<div class="userReviewLimit">
-		<h2>Effettua il login per recensire questo articolo</h2>
-	</div>
-<% } %>
+    <h2>Effettua il login per recensire questo articolo</h2>
+</div>
+	<% } else { System.out.println("recensione: utente  registrato");
+      if (rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha acquistato l'articolo");
+          if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha già recensito l'articolo");%>
+              <% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")));
+                 if (review != null) { %>
+                  <div class="userReviewModify">
+                      <h2>Modifica la recensione</h2>
+                      <form action="/NibInk/AddReviewServlet" method="post">
+                          <textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
+                          <label for="stars">Rating:</label><br>
+                          <div class="stars">
+                              <input type="radio" id="star5" name="rating" value="5" />
+                              <label for="star5">&#9733;</label>
+                              <input type="radio" id="star4" name="rating" value="4" />
+                              <label for="star4">&#9733;</label>
+                              <input type="radio" id="star3" name="rating" value="3" />
+                              <label for="star3">&#9733;</label>
+                              <input type="radio" id="star2" name="rating" value="2" />
+                              <label for="star2">&#9733;</label>
+                              <input type="radio" id="star1" name="rating" value="1" />
+                              <label for="star1">&#9733;</label>
+                          </div><br>
+                          <input type="hidden" name="modify" value="yes">
+                          <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
+                          <input type="submit" value="Modifica">
+                      </form>
+                  </div>
+              <% } %>
+          <% } else { System.out.println("recensione: utente deve recensire");%>%>
+              <div class="userReviewWrite">
+                  <h2>Scrivi una recensione</h2>
+                  <form action="/NibInk/AddReviewServlet" method="post">
+                      <textarea id="review" name="review" rows="4" placeholder="Scrivi una recensione..."></textarea><br>
+                      <label for="stars">Rating:</label><br>
+                      <div class="stars">
+                          <input type="radio" id="star5" name="rating" value="5" />
+                          <label for="star5">&#9733;</label>
+                          <input type="radio" id="star4" name="rating" value="4" />
+                          <label for="star4">&#9733;</label>
+                          <input type="radio" id="star3" name="rating" value="3" />
+                          <label for="star3">&#9733;</label>
+                          <input type="radio" id="star2" name="rating" value="2" />
+                          <label for="star2">&#9733;</label>
+                          <input type="radio" id="star1" name="rating" value="1" />
+                          <label for="star1">&#9733;</label>
+                      </div><br>
+                      <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
+                      <input type="submit" value="Invia">
+                  </form>
+              </div>
+          <% } } }%>
 </body>
 </html>
