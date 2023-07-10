@@ -38,8 +38,13 @@ form{
 	content: ' *';
 }
 
-h3{
-	margin-bottom: 7%;
+h2, h4{
+	margin-bottom: 3%;
+}
+
+.paymentMethods{
+	margin-bottom: 5%;
+	margin-left: 5%;
 }
 
 input[type=text]{
@@ -88,6 +93,11 @@ input[type=text]{
 	color: gray;
 }
 
+.checkBoxes{
+	display: flex;
+	flex-direction: column;
+}
+
 .billingAddr{
 	margin-top: 4%;
 	margin-bottom: 4%;
@@ -104,12 +114,6 @@ input[type=text]{
 
 .cbText{
 	width: 100%;
-}
-
-.inputBAddrHidden{
-	visibility: hidden;
-	display: none;
-	pointer-events: none;
 }
 
 .inputBAddrShow{

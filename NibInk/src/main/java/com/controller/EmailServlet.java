@@ -1,6 +1,7 @@
 package com.controller;
 
 import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
@@ -17,27 +18,24 @@ public class EmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String recipient = request.getParameter("recipient");
-        String subject = request.getParameter("subject");
-        String message = request.getParameter("message");
-        
+        String sendTo = request.getParameter("sendTo")!=null? (String)request.getParameter("sendTo"): (String)request.getAttribute("sendTo");
+        String subject = request.getParameter("subject")!=null? (String)request.getParameter("subject"): (String)request.getAttribute("subject");
+        String message = request.getParameter("message")!=null? (String)request.getParameter("message"): (String)request.getAttribute("message");
         try {
-            SimpleEmail email = new SimpleEmail();
-            email.setHostName("smtp.gmail.com");
-            email.setSmtpPort(587);
-            email.setAuthenticator(new DefaultAuthenticator("nibinkhelper@gmail.com", "progettotsw"));
-            email.setStartTLSEnabled(true);
-            email.setFrom("nibinkhelper@gmail.com");
-            email.setSubject(subject);
+        	
+        	Email email = new SimpleEmail();
+        	email.setHostName("smtp.googlemail.com");
+        	email.setSmtpPort(465);
+        	email.setAuthenticator(new DefaultAuthenticator("nibinkhelper@gmail.com", "etnvtvwwbhbeqlkv"));
+        	email.setSSLOnConnect(true);
+        	email.setFrom("nibinkhelper@gmail.com");
+        	email.setSubject(subject);
             email.setMsg(message);
-            email.addTo(recipient);
+            email.addTo(sendTo);
+        	email.send();
 
-            email.send();
-
-            response.getWriter().println("Email inviata con successo!");
-        } catch (Exception e) {
-            response.getWriter().println("Si è verificato un errore durante l'invio dell'email: " + e.getMessage());
-        }
-        
+            response.getWriter().println("Email sent!");
+        } catch (EmailException e) {
+            response.getWriter().println("Error: "+e.getMessage());
+        }  
     }
-}

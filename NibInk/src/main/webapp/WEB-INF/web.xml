@@ -16,6 +16,10 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <icon>
+    <small-icon>/images/favicon.ico</small-icon>
+    <large-icon>/images/favicon.ico</large-icon>
+</icon>
   <error-page>
   	<error-code>404</error-code>
   	<location>/404.html</location>

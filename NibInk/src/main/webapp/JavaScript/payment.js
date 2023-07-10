@@ -46,20 +46,20 @@ function generateCountry(){
 					"Vanuatu", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
 	
 	
-	$("#country").append($("<option disabled>").text("Seleziona un Paese"));
-	$("#country").append($("<option disabled>").text("------------------"));
+	$("#Country").append($("<option disabled>").text("Seleziona un Paese"));
+	$("#Country").append($("<option disabled>").text("------------------"));
 	
 	for(let i=0; i<mostUsedCountry.length; i++){
-		$("#country").append($("<option>").text(mostUsedCountry[i]));
+		$("#Country").append($("<option>").text(mostUsedCountry[i]));
 	}
 	
-	$("#country").append($("<option disabled>").text("------------------"));
+	$("#Country").append($("<option disabled>").text("------------------"));
 	
 	for(let i=0; i<countryArr.length; i++){
-		$("#country").append($("<option>").text(countryArr[i]));
+		$("#Country").append($("<option>").text(countryArr[i]));
 	}
 	
-	$("#country option:contains('Italia'):first").prop("selected", true);
+	$("#Country option:contains('Italia'):first").prop("selected", true);
 }
 
 function generateStates(){
@@ -73,30 +73,53 @@ function generateStates(){
 					   "Ragusa", "Ravenna", "Reggio Calabria", "Reggio Emilia", "Rieti", "Rimini", "Roma", "Rovigo", "Salerno", "Sassari", "Savona", "Siena",
 					   "Siracusa", "Sondrio", "Taranto", "Teramo", "Terni", "Torino", "Trapani", "Trento", "Treviso", "Trieste", "Udine", "Varese", "Venezia",
 					   "Verbano-Cusio-Ossola", "Vercelli", "Verona", "Vibo Valentia", "Vicenza", "Viterbo"];
-    var italianInitials=["AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA", "BT", "BL", "BN", "BG", "BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE",
+	var italianInitials=["AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA", "BT", "BL", "BN", "BG", "BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CI", "CE",
 						 "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI", "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "SP", "AQ", "LT", 
 						 "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT", "VS", "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OG", "OT", "OR", "PD", "PA", "PR", 
 						 "PV", "PG", "PU", "PE", "PC", "PI", "PT", "PN", "PZ", "PO", "RG", "RA", "RC", "RE", "RI", "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", 
 						 "SO", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD", "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT"];
 					   
-	$("#state").append($("<option disabled>").text("Seleziona una Provincia"));
+	$("#State").append($("<option disabled>").text("Seleziona una Provincia"));
 	
     for(let i=0; i<italianStates.length; i++){
-		$("#state").append($("<option>").text(italianStates[i]).val(italianInitials[i]));
+		$("#State").append($("<option>").text(italianStates[i]).val(italianInitials[i]));
 	}
 }
 
-function toggleBillingAddr(){
-	var classes=["inputBAddrHidden", "inputBAddrShow"];
-	$("#inputBAddr").toggleClass(classes);
-}
-
 function toggleItaly(){
-	if($("#country").val()!="Italia"){
+	if($("#Country").val()!="Italia"){
 		$(".italyOnly").addClass("Hidden");
 	} else{
 		$(".italyOnly").removeClass("Hidden");
 	}
+}
+
+//---------------------------------------------
+
+function toggleBillingAddr(){
+	var classes=["Hidden", "inputBAddrShow"];
+	$("#inputBAddr").toggleClass(classes);
+}
+
+function toggleSecondCB(){
+	var classes=["Hidden", "billingAddr"];
+	
+	$("#secondCheckBox").toggleClass(classes);
+	
+	if($("#secondCheckBox").hasClass("Hidden")==true){
+		$("#addrCheckbox").prop('checked', true);
+		if($("#inputBAddr").hasClass("inputBAddrShow")){
+			toggleBillingAddr();
+		}
+	}
+}
+
+function showCard(){
+	$("#inputCard").removeClass("Hidden");
+}
+
+function hideCard(){
+	$("#inputCard").addClass("Hidden");
 }
 
 function checkAndSubmit(event){
@@ -107,6 +130,8 @@ function checkAndSubmit(event){
 		}
 	}else{		
 		if(checkCard() && checkAddr()){
+			var addr=genBA();
+			$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne", "addr": addr, "isBA": true});
 			//$("#paymentForm").submit();
 		}
 	}
@@ -127,11 +152,11 @@ function checkCard(){
 	
 	
 	if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
-		console.log("Cardtest PASS!");
+		//console.log("Cardtest PASS!");
 		showErrorsCard();
 		return true;
 	}else{
-		console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
+		//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
 		showErrorsCard();
 		return false;
 	}
@@ -153,37 +178,53 @@ function checkAddr(){
 	var testZipCode = /^\d{5}$/
 	var testNumber = /^\d+$/
 	
-	if($("#country").val()=="Italia"){
+	if($("#Country").val()=="Italia"){
 		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number) && testZipCode.test(zipCode)){
-			console.log("Addrtest PASS!");
+			//console.log("Addrtest PASS! Italy");
 			showErrors();
 			return true;
 		} else{
-			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+ testNumber.test(number)+", zip: "+ testZipCode.test(zipCode));
-			showErrors();
-			return false;
+			//console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr)+ testNumber.test(number) +", zip: "+ testZipCode.test(zipCode));
 		}
 	}else{
 		if(testNS.test(nameSurname) && testCity.test(city) && testAddr.test(addr) && testNumber.test(number)){
-			console.log("Addrtest PASS!");
+			//console.log("Addrtest PASS! No Ita");
 			showErrors();
-			return true;
+			return true
 		} else{
-			console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr));
-			showErrors();
-			return false;
+			//console.log("Ecco i risultati dei test: NS: " + testNS.test(nameSurname)+", city: "+ testCity.test(city)+", addr "+ testAddr.test(addr));
 		}
-		
+	}
+	showErrors();
+	return false;
+}
+
+function genBA(){
+	var addr;
+	
+	addr=$("#baNameSurname").val()+", "+$("#baStreet").val()+" "+$("#baNumber").val()+ " " + $("#baZipCode").val();
+	if(!($("#baMoreInfo").val()=="")){
+		addr+=", "+$("#baMoreInfo").val();
 	}
 	
+	addr+=", "+$("#baCity").val()+" "+$("#State").val()+", "+$("#Country").val();
+	
+	return addr;
+}
+
+function preventSubmitWithEnter(event) {
+    if (event.keyCode === 13) {
+    	event.preventDefault();
+        return false;
+    }
 }
 
 function showErrors(){
-	var nameSurname=$("#NameSurname").val();
-	var addr=$("#Street").val();
-	var zipCode=$("#ZipCode").val();
-	var city=$("#City").val();
-	var number=$("#Number").val();
+	var nameSurname=$("#baNameSurname").val();
+	var addr=$("#baStreet").val();
+	var zipCode=$("#baZipCode").val();
+	var city=$("#baCity").val();
+	var number=$("#baNumber").val();
 	
 	var testNS = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCity = /^[A-Za-z\s]+$/
@@ -193,33 +234,33 @@ function showErrors(){
 	
 	
 	if(!testNS.test(nameSurname)){
-		$("#NameSurname").addClass("showError");
+		$("#baNameSurname").addClass("showError");
 	}else{
-		$("#NameSurname").removeClass("showError");
+		$("#baNameSurname").removeClass("showError");
 	}
 	
 	if(!testCity.test(city)){
-		$("#City").addClass("showError");
+		$("#baCity").addClass("showError");
 	}else{
-		$("#City").removeClass("showError");
+		$("#baCity").removeClass("showError");
 	}
 	
 	if(!testAddr.test(addr) || addr===undefined){
-		$("#Street").addClass("showError");
+		$("#baStreet").addClass("showError");
 	}else{
-		$("#Street").removeClass("showError");
+		$("#baStreet").removeClass("showError");
 	}
 	
 	if(!testNumber.test(number) || number===undefined){
-		$("#Number").addClass("showError");
+		$("#baNumber").addClass("showError");
 	}else{
-		$("#Number").removeClass("showError");
+		$("#baNumber").removeClass("showError");
 	}
 	
 	if(!testZipCode.test(zipCode)){
-		$("#ZipCode").addClass("showError");
+		$("#baZipCode").addClass("showError");
 	}else{
-		$("#ZipCode").removeClass("showError");
+		$("#baZipCode").removeClass("showError");
 	}
 }
 
@@ -269,12 +310,4 @@ function showErrorsCard(){
 function revertColor(){
 	$("#expMonth").removeClass("showError");
 	$("#expMonth").addClass("selectColor");
-}
-
-
-function handleKeyPress(event) {
-    if (event.keyCode === 13) {
-    	event.preventDefault();
-        return false;
-    }
 }

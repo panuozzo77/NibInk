@@ -15,23 +15,37 @@
 	
 	<div class="container0">
 		<div class="container1">
-		<h3>Pagamento ordine</h3>
+		<h2>Pagamento ordine</h2><br>
 			<form id="paymentForm" onkeydown="preventSubmitWithEnter(event)">
-				<p class="required">Intestatario Carta</p>	
-				<input type="text" id="cardName"><br>
-				<p class="required">Numero della Carta</p>
-				<input type="text" id="cardNumber"><br>
-				<div  class="secondHalf">
-					<div class="shContent">
-						<p class="required">Data di Scadenza</p>
-						<br>
-						<select id="expMonth" class="selectColor" onclick="revertColor()"></select><select id="expYear" class="selectColor"></select>
-					</div>
-					<div class="shContent">
-						<p class="required">Codice di Sicurezza</p>
-						<input type="text" id="cardCode">	
+			
+				<h4>Metodo di pagamento</h4>
+				<div class="paymentMethods">
+					<input name="paymentRadio" id="pm1" type="radio" value="card" onclick="showCard()">
+					<label for="pm1">Carta di Credito</label>
+					<br>
+					<input name="paymentRadio" id="pm2" type="radio" value="cashOnDelivery" onclick="hideCard()">
+					<label for="pm1">Contrassegno</label>
+				</div>
+
+				<div id="inputCard" class="Hidden">
+					<h4>Dati di pagamento</h4>
+					<p class="required">Intestatario Carta</p>	
+					<input type="text" id="cardName"><br>
+					<p class="required">Numero della Carta</p>
+					<input type="text" id="cardNumber"><br>
+					<div  class="secondHalf">
+						<div class="shContent">
+							<p class="required">Data di Scadenza</p>
+							<br>
+							<select id="expMonth" class="selectColor" onclick="revertColor()"></select><select id="expYear" class="selectColor"></select>
+						</div>
+						<div class="shContent">
+							<p class="required">Codice di Sicurezza</p>
+							<input type="text" id="cardCode">	
+						</div>
 					</div>
 				</div>
+				
 				<div class="checkBoxes">
 					<div id="firstCheckBox" class="billingAddr">
 						<input type="checkbox" onclick="toggleSecondCB()" id="BACheckBox"> 
@@ -47,40 +61,41 @@
 						</div>	
 					</div>
 				</div>
+				
 				<div id="inputBAddr" class="Hidden">
 					<h3>Indirizzo di Fatturazione</h3>
-							<p class="required">Paese</p>
-							<br>
-							<select id="Country" onchange="toggleItaly()">
-							</select>
-							
-							<p class="required">Nome e Cognome</p>
-							<input id="baNameSurname" type="text">
-							
-							<div class="addr">
-								<div class="addrFirst">
-									<p class="required">Via</p>
-									<input id="baStreet"type="text">
-								</div>
-								<div class="addrSecond">
-									<p class="required">N° Civico</p>
-									<input id="baNumber"type="text">
-								</div>
-							</div>
-							
-							<p>Appartamento/Interno/Altro</p>
-							<input id="baMoreInfo" type="text">
-							
-							<p class="required italyOnly">Codice Postale</p>
-							<input id="baZipCode" class="italyOnly" type="text">
-							
-							<p class="required">Città</p>
-							<input id="baCity" type="text">
-							
-							<p class="required italyOnly">Provincia</p>
-							<br>
-							<select id="State" class="italyOnly"></select>
+					<p class="required">Paese</p>
+					<br>
+					<select id="Country" onchange="toggleItaly()">
+					</select>
+					
+					<p class="required">Nome e Cognome</p>
+					<input id="baNameSurname" type="text">
+					
+					<div class="addr">
+						<div class="addrFirst">
+							<p class="required">Via</p>
+							<input id="baStreet"type="text">
 						</div>
+						<div class="addrSecond">
+							<p class="required">N° Civico</p>
+							<input id="baNumber"type="text">
+						</div>
+					</div>
+					
+					<p>Appartamento/Interno/Altro</p>
+					<input id="baMoreInfo" type="text">
+					
+					<p class="required italyOnly">Codice Postale</p>
+					<input id="baZipCode" class="italyOnly" type="text">
+					
+					<p class="required">Città</p>
+					<input id="baCity" type="text">
+					
+					<p class="required italyOnly">Provincia</p>
+					<br>
+					<select id="State" class="italyOnly"></select>
+				</div>
 					
 				<div class="shButtons">	
 					<button id="submit" onclick="checkAndSubmit(event)">Rivedi il tuo Ordine</button>
