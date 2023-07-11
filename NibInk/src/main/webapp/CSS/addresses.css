@@ -63,6 +63,15 @@
 	border-radius: 10px;
 }
 
+.ba{
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: lightgray;
+	border-radius: 20px;
+	width: fit-content;
+	font-size: 12px;
+}
+
 .addrText{
 	margin-left: 5%;
 }

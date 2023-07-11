@@ -52,6 +52,12 @@
 										<p id="moreInfo<%=i%>"><%=a.getMoreInfo()%></p>
 										<p id="country<%=i%>"><%=a.getCountry()%></p> 
 									</div>
+									<%if(a.getBA()){%>
+										<div>
+											<p class="ba">Fatturazione</p>
+										</div>
+					
+									<%} %>
 										<input id="isBa<%=i%>" value="<%=a.getBA() %>" type="hidden">
 										<input id="isDe<%=i%>" value="<%=a.getDefault() %>" type="hidden">
 								</div>

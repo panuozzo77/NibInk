@@ -88,7 +88,7 @@ if(item.getType()!= null)
 				<button id="textButton" style="display:none" onclick="showTextBox()" type="button">Mostra Input</button>
 				<button id="optionButton" style="display:inline" onclick="showOptions()" type="button">Mostra Opzioni</button>
 			</p>
-
+		</div>
 		<div class="submitButton">
 			<%
 			String text = "Aggiungi al Catalogo";
@@ -100,8 +100,7 @@ if(item.getType()!= null)
 			<button type="submit" onclick="saveSizes()"><%=text %></button>
 		</div>
 	</form>
-		</div>
-		<%if(id!=null){ %>
+	<%if(id!=null){ %>
 		<div class="images">
 			<form id="uploadForm" enctype="multipart/form-data" action="/NibInk/UploadServlet" method="post">
   			<h3>Carica Copertina:</h3>
@@ -125,5 +124,6 @@ if(item.getType()!= null)
 			<button id="closePopup" onclick="closePopUp()">Chiudi</button>
 		</div>
 	</div>
+		
 </body>
 </html>

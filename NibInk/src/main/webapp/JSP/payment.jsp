@@ -16,7 +16,7 @@
 	<div class="container0">
 		<div class="container1">
 		<h2>Pagamento ordine</h2><br>
-			<form id="paymentForm" onkeydown="preventSubmitWithEnter(event)">
+			<form id="paymentForm" action="/NibInk/toSummary" method="post" onkeydown="preventSubmitWithEnter(event)" onsubmit="console.log('SUBMIT!!');">
 			
 				<h4>Metodo di pagamento</h4>
 				<div class="paymentMethods">
@@ -24,24 +24,24 @@
 					<label for="pm1">Carta di Credito</label>
 					<br>
 					<input name="paymentRadio" id="pm2" type="radio" value="cashOnDelivery" onclick="hideCard()">
-					<label for="pm1">Contrassegno</label>
+					<label for="pm2">Contrassegno</label>
 				</div>
 
 				<div id="inputCard" class="Hidden">
 					<h4>Dati di pagamento</h4>
 					<p class="required">Intestatario Carta</p>	
-					<input type="text" id="cardName"><br>
+					<input name="cardName" type="text" id="cardName"><br>
 					<p class="required">Numero della Carta</p>
-					<input type="text" id="cardNumber"><br>
+					<input name="cardNumber" type="text" id="cardNumber"><br>
 					<div  class="secondHalf">
 						<div class="shContent">
 							<p class="required">Data di Scadenza</p>
 							<br>
-							<select id="expMonth" class="selectColor" onclick="revertColor()"></select><select id="expYear" class="selectColor"></select>
+							<select name="expMonth" id="expMonth" class="selectColor" onclick="revertColor()"></select><select name="expYear" id="expYear" class="selectColor"></select>
 						</div>
 						<div class="shContent">
 							<p class="required">Codice di Sicurezza</p>
-							<input type="text" id="cardCode">	
+							<input name="cardCode" type="text" id="cardCode">	
 						</div>
 					</div>
 				</div>
@@ -99,6 +99,7 @@
 					
 				<div class="shButtons">	
 					<button id="submit" onclick="checkAndSubmit(event)">Rivedi il tuo Ordine</button>
+					<input id="realSubmit" type="submit" class="Hidden">
 				</div>	
 			</form>
 		</div>

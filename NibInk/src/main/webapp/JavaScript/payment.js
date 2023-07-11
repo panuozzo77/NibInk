@@ -124,15 +124,40 @@ function hideCard(){
 
 function checkAndSubmit(event){
 	event.preventDefault();
-	if($("#addrCheckbox").prop("checked")){
-		if(checkCard()){
-			//$("#paymentForm").submit();
+	
+	if(!$("#BACheckBox").prop("checked")){
+		let addr ="false";
+		copyAddrToBa(addr);
+		if($("#pm2").is(":checked")){
+			//CashOnDelivery senza fattura
+			$("#realSubmit").click();
+		}else if(checkCard()){
+			//Carta senza fattura
+			$("#realSubmit").click();
 		}
-	}else{		
-		if(checkCard() && checkAddr()){
-			var addr=genBA();
-			$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne", "addr": addr, "isBA": true});
-			//$("#paymentForm").submit();
+	}else {
+		if($("#addrCheckbox").prop("checked")){
+			let addr = $("#userSavedAddr").text();
+			copyAddrToBa(addr);
+			if($("#pm2").is(":checked")){
+				//CashOnDelivery con fattura uguale a spedizione
+				$("#realSubmit").click();
+			}else if(checkCard()){
+				//Carta con fattura uguale a spedizione
+				$("#realSubmit").click();
+			}
+		}else{
+			if($("#pm2").is(":checked") && checkAddr()){
+				//CashOnDelivery con fattura diversa
+				let addr=genBA();
+				copyAddrToBa(addr);
+				$("#realSubmit").click();
+			}else if(checkCard() && checkAddr()){
+				//Carta con fattura diversa
+				let addr=genBA();
+				copyAddrToBa(addr);
+				$("#realSubmit").click();
+			}
 		}
 	}
 }
@@ -141,25 +166,38 @@ function checkCard(){
 	var cardName=$("#cardName").val();
 	var cardNumber=$("#cardNumber").val();
 	var expMonth=$("#expMonth").val();
+	var expYear=$("#expYear").val();
 	var cardCode=$("#cardCode").val();
 	
 	
 	var testName = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCardNumber = /^\d{16}$/
 	var testCardCode = /^\d{3}$/
-	var testExpMonth = new Date();
-	testExpMonth=testExpMonth.getMonth()+1;
+	var testExpMonth= new Date().getMonth()+1;
+	var testExpYear = new Date().getFullYear();
 	
-	
-	if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
-		//console.log("Cardtest PASS!");
-		showErrorsCard();
-		return true;
+	if(expYear>testExpYear/*Attuale*/){
+		if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode)){
+			//console.log("Cardtest PASS!");
+			showErrorsCard();
+			return true;
+		}else{
+			//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
+			showErrorsCard();
+			return false;
+		}
 	}else{
-		//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
-		showErrorsCard();
-		return false;
+		if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
+			//console.log("Cardtest PASS!");
+			showErrorsCard();
+			return true;
+		}else{
+			//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
+			showErrorsCard();
+			return false;
+		}
 	}
+	
 }
 
 	
@@ -199,6 +237,10 @@ function checkAddr(){
 	return false;
 }
 
+function copyAddrToBa(addr){
+	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne", "addr": addr, "isBA": true});
+}
+
 function genBA(){
 	var addr;
 	
@@ -211,6 +253,7 @@ function genBA(){
 	
 	return addr;
 }
+
 
 function preventSubmitWithEnter(event) {
     if (event.keyCode === 13) {
@@ -231,6 +274,7 @@ function showErrors(){
 	var testAddr = /^[A-Za-z\s]+\d*$/
 	var testZipCode = /^\d{5}$/
 	var testNumber = /^\d+$/
+	
 	
 	
 	if(!testNS.test(nameSurname)){
@@ -269,14 +313,15 @@ function showErrorsCard(){
 	var cardName=$("#cardName").val();
 	var cardNumber=$("#cardNumber").val();
 	var expMonth=$("#expMonth").val();
+	var expYear=$("#expYear").val();
 	var cardCode=$("#cardCode").val();
 	
 	
 	var testName = /^([A-Za-z]+\s){1,}[A-Za-z]+$/
 	var testCardNumber = /^\d{16}$/
 	var testCardCode = /^\d{3}$/
-	var testExpMonth = new Date();
-	testExpMonth=testExpMonth.getMonth()+1;
+	var testExpMonth = new Date().getMonth()+1;
+	var testExpYear = new Date().getFullYear();
 	
 	if(!testName.test(cardName)){
 		$("#cardName").addClass("showError");
@@ -295,16 +340,19 @@ function showErrorsCard(){
 	}else{
 		$("#cardCode").removeClass("showError");
 	}
-	
-	if(!(testExpMonth<expMonth)){
-		$("#expMonth").removeClass("selectColor");
-		$("#expMonth").addClass("showError");
-		$("option").removeClass("showError");
+	if((testExpYear==expYear)){
+		if(!(testExpMonth<expMonth)){
+			$("#expMonth").removeClass("selectColor");
+			$("#expMonth").addClass("showError");
+			$("option").removeClass("showError");
+		}else{
+			$("#expMonth").removeClass("showError");
+			$("#expMonth").addClass("selectColor");
+		}
 	}else{
-		$("#expMonth").removeClass("showError");
-		$("#expMonth").addClass("selectColor");
+			$("#expMonth").removeClass("showError");
+			$("#expMonth").addClass("selectColor");
 	}
-
 }
 
 function revertColor(){

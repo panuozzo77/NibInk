@@ -4,7 +4,7 @@ public class ShippingMethod {
 	String name;
 	float amount;
 	String courier;
-	float percentage = 2.5;
+	float percentage = 2.5f;
 	
 	public String getName(){
 		return this.name;
