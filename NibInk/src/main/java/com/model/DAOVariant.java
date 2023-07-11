@@ -185,6 +185,25 @@ public class DAOVariant extends DAOConnection {
 		return map;
 	}
 	
+	//Quantità generale oggetto
+	public int getQuantity(Item item) {
+		 ResultSet rs = null;
+	        String sql = "Select SUM(Quantity) AS Disponibility from Quantities WHERE item = ? GROUP BY item";
+	        int quantity=0;
+	        try {
+	            stmt = con.prepareStatement(sql);
+	            stmt.setObject(1, item.getCodenumber());
+	            rs=stmt.executeQuery();
+	            if(rs.next()) {
+	                quantity = rs.getInt("Disponibility");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return quantity;
+    }
+
+	//Quantità oggetto + taglia specifica
 	public int getQuantity(Item item, String size) {
 		ResultSet rs = null;
 		String sql = "Select Quantity from Quantities WHERE item = ? AND Size = ?";

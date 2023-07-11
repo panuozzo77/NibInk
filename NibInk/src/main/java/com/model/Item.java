@@ -105,6 +105,6 @@ public class Item
 	
 	public boolean checkDisponibility() {
 		DAOVariant db = new DAOVariant();
-		return db.getQuantity(this)>0;
+		return (db.getQuantity(this)>0);
 	}
 }
