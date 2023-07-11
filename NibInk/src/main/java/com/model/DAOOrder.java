@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,13 +14,72 @@ public class DAOOrder extends DAOConnection {
 
     public DAOOrder() {
         try {
-            con = getConnection(); // Assuming you have a method named getConnection() to establish the database connection
+            con = getConnection(); 
         } catch (SQLException e) {
             System.out.println("Error getting connection in DAOOrder!");
             e.printStackTrace();
         }
     }
 
+    private int getLatestOrderId() {
+    	try {
+    		Statement stmt = con.createStatement();
+    		ResultSet rs = stmt.executeQuery("SELECT id FROM Orders ORDER BY id DESC LIMIT 1");
+    		if(rs.next()) {
+    			return rs.getInt("id");
+    		}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+		}
+    	return 0;
+    }
+    
+    public void saveOrder(Order toSave) {
+    	int orderId = getLatestOrderId() + 1;
+    	try {
+    		String query = "INSERT INTO Orders (ID, User, Email, Shipping_address, Invoice_address, Payment_method, Amount, status, Shipping_Method, Shipping_Cost, Order_Date) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE())";
+    		stmt = con.prepareStatement(query);
+            stmt.setInt(1, orderId);
+            stmt.setInt(2, toSave.getUser());
+            stmt.setString(3, toSave.getEmail());
+            stmt.setString(4, toSave.getShippingAddress());
+            stmt.setString(5, toSave.getInvoiceAddress());
+            stmt.setString(6, toSave.getPaymentMethod());
+            stmt.setFloat(7, toSave.getAmount());
+            stmt.setString(8, "pending");
+            stmt.setString(9, toSave.getShippingMethod());
+            stmt.setFloat(10, toSave.getShippingCost());
+            stmt.executeUpdate();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	saveOrderedItems(orderId, toSave.getPurchased());
+    }
+    
+    public void saveOrderedItems(int orderNumber, ArrayList<OrderedItem> orderedItems) {
+        try {
+            String query = "INSERT INTO OrderedProducts (OrderNumber, Item, Size, Name, Price, VAT, Quantity) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            for (OrderedItem orderedItem : orderedItems) {
+                stmt.setInt(1, orderNumber);
+                stmt.setString(2, orderedItem.getItemId());
+                stmt.setString(3, orderedItem.getSize());
+                stmt.setString(4, orderedItem.getName());
+                stmt.setFloat(5, orderedItem.getPrice());
+                stmt.setFloat(6, orderedItem.getVAT());
+                stmt.setInt(7, orderedItem.getQuantity());
+                stmt.addBatch();
+            }
+
+            stmt.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     // Method to load an order from the database by ID
     public Order loadOrder(int orderId) {
         String query = "SELECT * FROM Orders WHERE ID = ?";
@@ -38,8 +98,9 @@ public class DAOOrder extends DAOConnection {
                 float amount = rs.getFloat("Amount");
                 String status = rs.getString("status");
                 String shippingMethod = rs.getString("Shipping_Method");
+                float shippingCost = rs.getFloat("Shipping_Cost");
                 Date orderDate = rs.getDate("Order_Date");
-                Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
+                Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, shippingCost, orderDate);
                 return order;
             }
         } catch (SQLException e) {
@@ -137,8 +198,9 @@ public class DAOOrder extends DAOConnection {
 	            float amount = rs.getFloat("Amount");
 	            String status = rs.getString("status");
 	            String shippingMethod = rs.getString("Shipping_Method");
+	            float shippingCost = rs.getFloat("Shipping_Cost");
 	            Date orderDate = rs.getDate("Order_Date");
-	            Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, orderDate);
+	            Order order = new Order(id, user, email, shippingAddress, invoiceAddress, paymentMethod, amount, status, shippingMethod, shippingCost, orderDate);
 	            list.add(order);
     		} 
     	} catch (SQLException e) {
@@ -167,13 +229,14 @@ public class DAOOrder extends DAOConnection {
 
         return count;
     }
-    
-    public int getOpenOrdersCount() {
+    //status = {pending, confirmed, canceled, shipped, delivered, toBeReturned, refund}
+    public int getOpenOrdersCount(String status) {
         int count = 0;
 
-        String sql = "SELECT COUNT(*) AS count FROM Orders WHERE status = 'Open'";
+        String sql = "SELECT COUNT(*) AS count FROM Orders WHERE status = ?";
         try {
             stmt = con.prepareStatement(sql);
+            stmt.setString(1, status);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("count");

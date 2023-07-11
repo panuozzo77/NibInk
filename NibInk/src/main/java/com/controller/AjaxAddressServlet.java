@@ -26,16 +26,16 @@ public class AjaxAddressServlet extends HttpServlet {
     	
     	String toDo = request.getParameter("toDo");
     	
-    	if(toDo.equals("saveInBoth")) {
+    	if(toDo.equals("saveInBoth")) { //metodo di spedizione e fatturazione uguali
     		if(request.getParameter("isBA").equals("true")) {
     			sessione.setAttribute("addrBA", request.getParameter("addr"));
         	}
         	sessione.setAttribute("addr", request.getParameter("addr"));
-    	}else if(toDo.equals("saveInOne")) {
-    		if(request.getParameter("isBA").equals("true")) {
-    			sessione.setAttribute("addrBA", request.getParameter("addr"));
+    	}else if(toDo.equals("saveInOne")) { //indirizzi differenti
+    		if(request.getParameter("isBA").equals("true")) { //se è indirizzo di spedizione
+    			sessione.setAttribute("addrBA", request.getParameter("addr")); //salva invoiceAddress [credo getParameter sia errato]
         	}else {
-        		sessione.setAttribute("addr", request.getParameter("addr"));
+        		sessione.setAttribute("addr", request.getParameter("addr"));  //salva shippingAddress
         	}    		
     	}
     	
