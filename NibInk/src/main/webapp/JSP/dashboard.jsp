@@ -4,7 +4,7 @@
 
 <%
     DAOOrder daoOrder = new DAOOrder();
-    int openOrdersCount = daoOrder.getOpenOrdersCount();
+    int openOrdersCount = daoOrder.getOpenOrdersCount("pending");
 
     //DAOMessage daoMessage = new DAOMessage();
     //int messagesCount = daoMessage.getMessagesCount();

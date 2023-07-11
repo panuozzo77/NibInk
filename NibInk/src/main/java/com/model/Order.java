@@ -13,10 +13,13 @@ public class Order {
     private float amount;
     private String status;
     private String shippingMethod;
+    private float shippingCost;
     private Date orderDate;
     ArrayList<OrderedItem> purchased;
 
-    public Order(int id, int user, String email, String shippingAddress, String invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod, Date orderDate) {
+    public Order() {}
+    
+    public Order(int id, int user, String email, String shippingAddress, String invoiceAddress, String paymentMethod, float amount, String status, String shippingMethod, float shippingCost, Date orderDate) {
         this.id = id;
         this.user = user;
         this.email = email;
@@ -26,8 +29,8 @@ public class Order {
         this.amount = amount;
         this.status = status;
         this.shippingMethod = shippingMethod;
+        this.shippingCost = shippingCost;
         this.orderDate = orderDate;
-        this.purchased = getPurchasedItems(id);
     }
 
     public int getId() {
@@ -101,6 +104,14 @@ public class Order {
     public void setShippingMethod(String shippingMethod) {
         this.shippingMethod = shippingMethod;
     }
+    
+    public float getShippingCost() {
+    	return shippingCost;
+    }
+    
+    public void setShippingCost(float cost) {
+    	shippingCost = cost;
+    }
 
     public Date getOrderDate() {
         return orderDate;
@@ -117,6 +128,10 @@ public class Order {
     
     public ArrayList<OrderedItem> getPurchased() {
     	return this.purchased;
+    }
+    
+    public void setPurchased(ArrayList<OrderedItem> list) {
+    	this.purchased = list;
     }
     
 }
