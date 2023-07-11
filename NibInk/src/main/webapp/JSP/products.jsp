@@ -95,7 +95,6 @@ items = db.getItemsNumber();
             <td>
             <form action="/NibInk/JSP/itemEntry.jsp" method="get">
 			<input type="hidden" value="<%=item.getCodenumber() %>" name="id" class="invisibleButtons">
-			<input type="hidden" value="pen" name="type" class="invisibleButtons">
             <button type="submit">Modifica Articolo</button>
             </form>
             </td>

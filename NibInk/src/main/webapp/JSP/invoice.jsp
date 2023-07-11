@@ -15,7 +15,7 @@ Order order = db.loadOrder(id);
 float IVA = order.getAmount()/100*22;
 float netto = order.getAmount()-IVA;
 DAOCustomer db2 = new DAOCustomer();
-Customer customer = db2.getCustomerById(Integer.toString(order.getUser()));
+Customer customer = db2.getCustomerById(order.getUser());
 %>
 <head>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -40,7 +40,7 @@ Customer customer = db2.getCustomerById(Integer.toString(order.getUser()));
 	    <div id="project">
 	      <div><span>ACQUIRENTE</span> <%= customer.getName() %> <%= customer.getSurname() %></div>
 	      <div><span>INDIRIZZO</span> <%= order.getShippingAddress() %></div>
-	      <%if(order.getInvoiceAddress()!=0) { %>
+	      <%if(order.getInvoiceAddress()!=null) { %>
 	      <div><span>FATTURAZIONE</span> <%= order.getInvoiceAddress() %></div>
 	      <% } %>
 	      <div><span>EMAIL</span> <a href="mailto:<%= order.getEmail() %>"><%= order.getEmail() %></a></div>
@@ -105,7 +105,11 @@ Customer customer = db2.getCustomerById(Integer.toString(order.getUser()));
           margin: 1,
           filename: 'fattura.pdf',
           image: { type: 'jpeg', quality: 0.98 },
+<<<<<<< HEAD
           html2canvas: { scale: 2 },
+=======
+          html2canvas: { scale: 1 },
+>>>>>>> refs/heads/Raffaele
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 

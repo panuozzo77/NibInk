@@ -7,7 +7,6 @@
 <%@ page import="com.model.ItemVariant" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.model.ItemManager" %>
-<%@ page import="com.model.FileImage" %>
 <%@ page import="java.util.ArrayList" %>
 
 
@@ -181,7 +180,7 @@
 							<div class="mpCardContent">
 								<button class="mpProductCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">
 								<div>
-								<img class="mpProductImg" src="/NibInk/images/${item.getTitle()}.jpg">
+								<img class="mpProductImg" src="/NibInk/images/${item.getCodenumber()}/thumbnail.jpg">
 								</div>
 									<br>${item.getTitle()}<br>
 									<fmt:formatNumber value="${item.getPrice()}" type="currency"/>

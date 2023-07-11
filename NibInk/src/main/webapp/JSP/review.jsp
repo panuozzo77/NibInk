@@ -16,7 +16,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div>
 <%
 ReviewManager rm = new ReviewManager();
 rm.loadAllReviewsOf(Integer.parseInt(request.getParameter("id")), "items");
@@ -119,7 +118,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 <% DAOCustomer db = new DAOCustomer(); 
 for (Review rev : rm.list) { %>
 	<div>
-	<span><%= db.getCustomerById(Integer.toString(rev.getUserId())).getName()%></span>
+	<span><%= db.getCustomerById(rev.getUserId()).getName() %></span>
 	<% for (int i = 0; i < rev.getStarRating(); i++) { %>
 	<div class="fa fa-star checked"></div>
 	<% } %>
@@ -128,33 +127,36 @@ for (Review rev : rm.list) { %>
 	<% } %>
 	</div>
 </div>
-<%
-if (!session.getAttribute("userType").equals("unregistered")) {
-	if (!(rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id"))))) {//luigi qui c'è l'errore devi capire il perchè ti da false quando il risultato dovrebbe essere false
-		if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { %>
-			<% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id"))); %>
-			<!--  PER QUALCHE RAGIONE QUESTO PEZZO DI CODICE NON VIENE PROPRIO UTILIZZATO. MODIFICARE DIRETTAMENTE LO STESSO CODICE PIÙ IN BASSO NEL SECONDO ELSE -->
-			<div class="userReviewModify">
-				<h2>Modifica la recensione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        <div class="rating">
-						  <input value="1" name="star-radio" id="star-1" type="radio">
+<% if (session.getAttribute("userType").equals("unregistered")) { System.out.println("recensione: utente non registrato");%>
+	<div class="userReviewLimit">
+    <h2>Effettua il login per recensire questo articolo</h2>
+</div>
+	<% } else { System.out.println("recensione: utente  registrato");
+      if (rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha acquistato l'articolo");
+          if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha già recensito l'articolo");%>
+              <% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")));
+                 if (review != null) { %>
+                  <div class="userReviewModify">
+                      <h2>Modifica la recensione</h2>
+                      <form action="/NibInk/AddReviewServlet" method="post">
+                          <div class="rating">
+						  <input value="5" name="rating" id="star-1" type="radio">
 						  <label for="star-1">
 						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 						  </label>
-						  <input value="2" name="star-radio" id="star-2" type="radio">
+						  <input value="4" name="rating" id="star-2" type="radio">
 						  <label for="star-2">
 						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 						  </label>
-						  <input value="3" name="star-radio" id="star-3" type="radio">
+						  <input value="3" name="rating" id="star-3" type="radio">
 						  <label for="star-3">
 						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 						  </label>
-						  <input value="4" name="star-radio" id="star-4" type="radio">
+						  <input value="2" name="rating" id="star-4" type="radio">
 						  <label for="star-4">
 						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 						  </label>
-						  <input value="5" name="star-radio" id="star-5" type="radio">
+						  <input value="1" name="rating" id="star-5" type="radio">
 						  <label for="star-5">
 						    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 						  </label>
@@ -165,31 +167,31 @@ if (!session.getAttribute("userType").equals("unregistered")) {
 			        <input type="hidden" name="modify" value="yes">
 			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
 			        <input type="submit" value="Modifica" class="button">
-			    </form>
-			</div>
-		<% } else { %>
-			<div class="userReviewWrite">
-				<h2>Scrivi una recensione e una valutazione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        
-			        <div class="rating">
-					  <input value="star-1" name="star-radio" id="star-1" type="radio">
+                      </form>
+                  </div>
+              <% } %>
+          <% } else { System.out.println("recensione: utente deve recensire");%>%>
+              <div class="userReviewWrite">
+                  <h2>Scrivi una recensione</h2>
+                  <form action="/NibInk/AddReviewServlet" method="post">
+                      <div class="rating">
+					  <input value="5" name="rating" id="star-1" type="radio">
 					  <label for="star-1">
 					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 					  </label>
-					  <input value="star-1" name="star-radio" id="star-2" type="radio">
+					  <input value="4" name="rating" id="star-2" type="radio">
 					  <label for="star-2">
 					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 					  </label>
-					  <input value="star-1" name="star-radio" id="star-3" type="radio">
+					  <input value="3" name="rating" id="star-3" type="radio">
 					  <label for="star-3">
 					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 					  </label>
-					  <input value="star-1" name="star-radio" id="star-4" type="radio">
+					  <input value="2" name="rating" id="star-4" type="radio">
 					  <label for="star-4">
 					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 					  </label>
-					  <input value="star-1" name="star-radio" id="star-5" type="radio">
+					  <input value="1" name="rating" id="star-5" type="radio">
 					  <label for="star-5">
 					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
 					  </label>
@@ -197,51 +199,8 @@ if (!session.getAttribute("userType").equals("unregistered")) {
 					<textarea id="review" name="review" rows="4" placeholder="Scrivi una recensione..."></textarea><br>
 			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
 			        <input type="submit" value="Invia" class="button">
-			    </form>
-			</div>
-		<% } %>
-	<% } else { %>
-		<div class="userReviewLimit">
-			<h2>Hai già recensito questo articolo</h2>
-			<% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id"))); %>
-			<div class="userReviewModify">
-				<h2>Modifica la recensione</h2>
-			    <form action="/NibInk/AddReviewServlet" method="post">
-			        <div class="rating">
-					  <input value="star-1" name="star-radio" id="star-1" type="radio">
-					  <label for="star-1">
-					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-					  </label>
-					  <input value="star-1" name="star-radio" id="star-2" type="radio">
-					  <label for="star-2">
-					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-					  </label>
-					  <input value="star-1" name="star-radio" id="star-3" type="radio">
-					  <label for="star-3">
-					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-					  </label>
-					  <input value="star-1" name="star-radio" id="star-4" type="radio">
-					  <label for="star-4">
-					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-					  </label>
-					  <input value="star-1" name="star-radio" id="star-5" type="radio">
-					  <label for="star-5">
-					    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" pathLength="360"></path></svg>
-					  </label>
-					</div>
-					<textarea id="review" name="review" rows="4" placeholder="<%= review.getText() %>"></textarea><br>
-			        <input type="hidden" name="modify" value="yes">
-			        <input type="hidden" name="itemId" value="<%= request.getParameter("id") %>">
-			        <input type="submit" value="Modifica" class="button">
-			    </form>
-			</div>
-		</div>
-	<% } %>
-<% } else { %>
-	<div class="userReviewLimit">
-		<h2>Effettua il login per recensire questo articolo</h2>
-	</div>
-<% } %>
-</div>
+                  </form>
+              </div>
+          <% } } }%>
 </body>
 </html>

@@ -30,7 +30,7 @@
 	<form action="/NibInk/RegistrationServlet" id="form_registration" method="POST">
 		<img alt="" src="/NibInk/images/logo.png">
 		<input type="text" placeholder="Email" id="email2" name="email">
-		<div id="emailError" style="display: none; color: red; font-size: 12px;">Inserisca un email accettabile.</div>
+		<div id="emailError" style="display: none; color: red; font-size: 12px;">Inserisca un'email accettabile.</div>
 		<input type="password" placeholder="Password" id="password2" name="password">
 		<div id="lengthError" style="display: none; color: red; font-size: 12px;">La password deve contenere almeno 12 caratteri, un carattere maiuscolo, un numero e un carattere speciale.</div>
 		<input type="text" placeholder="Nome Utente" id="nome2" name="name">
@@ -84,50 +84,17 @@ window.onload = function() {
         if (contiene_maiuscolo && password.length >= 12 && contiene_carattere_speciale) {
             lengthError.style.display = 'none';
             invio.disabled = false;
-        }
-        else if(contiene_maiuscolo && password.length >= 12)
-        	{
-        		
-	        	lengthError.style.display = 'none';
-	            invio.disabled = false;
-        	}
-        else if(contiene_maiuscolo && contiene_carattere_speciale)
-    	{
-        	lengthError.innerHTML = "La password deve essere lunga minimo 12 caratteri";
-        	lengthError.style.display = 'block';
-            invio.disabled = true;
-    	}
-        else if(password.length >= 12 && contiene_carattere_speciale)
-    	{
-        	lengthError.innerHTML = "La password deve contenere almeno un carattere Maiuscolo";
-        	lengthError.style.display = 'block';
-            invio.disabled = true;
-    	}
-	    else if(contiene_maiuscolo)
-		{
-	    	lengthError.innerHTML = "La password deve essere almeno di 12 caratteri e avere un carattere speciale";
-        	lengthError.style.display = 'block';
-            invio.disabled = true;
-		}
-	    else if(password.length >= 12)
-		{
-	    	lengthError.innerHTML = "La password deve avere almeno un carattere maiuscolo e un carattere speciale";
-        	lengthError.style.display = 'block';
-            invio.disabled = true;
-		}
-	    else if(contiene_carattere_speciale)
-		{
-	    	lengthError.innerHTML = "La password deve essere di 12 caratteri e avere almeno un numero";
-        	lengthError.style.display = 'block';
-            invio.disabled = true;
-		}
-        else {
+        } else {
             lengthError.style.display = 'block';
             invio.disabled = true;
         }
     });
-    
-    var email = document.getElementById('email2');//non possono essere presenti più eventi window.onload
+}
+</script>
+
+<script type="text/javascript">
+window.onload = function() {
+    var email = document.getElementById('email2');
     var emailError = document.getElementById('emailError');
     var invio = document.getElementById('invio2');
     email.addEventListener('blur', function() {
@@ -142,8 +109,6 @@ window.onload = function() {
     });
 }
 </script>
-
-
 
 </body>
 </html>
