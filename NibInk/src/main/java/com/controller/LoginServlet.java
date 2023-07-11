@@ -24,7 +24,8 @@ public class LoginServlet extends HttpServlet {
     	String password = request.getParameter("password");
     	DAOCustomer verify = new DAOCustomer();
     	int status = verify.checkLogin(email, password);
-    	System.out.println(status);
+    	//System.out.println(status);
+    	String card=""; //TODO prendila dal db
     	switch (status) {
     		case 1: 
     			HttpSession session = request.getSession();
@@ -33,6 +34,7 @@ public class LoginServlet extends HttpServlet {
     			session.setAttribute("userType", customer.getType());
     			session.setAttribute("name", customer.getName());
     			session.setAttribute("id", customer.getID());
+    			session.setAttribute("savedCard", card);
     			response.sendRedirect("/NibInk/JSP/home.jsp"); //login effettuato correttamente
     			break;
     		case 2:

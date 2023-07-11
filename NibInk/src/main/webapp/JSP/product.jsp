@@ -163,7 +163,6 @@
 					<li><b>&emsp;Dimensioni:</b>		<%= product.getDimensions()%></li>
 				</ul>		
 		</div>
-		<jsp:include page="review.jsp" />
 		<div class="rowDown">
 			<h4>Prodotti Correlati</h4>	
 			<div class="moreProducts">
@@ -191,7 +190,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<jsp:include page="review.jsp"/>
 	</div>
 	<jsp:include page="footer.jsp" />
 	<script type="text/javascript">

@@ -1,8 +1,11 @@
+var savedCardValue;
+
 $(document).ready(function startUp(){
 	generateExpMonth();
 	generateExpYear();
 	generateCountry();
 	generateStates();
+	savedCardValue=$("#cardNumber").val();
 })
 
 function generateExpMonth(){
@@ -116,6 +119,18 @@ function toggleSecondCB(){
 
 function showCard(){
 	$("#inputCard").removeClass("Hidden");
+	showSaveCard();
+}
+
+function showSaveCard(){
+	if($("#cardNumber").val()==savedCardValue){
+		$("#saveCardDiv").removeClass("billingAddr");
+		$("#saveCardDiv").addClass("Hidden");
+		$("#saveCardCB").prop("checked", false);
+	}else{
+		$("#saveCardDiv").addClass("billingAddr");
+		$("#saveCardDiv").removeClass("Hidden");
+	}
 }
 
 function hideCard(){
@@ -176,28 +191,33 @@ function checkCard(){
 	var testExpMonth= new Date().getMonth()+1;
 	var testExpYear = new Date().getFullYear();
 	
-	if(expYear>testExpYear/*Attuale*/){
-		if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode)){
-			//console.log("Cardtest PASS!");
-			showErrorsCard();
-			return true;
-		}else{
-			//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
-			showErrorsCard();
-			return false;
-		}
-	}else{
-		if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
-			//console.log("Cardtest PASS!");
-			showErrorsCard();
-			return true;
-		}else{
-			//console.log("Ecco i risultati dei test: Nome: " + testName.test(cardName)+ ", Numero: "+ testCardNumber.test(cardNumber)+ ", Codice: "+ testCardCode.test(cardCode)+", Mese: "+ (testExpMonth<expMonth));
-			showErrorsCard();
-			return false;
-		}
+	if(expYear>testExpYear){//anno inserito > anno corrente?
+		if(cardNumber==savedCardValue){ //Carta salvata
+			if(testName.test(cardName) && testCardCode.test(cardCode)){
+				showErrorsCard();
+				return true;
+			}
+		}else{ //Carta nuova
+			if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode)){
+				showErrorsCard();
+				return true;
+			}
+		}	
+	}else{//anno inserito == anno corrente
+		if(cardNumber==savedCardValue){ //carta salvata
+			if(testName.test(cardName) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
+				showErrorsCard();
+				return true;
+			}
+		}else{ //Carta nuova
+			if(testName.test(cardName) && testCardNumber.test(cardNumber) && testCardCode.test(cardCode) && (testExpMonth<expMonth)){
+				showErrorsCard();
+				return true;
+			}
+		}	
 	}
-	
+	showErrorsCard();
+	return false;
 }
 
 	
@@ -253,7 +273,6 @@ function genBA(){
 	
 	return addr;
 }
-
 
 function preventSubmitWithEnter(event) {
     if (event.keyCode === 13) {
@@ -329,8 +348,13 @@ function showErrorsCard(){
 		$("#cardName").removeClass("showError");
 	}
 	
-	if(!testCardNumber.test(cardNumber)){
-		$("#cardNumber").addClass("showError");
+	
+	if($("#cardNumber").val()!=savedCardValue){
+		if(!testCardNumber.test(cardNumber)){
+			$("#cardNumber").addClass("showError");
+		}else{
+			$("#cardNumber").removeClass("showError");
+		}
 	}else{
 		$("#cardNumber").removeClass("showError");
 	}

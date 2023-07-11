@@ -8,12 +8,14 @@
 <link href="/NibInk/CSS/myAccount.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+
+
 <div class="pagina">
 	<h1>Mio Account</h1>
 	<div class="opzioni">
 	
 		<div class="riga">
-			<a href="/NibInk/JSP/myOrders.jsp" class="link">
+			<div onclick="redirect('/NibInk/JSP/myOrders.jsp')" class="link"> <!-- TODO fare il js di redirect(where) -->
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/ordini.png">
 					<div class="spiegazione">
@@ -21,8 +23,8 @@
 						<p>Ordini effettuati.</p>
 					</div>
 				</div>
-			</a>
-			<a>
+			</div>
+			<div>
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/accesso.png">
 					<div class="spiegazione">
@@ -30,8 +32,8 @@
 						<p>Metodi di accesso.</p>
 					</div>
 				</div>
-			</a>
-			<a>
+			</div>
+			<div>
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/comunicazioni.png">
 					<div class="spiegazione">
@@ -39,11 +41,11 @@
 						<p>Avvisi e comunicazioni.</p>
 					</div>
 				</div>
-			</a>
+			</div>
 		</div>
 		
 		<div class="riga">
-			<a>
+			<div>
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/Contattaci.png">
 					<div class="spiegazione">
@@ -51,8 +53,8 @@
 						<p>Contatta il nostro <br>servizio clienti</p>
 					</div>
 				</div>
-			</a>
-			<a>
+			</div>
+			<div>
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/indirizzi.png">
 					<div class="spiegazione">
@@ -60,8 +62,8 @@
 						<p>Gestisci gli indirizzi<br> di consegna</p>
 					</div>
 				</div>
-			</a>
-			<a>			</a>
+			</div>
+			<div>	
 				<div class="opzione">
 					<img alt="" src="/NibInk/images/sicurezza.png">
 					<div class="spiegazione">
@@ -69,8 +71,8 @@
 						<p>Sicurezza e controllo</p>
 					</div>
 				</div>
+			</div>
 		</div>
-		
 	</div>
 </div>
 </body>

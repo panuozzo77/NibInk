@@ -16,6 +16,12 @@
 <script src="/NibInk/JavaScript/addresses.js"></script>
 <jsp:include page="navbar.jsp"/>
 
+<% 
+	String fromUser=request.getParameter("fromUser")!=null ? request.getParameter("fromUser") : "";
+	boolean hideSend=!(fromUser.equals("1")); 
+%>
+
+
 <div class="container0">
 		<div class="container1">
 		<h3>Indirizzi di Spedizione</h3>
@@ -62,9 +68,12 @@
 										<input id="isDe<%=i%>" value="<%=a.getDefault() %>" type="hidden">
 								</div>
 								<div class="addrButtons">
-									<div>
-										<button id="sndBttnId<%=i%>" class="sndBttn" onclick="sendAddr(<%=i%>)">Spedisci qui</button>
-									</div>	
+									<%if(hideSend){%>
+										<div>
+											<button id="sndBttnId<%=i%>" class="sndBttn" onclick="sendAddr(<%=i%>)">Spedisci qui</button>
+										</div>
+									<%}%>
+										
 									<div>
 										<div>
 											<button id="mdfBttnId<%=i%>" class="mdfBttn" onclick="modifyAddr(<%=i%>)">Modifica</button>

@@ -12,11 +12,15 @@
 <script src="/NibInk/JavaScript/payment.js"> </script>
 
 <jsp:include page="navbar.jsp"/>
+	<%
+		HttpSession sessione = request.getSession();
+		String registered = (String) sessione.getAttribute("userType");
+	%>
 	
 	<div class="container0">
 		<div class="container1">
 		<h2>Pagamento ordine</h2><br>
-			<form id="paymentForm" action="/NibInk/toSummary" method="post" onkeydown="preventSubmitWithEnter(event)" onsubmit="console.log('SUBMIT!!');">
+			<form id="paymentForm" action="/NibInk/toSummary" method="post" onkeydown="preventSubmitWithEnter(event)">
 			
 				<h4>Metodo di pagamento</h4>
 				<div class="paymentMethods">
@@ -32,7 +36,7 @@
 					<p class="required">Intestatario Carta</p>	
 					<input name="cardName" type="text" id="cardName"><br>
 					<p class="required">Numero della Carta</p>
-					<input name="cardNumber" type="text" id="cardNumber"><br>
+					<input name="cardNumber" type="text" id="cardNumber" value="<%=sessione.getAttribute("savedCard")%>" onkeydown="showSaveCard()"><br>
 					<div  class="secondHalf">
 						<div class="shContent">
 							<p class="required">Data di Scadenza</p>
@@ -44,6 +48,14 @@
 							<input name="cardCode" type="text" id="cardCode">	
 						</div>
 					</div>
+					<%if(registered.equals("registered")){ %>
+						<div id="saveCardDiv" class="billingAddr">
+							<input type="checkbox" name="saveCard" id="saveCardCB"> 
+							<div class="cbText">
+								<div><p>Salva i dati di pagamento per la prossima volta!</p></div>
+							</div>
+						</div>
+					<%} %>
 				</div>
 				
 				<div class="checkBoxes">
