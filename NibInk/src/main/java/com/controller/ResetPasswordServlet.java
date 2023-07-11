@@ -80,8 +80,6 @@ public class ResetPasswordServlet extends HttpServlet {
     	return msg;
     }
     
-    
-    
     protected boolean changeByEmail(String email, String newPassword) {
         DAOCustomer db = new DAOCustomer();
         Customer customer = db.getCustomerByEmail(email);

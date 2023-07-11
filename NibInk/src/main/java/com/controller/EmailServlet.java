@@ -39,3 +39,4 @@ public class EmailServlet extends HttpServlet {
             response.getWriter().println("Error: "+e.getMessage());
         }  
     }
+}
