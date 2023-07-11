@@ -43,6 +43,9 @@
 }
 
 .submenu {
+  background-color: white;
+  margin-top: 5px;
+  padding: 5%;
   position: absolute;
   top: 100%;
   left: 50%;
@@ -140,7 +143,7 @@ a:active { text-decoration: none; }
 	width:100%;
 	background-color:black;
 }
-@media screen and (max-width:1000px)
+@media screen and (max-width:800px)
 {
 	html, body 
 	{

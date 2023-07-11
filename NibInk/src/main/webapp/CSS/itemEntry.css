@@ -71,6 +71,17 @@ body{
 	width: 30%;
 }
 
+.images{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+}
+
+.files{
+	display: inline;
+}
 
 .submitButton{
 	width: 100%;
@@ -81,4 +92,31 @@ body{
 
 .submitButton > button{
 	width: 80%;
+	margin-top: 10%;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgb(51, 209, 122);
+  text-align: center;
+  padding: 20px;
+}
+
+#popup h3 {
+  color: #fff;
+}
+
+#popup img {
+  max-width: 500px;
+  max-height: 500px;
+  margin: 10px;
+}
+
+#closePopup {
+  margin-top: 20px;
 }
