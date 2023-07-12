@@ -52,7 +52,7 @@
 			<p class="filterText">Filtri:</p>
 			
 			<form class="filterForm" action="/NibInk/nextPage" method="get">
-				<div>
+				<div class="contenitore">
 				<div>
 				<input type="checkbox" id="onlyPens" name="onlyPens" value="pen-">
 				<label for="onlyPens"> Penne Stilografiche</label><br>
