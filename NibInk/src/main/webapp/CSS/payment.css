@@ -43,9 +43,22 @@ h2, h4{
 }
 
 .paymentMethods{
+	display:flex;
+	flex-direction:column;
 	margin-bottom: 5%;
 	margin-left: 5%;
 }
+
+.paymentMethods > div
+{
+	display:flex;
+	align-items:center;
+}
+
+input[type="radio"]
+	{
+		margin-right:8px;;
+	}
 
 input[type=text]{
 	margin-top: 3%;
@@ -168,4 +181,85 @@ input[type=text]{
 
 .showError{
 	background-color: #fddcd8;
+}
+
+@media screen and (max-width:1000px)
+{
+
+	.container1
+	{
+		width:80%;
+		height:100%;
+		border-radius: 10px 10px 10px 10px;
+	}
+	
+	h3
+	{
+		font-size: 45px;
+	}
+	h2
+	{
+		font-size:65px;
+	}
+	h4
+	{
+		font-size:40px;
+	}
+	
+	input[type="text"]
+	{
+		font-size:35px;
+	}
+	input[type="radio"]
+	{
+		transform:scale(2.0);
+	}
+	label
+	{
+		font-size: 40px;
+	}
+	
+	p
+	{
+		font-size:40px;
+	}
+	
+	.secondHalf
+	{
+		display:flex;
+		flex-direction:column;
+		justify-content:flex-start;
+		width:100%;
+	}
+	.shContent
+	{
+		margin-bottom: 10px;
+		width:100%
+	}
+	.shContent > #expMonth
+	{
+		font-size:25px;
+		padding:20px;
+		width:8vh;
+	}
+	.shContent > #expYear
+	{
+		font-size:25px;
+		padding:20px;
+		width:8vh;
+	}
+	
+	input[type="checkbox"]
+	{
+		transform: scale(2.0);
+	}
+	
+	select
+	{
+		font-size:30px;
+	}
+	#submit
+	{
+		font-size:35px;
+	}
 }
