@@ -44,7 +44,6 @@ public class DAOSavedCard extends DAOConnection {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-            	System.out.println("trovata!");
                 int id = resultSet.getInt("ID");
                 String cardNumber = resultSet.getString("CardNumber");
                 String obscuredNumber = "xxxx-xxxx-xxxx-" + cardNumber.substring(12);

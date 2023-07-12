@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Metodi di pagamento</title>
 <% 
@@ -68,7 +69,41 @@
     </div>
   </div>
 </section>
-<!-- Modal -->
+<script>
+  $(document).ready(function() {
+    const cardNumberRegex = /^\d{16}$/;
+    const nameRegex = /^[A-Z][a-zA-Z]+\s[A-Z][a-zA-Z]+$/;
+  
+    const cardNumberInput = $('.card-number');
+    const nameInput = $('.card-name');
+    const submitButton = $('.btn');
+  
+    cardNumberInput.on('input', validateForm);
+    nameInput.on('input', validateForm);
+  
+    function validateForm() {
+      const cardNumber = cardNumberInput.val();
+      const name = nameInput.val();
+  
+      const isValidCardNumber = cardNumberRegex.test(cardNumber);
+      const isValidName = nameRegex.test(name);
+  
+      if (isValidCardNumber && isValidName) {
+        enableSubmitButton();
+      } else {
+        disableSubmitButton();
+      }
+    }
+  
+    function enableSubmitButton() {
+      submitButton.prop('disabled', false);
+    }
+  
+    function disableSubmitButton() {
+      submitButton.prop('disabled', true);
+    }
+  });
+</script>
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -83,18 +118,17 @@
       <div class="form-header">
         <h4 class="title">Informazioni carta di debito o credito</h4>
       </div>
-
-      <div class="form-body">
-        <input type="text" class="card-number" placeholder="Numero Carta" name="user">
-		<input type="text" class="card-number" placeholder="Nome e Cognome" name="number">
-        <button type="submit" class="btn btn-success mt-1 mb-3">Aggiungi Carta</button>
+	  <div class="form-body">
+        <input type="text" class="card-number" placeholder="Numero Carta" name="number" maxlength="16">
+		<input type="text" class="card-name" placeholder="Nome e Cognome" name="user">
+        <button type="submit" class="btn btn-success mt-1 mb-3" disabled>Aggiungi Carta</button>
       </div>
     </form>
       </div>
     </div>
   </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> 
 <script>
 		$(function () {
