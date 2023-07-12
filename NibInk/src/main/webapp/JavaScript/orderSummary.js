@@ -49,3 +49,34 @@ function showBuyBtn(){
 	var classes=["Hidden", "btns"];
 	$("#placeOrderBtn").toggleClass(classes);
 }
+
+function placeOrder(){
+	if(checkEmail()){
+		var email=$("#emailCustomer").val();
+		var shippingMethod=$('input[name="shippingRadio"]:checked').data("smethod");
+		var shippingPrice=$('input[name="shippingRadio"]:checked').data("sprice");
+		$.post("/NibInk/placeOrder", {"email": email, "shippingMethod": shippingMethod, "shippingPrice": shippingPrice});
+	}
+}
+
+function checkEmail(){
+	var emailTest = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var email = $("#emailCustomer");
+	if(emailTest.test(email.val())){
+		showError();
+		return true;
+	}else{
+		showError();
+		return false;
+	}
+}
+
+function showError(){
+	var emailTest = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	var email = $("#emailCustomer");
+	if(emailTest.test(email.val())){
+		$("#emailCustomer").removeClass("Error");
+	}else{
+		$("#emailCustomer").addClass("Error");
+	}
+}

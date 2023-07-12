@@ -7,6 +7,8 @@
 <%@ page import="com.model.ShippingMethodManager"%>
 <%@ page import="com.model.ShippingMethod"%>
 <%@ page import="com.model.ItemInTheCart"%>
+<%@ page import="com.model.DAOCustomer"%>
+<%@ page import="com.model.Customer"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
@@ -24,9 +26,11 @@
 	<%
 		HttpSession sessione = request.getSession();
 		String cartId = (String) sessione.getAttribute("sessionId");
+		int userId =  (int) sessione.getAttribute("id");
 		CartManager cm = new CartManager();
 		Cart carrello = cm.getCart(cartId);
 		ArrayList<ItemInTheCart> items=carrello.getCart();
+		Customer c = new DAOCustomer().getCustomerById(userId);
 	%>
 <div class="Container0">
 	<div class="Container">
@@ -37,7 +41,7 @@
 				<div class="itemContainer">
 					<div class="itemInfo"> 
 						<div class="itemImg">
-							<img class="image" src="/NibInk/images/<%=i.getItem().getTitle()%>.jpg">
+							<img class="image" src="/NibInk/images/<%=i.getItem().getCodenumber()%>/thumbnail.png">
 						</div>
 						<div class="itemTitle">
 							<p><%= i.getItem().getTitle() %></p>
@@ -86,7 +90,7 @@
 							</div>
 						</div>
 						<div class="shippingBtns">
-							<input name="shippingRadio" id="sr<%=i%>" type="radio" value="" onclick="addShipPrice()">
+							<input name="shippingRadio" id="sr<%=i%>" type="radio" data-sPrice="<%=s.getAmount() %>" data-sMethod="<%=s.getName()%>" value="" onclick="addShipPrice()">
 						</div>
 					</div>
 				<% i++;} %>
@@ -94,18 +98,21 @@
 			</div>
 			<div class="costAndPayment">
 				<h3>Riepilogo pagamento:</h3>
+					<div class="emailDiv">
+						<span>Email:</span><input type="email" id="emailCustomer" class="emailCustomer" value="<%=c.getEmail()%>">
+					</div>
 					<div class="paymenthContainer">
-						<%if(session.getAttribute("paymentMethod").equals("card")){ %>
+						<% if(session.getAttribute("paymentMethod").equals("card")){ %>
 							<div class="cardInfo">
 								<p>Hai selezionato carta di credito:</p>
 								<p><%=session.getAttribute("cardName")%></p>
 								<p><%=session.getAttribute("cardNumber")%></p>
 							</div>
-						<%}else{ %>
+						<% }else{ %>
 							<div class="cashOnDeliveryInfo">
 								<p>Hai selezionato contrassegno</p>
 							</div>
-						<%} %>
+						<% } %>
 					</div>
 			</div>
 			<div class="costSummary">

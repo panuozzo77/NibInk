@@ -30,7 +30,7 @@
 			<c:forEach items="<%= carrello.getCart()%>" var="item" varStatus="loop">
 			  <div class="row">
 			    <div class="product">
-			      <img class="productImg" alt="" src="/NibInk/images/${item.getItem().getTitle()}.jpg">
+			      <img class="productImg" alt="" src="/NibInk/images/${item.getItem().getCodenumber()}/thumbnail.png">
 			      <div class="productInfo">
 			        <h3>${item.getItem().getTitle()}</h3><br>
 			        Taglia: ${item.getSize()}

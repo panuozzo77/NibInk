@@ -38,7 +38,7 @@ public class PlaceOrderServlet extends HttpServlet {
     	//indirizzi di spedizione
     	String shippingAddress = (String) session.getAttribute("addr");
     	String invoiceAddress = (String) session.getAttribute("addrBA");
-    	if(invoiceAddress == null) 
+    	if(invoiceAddress.equals("false")) 
     		invoiceAddress = "";
     	
     	//metodo di spedizione
