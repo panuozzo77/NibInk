@@ -26,12 +26,12 @@ public class OrderSummaryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paymentMethod = request.getParameter("paymentRadio");
 		HttpSession session = request.getSession();
-		
 		if(paymentMethod.equals("card")) {
 			String card=request.getParameter("cardNumber");
 			String cardName=request.getParameter("cardName");
 			String privacyCard="xxxx-xxxx-xxxx-"+card.substring(12);
-			if(request.getParameter("saveCard").equals("true")||request.getParameter("saveCard").equals("on")) {
+			String saveCard = request.getParameter("saveCard")==null? "off":"on";
+			if(saveCard.equals("true")) {
 				//TODO Procedura per salvare la carta nel db, senza metterla di default
 			}
 			session.setAttribute("cardNumber", privacyCard);
@@ -41,5 +41,4 @@ public class OrderSummaryServlet extends HttpServlet {
 		response.sendRedirect("/NibInk/JSP/orderSummary.jsp");
 			
 	}
-
 }

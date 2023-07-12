@@ -1,10 +1,10 @@
 package com.model;
 
 public class ShippingMethod {
-	String name;
-	float amount;
-	String courier;
-	float percentage = 2.5f;
+	private String name;
+	private float amount;
+	private String courier;
+	private float percentage = 2.5f;
 	
 	public String getName(){
 		return this.name;
@@ -18,6 +18,10 @@ public class ShippingMethod {
 		return this.courier;
 	}
 	
+	public float getPercentage() {
+		return this.percentage;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,5 +32,9 @@ public class ShippingMethod {
 	
 	public void setCourier(String courier) {
 		this.courier = courier;
+	}
+
+	public void setPercentage(float percentage) {
+		this.percentage = percentage;
 	}
 }
