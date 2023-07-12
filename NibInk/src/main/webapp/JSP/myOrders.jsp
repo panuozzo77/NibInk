@@ -22,6 +22,14 @@
             DAOItem item = new DAOItem();
             String utente = String.valueOf(session.getAttribute("id")); 
             ArrayList<Order> orders = db.loadAllOrder(utente);
+            if(orders==null)
+            {
+            %>
+            <h1>Nessun ordine</h1>
+            <%
+            }
+            else
+            {
             for (Order ord : orders) {
             %>
             <div class="informazione_ordine">
@@ -67,6 +75,7 @@
             %>
             <% 
             } 
+            }
             %>
         </div>
     </div>

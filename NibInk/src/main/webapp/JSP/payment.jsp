@@ -6,6 +6,7 @@
 <title>NibInk - Pagamento</title>
 <link href="/NibInk/CSS/payment.css" rel="stylesheet" type="text/css"/>
 
+</style>
 </head>
 <body>
 <script src="/NibInk/JavaScript/jquery.js"></script>
@@ -20,11 +21,13 @@
 			
 				<h4>Metodo di pagamento</h4>
 				<div class="paymentMethods">
+				<div>
 					<input name="paymentRadio" id="pm1" type="radio" value="card" onclick="showCard()">
-					<label for="pm1">Carta di Credito</label>
+					<label for="pm1">Carta di Credito</label></div>
 					<br>
+					<div>
 					<input name="paymentRadio" id="pm2" type="radio" value="cashOnDelivery" onclick="hideCard()">
-					<label for="pm2">Contrassegno</label>
+					<label for="pm2">Contrassegno</label></div>
 				</div>
 
 				<div id="inputCard" class="Hidden">

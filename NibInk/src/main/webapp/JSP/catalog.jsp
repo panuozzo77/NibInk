@@ -42,6 +42,37 @@
 		}
 		
 	%>
+	<div id="search-filters1">
+			<div id="search">
+			<input id="searchbar" type="text" value="" placeholder="Cerca nel catalogo"/>
+			<div id="searchResults"></div>
+		</div>
+	</div>
+	<div class="filters1">
+			<p class="filterText">Filtri:</p>
+			
+			<form class="filterForm" action="/NibInk/nextPage" method="get">
+				<div>
+				<div>
+				<input type="checkbox" id="onlyPens" name="onlyPens" value="pen-">
+				<label for="onlyPens"> Penne Stilografiche</label><br>
+				</div>
+				<div>
+				<input type="checkbox" id="onlyInks" name="onlyInks" value="ink-">
+				<label for="onlyInks"> Inchiostri</label><br>
+				</div>
+				<div>
+				<input type="checkbox" id="onlyNotebooks" name="onlyNotebooks" value="notebook">
+				<label for="onlyNotebooks"> Taccuini</label><br>
+				<br>
+				</div>
+				</div>
+				<input type="submit" class="buttons" id="submit" value="Filtra">
+			</form>
+				<% if(filter!=null){ %>
+					<button class="buttons" onclick="location.href = '/NibInk/JSP/catalog.jsp';">Azzera</button>
+				<%} %>
+		</div>
 	<div class="container0">
 	<div class="container">
 		<div id="search-filters">
