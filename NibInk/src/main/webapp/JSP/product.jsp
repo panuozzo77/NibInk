@@ -179,7 +179,7 @@
 							<div class="mpCardContent">
 								<button class="mpProductCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">
 								<div>
-								<img class="mpProductImg" src="/NibInk/images/${item.getCodenumber()}/thumbnail.jpg">
+								<img class="mpProductImg" src="/NibInk/images/${item.getCodenumber()}/thumbnail.png">
 								</div>
 									<br>${item.getTitle()}<br>
 									<fmt:formatNumber value="${item.getPrice()}" type="currency"/>
