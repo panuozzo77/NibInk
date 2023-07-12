@@ -21,12 +21,13 @@ public class DAOSavedCard extends DAOConnection {
     }
 
     public boolean addSavedCard(SavedCard savedCard) {
-        String sql = "INSERT INTO SavedCards (UserID, CardNumber, NameOnCard) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO SavedCards (UserID, CardNumber, NameOnCard, isDefault) VALUES (?, ?, ?, ?)";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, savedCard.getUserId());
             stmt.setString(2, savedCard.getCardNumber());
             stmt.setString(3, savedCard.getNameOnCard());
+            stmt.setBoolean(4, savedCard.getBoolean());
             return stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,10 +44,13 @@ public class DAOSavedCard extends DAOConnection {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
+            	System.out.println("trovata!");
                 int id = resultSet.getInt("ID");
                 String cardNumber = resultSet.getString("CardNumber");
+                String obscuredNumber = "xxxx-xxxx-xxxx-" + cardNumber.substring(12);
                 String nameOnCard = resultSet.getString("NameOnCard");
-                SavedCard savedCard = new SavedCard(id, userId, cardNumber, nameOnCard);
+                boolean value = resultSet.getBoolean("isDefault");
+                SavedCard savedCard = new SavedCard(id, userId, obscuredNumber, nameOnCard, value);
                 savedCards.add(savedCard);
             }
         } catch (SQLException e) {
@@ -56,15 +60,36 @@ public class DAOSavedCard extends DAOConnection {
         return savedCards;
     }
 
-    public boolean deleteSavedCard(int savedCardId) {
-        String sql = "DELETE FROM SavedCards WHERE ID = ?";
+    public boolean deleteSavedCard(int savedCardId, int userId) {
+        String sql = "DELETE FROM SavedCards WHERE ID = ? AND UserID = ?";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, savedCardId);
+            stmt.setInt(2, userId);
             return stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+    
+    public boolean setDefaultCard(int userId, int cardId) {
+        String updateDefaultSql = "UPDATE SavedCards SET isDefault = false WHERE UserID = ?";
+        String updateNonDefaultSql = "UPDATE SavedCards SET isDefault = true WHERE ID = ?";
+
+        try {
+            stmt = con.prepareStatement(updateDefaultSql);
+            stmt.setInt(1, userId);
+            stmt.executeUpdate();
+
+            stmt = con.prepareStatement(updateNonDefaultSql);
+            stmt.setInt(1, cardId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 }
