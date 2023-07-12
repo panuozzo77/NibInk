@@ -69,7 +69,7 @@ items = db.getItemsNumber();
         %>
         <tr>
             <td><%=item.getCodenumber() %></td>
-            <td><img class="product_img" src="/NibInk/images/<%=item.getCodenumber()%>/copertina.jpg"></td>
+            <td><img class="product_img" src="/NibInk/images/<%=item.getCodenumber()%>/thumbnail.png"></td>
             <td><%=item.getTitle() %></td>
             <td><%=item.getPrice() %></td>
             <% ItemVariant sizeLoaded = new ItemVariant();
