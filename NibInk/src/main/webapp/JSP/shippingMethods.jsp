@@ -66,7 +66,7 @@
             <th>Nome Spedizione</th>
             <th>Spedizioniere</th>
             <th>Prezzo</th>
-            <th>Action</th>
+            <th>Azione</th>
         </tr>
         <c:forEach items="<%=list %>" var="method">
             <tr>

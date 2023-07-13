@@ -150,22 +150,35 @@ public class DAOCustomer extends DAOConnection {
 	private ArrayList<Customer> getMultipleFromResultSet(ResultSet rs) {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		try {
-		if(rs.next()){
-			Customer customer = new Customer();
-            customer.setName(rs.getString("name"));
-            customer.setSurname(rs.getString("surname"));
-            customer.setType(rs.getString("type"));
-            customer.setPassword(rs.getString("password"));
-            customer.setEmail(rs.getString("email"));
-            customer.setID(rs.getInt("ID"));
-            customers.add(customer);
-            
-            return customers;
-		}
-	} catch (Exception e)
-	{
+			while(rs.next()){
+				Customer customer = new Customer();
+	            customer.setName(rs.getString("name"));
+	            customer.setSurname(rs.getString("surname"));
+	            customer.setType(rs.getString("type"));
+	            customer.setPassword(rs.getString("password"));
+	            customer.setEmail(rs.getString("email"));
+	            customer.setID(rs.getInt("ID"));
+	            customers.add(customer);
+			}        
+		} catch (Exception e) {
 		e.printStackTrace();
+		}
+		return customers;
 	}
-		return null;
+	
+	public boolean deleteCustomerById(int id) {
+	    boolean status = false;
+	    String sql = "DELETE FROM Users WHERE ID = ?";
+	    try {
+	        stmt = con.prepareStatement(sql);
+	        stmt.setInt(1, id);
+	        int rowsAffected = stmt.executeUpdate();
+	        if (rowsAffected > 0) {
+	            status = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return status;
 	}
 }
