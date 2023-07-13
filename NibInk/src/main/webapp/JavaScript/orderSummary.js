@@ -47,7 +47,9 @@ function makeFloat(input){
 
 function showBuyBtn(){
 	var classes=["Hidden", "btns"];
-	$("#placeOrderBtn").toggleClass(classes);
+	if($("#placeOrderBtn").hasClass("Hidden")){
+		$("#placeOrderBtn").toggleClass(classes);
+	}
 }
 
 function placeOrder(){
