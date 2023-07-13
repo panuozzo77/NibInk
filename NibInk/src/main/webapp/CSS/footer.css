@@ -37,7 +37,42 @@ body{
 	height: 3vw;
 }
 
-a, a:visited, a:hover, a:active {
-  color: inherit;
-  text-decoration: none;
+@media screen and (max-width:1000px)
+{
+
+	.footer
+	{
+		width:100%;
+		height:100%;
+		display: flex;
+		flex-direction:column;
+		justify-content:center;
+		align-items:center;
+		padding-top:30px;
+	}
+	
+	.footer > .colonna
+	{
+		height:100%;
+		width:50%;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		padding-bottom: 30px;
+	}
+	
+	.footer > .colonna > a
+	{
+		font-size: 30px;
+	}
+	
+	.footer > .colonna > h3
+	{
+		font-size: 40px;
+	}
+	
+	.footer > .colonna > h5
+	{
+		font-size: 35px;
+	}
 }

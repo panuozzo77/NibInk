@@ -97,3 +97,104 @@ body{
 	height: 30%;
 	
 }
+
+@media screen and (max-width: 1000px)
+{
+	#searchbar
+	{
+		width:300px;
+	}
+	h1
+	{
+		font-size:45px
+	}
+	.productImg{
+	width: 10vh;
+	height: 10vh;
+	border: 1px solid black;
+	padding: 3px;
+	border-radius: 15px;
+}
+
+	.productInfo
+	{
+		margin-left: 5px;
+		width: 100%;
+		font-size:25px;
+	}
+	
+	.productInfo > h3
+	{
+		font-size:40px;
+	}
+	.totalPrice
+	{
+		padding: 2%;
+		margin-left: 5px;
+		margin-right: 5px;
+		display: flex;
+		flex-direction: column;
+		font-size:30px;
+	}
+	
+	h2
+	{
+		font-size:45px;
+	}
+	.price{
+		width: 30%;
+		display:flex;
+		flex-direction:column;
+		text-align: right;
+		font-size:30px;
+	}
+	input[type="number"]
+	{
+		font-size:30px
+	}
+	
+	input[type="submit"]
+	{
+		font-size:30px
+	}
+	
+	.product{
+		width: 90%;
+	}
+	.price
+	 {
+	 	width:10%
+	 }
+	 .emptyContainer >img
+	 {
+	 	width:25vh;
+	 	height:25vh;
+	 }
+	 
+	 .emptyContainer > h3
+	 {
+	 	font-size:30px;
+	 }
+	 .buttons{
+		border: none;
+		padding: 15px 30px;
+		border-radius: 5px;	
+		margin-bottom: 10px;
+		font-size:30px;
+	}
+	 #searchResults > p
+	 {
+	 	font-size:30px;
+	 	border-width: 0px 1px 1px; 
+	 	border-top-style: initial; 
+	 	border-right-style: solid; 
+	 	border-bottom-style: solid; 
+	 	border-left-style: solid; 
+	 	border-top-color: initial; 
+	 	border-right-color: black; 
+	 	border-bottom-color: black; 
+	 	border-left-color: black; 
+	 	border-image: initial; 
+	 	padding: 3%;
+	 }
+}
