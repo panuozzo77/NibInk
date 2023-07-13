@@ -21,13 +21,14 @@ public class DAOSavedCard extends DAOConnection {
     }
 
     public boolean addSavedCard(SavedCard savedCard) {
-        String sql = "INSERT INTO SavedCards (UserID, CardNumber, NameOnCard, isDefault) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO SavedCards (UserID, CardNumber, CensoredCardNumber, NameOnCard, isDefault) VALUES (?, ?, ?, ?, ?)";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, savedCard.getUserId());
             stmt.setString(2, savedCard.getCardNumber());
-            stmt.setString(3, savedCard.getNameOnCard());
-            stmt.setBoolean(4, savedCard.getBoolean());
+            stmt.setString(3, savedCard.getCensoredCardNumber());
+            stmt.setString(4, savedCard.getNameOnCard());
+            stmt.setBoolean(5, savedCard.getBoolean());
             return stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -35,9 +36,9 @@ public class DAOSavedCard extends DAOConnection {
         return false;
     }
 
-    public List<SavedCard> getSavedCardsByUserId(int userId) {
+    public List<SavedCard> getFullSavedCardsByUserId(int userId) {
         List<SavedCard> savedCards = new ArrayList<>();
-        String sql = "SELECT * FROM SavedCards WHERE UserID = ?";
+        String sql = "SELECT * WHERE UserID = ?";
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, userId);
@@ -46,10 +47,10 @@ public class DAOSavedCard extends DAOConnection {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String cardNumber = resultSet.getString("CardNumber");
-                String obscuredNumber = "xxxx-xxxx-xxxx-" + cardNumber.substring(12);
+                String censoredCardNumber = resultSet.getString("CensoredCardNumber");
                 String nameOnCard = resultSet.getString("NameOnCard");
                 boolean value = resultSet.getBoolean("isDefault");
-                SavedCard savedCard = new SavedCard(id, userId, obscuredNumber, nameOnCard, value);
+                SavedCard savedCard = new SavedCard(id, userId, cardNumber, censoredCardNumber, nameOnCard, value);
                 savedCards.add(savedCard);
             }
         } catch (SQLException e) {
@@ -58,7 +59,52 @@ public class DAOSavedCard extends DAOConnection {
 
         return savedCards;
     }
+    
+    public List<SavedCard> getCensoredSavedCardsByUserId(int userId) {
+        List<SavedCard> savedCards = new ArrayList<>();
+        String sql = "SELECT ID, CensoredCardNumber, NameOnCard, isDefault FROM SavedCards WHERE UserID = ?";
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet resultSet = stmt.executeQuery();
 
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String censoredCardNumber = resultSet.getString("CensoredCardNumber");
+                String nameOnCard = resultSet.getString("NameOnCard");
+                boolean value = resultSet.getBoolean("isDefault");
+                SavedCard savedCard = new SavedCard(id, userId, censoredCardNumber, nameOnCard, value);
+                savedCards.add(savedCard);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return savedCards;
+    }
+    
+    public SavedCard getDefaultSavedCardsByUserId(int userId) {
+        SavedCard savedCard = null;
+        String sql = "SELECT ID, CensoredCardNumber, NameOnCard FROM SavedCards WHERE UserID = ? AND isDefault = true";
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String censoredCardNumber = resultSet.getString("CensoredCardNumber");
+                String nameOnCard = resultSet.getString("NameOnCard");
+                savedCard = new SavedCard(id, userId, censoredCardNumber, nameOnCard, true);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return savedCard;
+    }
+
+    
     public boolean deleteSavedCard(int savedCardId, int userId) {
         String sql = "DELETE FROM SavedCards WHERE ID = ? AND UserID = ?";
         try {

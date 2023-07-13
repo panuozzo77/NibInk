@@ -19,7 +19,7 @@
         } else {
             int userId = (int) request.getSession().getAttribute("id");
             SavedCardManager scm = new SavedCardManager();
-            list = scm.getSavedCardsByUserId(userId);
+            list = scm.getCensoredSavedCardsByUserId(userId);
         } 
     %>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -42,7 +42,7 @@
           <div class="payment-card__info p-4">
             <h4>${card.getNameOnCard()}</h4>	<!-- nome e cognome -->
             <p class="text-muted">Carta</p>	<!-- lascia fisso a carta -->
-            <p>${card.getCardNumber()}</p> <!-- codice della carta oscurato -->
+            <p>${card.getCensoredCardNumber()}</p> <!-- codice della carta oscurato -->
             <hr>
             <c:choose>
             <c:when test = "${card.getBoolean()}">

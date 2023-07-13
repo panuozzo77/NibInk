@@ -43,7 +43,10 @@ public class CardManager extends HttpServlet {
 		SavedCardManager db = new SavedCardManager();
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
-		SavedCard card = new SavedCard(userId, request.getParameter("number"), request.getParameter("user"), false);
+		String cardNumber = (String) request.getParameter("number");
+		String privacyCard="xxxx-xxxx-xxxx-"+cardNumber.substring(12);
+		String nameOnCard=(String) request.getParameter("user");
+		SavedCard card = new SavedCard(0, userId, cardNumber, privacyCard, nameOnCard, false);
 		System.out.println(card);
 		db.addSavedCard(card);
 		response.sendRedirect(request.getHeader("referer"));

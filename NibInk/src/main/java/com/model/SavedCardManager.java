@@ -9,8 +9,16 @@ DAOSavedCard db = new DAOSavedCard();
 		return db.addSavedCard(savedCard);
 	}
 	
-	public List<SavedCard> getSavedCardsByUserId(int userId) {
-		return db.getSavedCardsByUserId(userId);
+	public List<SavedCard> getCensoredSavedCardsByUserId(int userId) {
+		return db.getCensoredSavedCardsByUserId(userId);
+	}
+	
+	public SavedCard getDefaultSavedCardsByUserId(int userId) {
+		return db.getDefaultSavedCardsByUserId(userId);
+	}
+	
+	public List<SavedCard> getFullSavedCardsByUserId(int userId) {
+		return db.getFullSavedCardsByUserId(userId);
 	}
 	
 	public boolean deleteSavedCard(int savedCardId, int userId) {

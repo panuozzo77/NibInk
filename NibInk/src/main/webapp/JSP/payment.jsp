@@ -34,7 +34,7 @@
 				<div id="inputCard" class="Hidden">
 					<h4>Dati di pagamento</h4>
 					<p class="required">Intestatario Carta</p>	
-					<input name="cardName" type="text" id="cardName"><br>
+					<input name="cardName" type="text" id="cardName" value="<%=sessione.getAttribute("savedCardName")%>"><br>
 					<p class="required">Numero della Carta</p>
 					<input name="cardNumber" type="text" id="cardNumber" value="<%=sessione.getAttribute("savedCard")%>" onkeydown="showSaveCard()"><br>
 					<div  class="secondHalf">

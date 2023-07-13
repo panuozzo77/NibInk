@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.model.DAOCustomer;
+import com.model.SavedCard;
+import com.model.SavedCardManager;
 import com.model.Customer;
 
 @WebServlet("/LoginServlet")
@@ -25,7 +27,6 @@ public class LoginServlet extends HttpServlet {
     	DAOCustomer verify = new DAOCustomer();
     	int status = verify.checkLogin(email, password);
     	//System.out.println(status);
-    	String card=""; //TODO prendila dal db
     	switch (status) {
     		case 1: 
     			HttpSession session = request.getSession();
@@ -34,7 +35,18 @@ public class LoginServlet extends HttpServlet {
     			session.setAttribute("userType", customer.getType());
     			session.setAttribute("name", customer.getName());
     			session.setAttribute("id", customer.getID());
-    			session.setAttribute("savedCard", card);
+
+    	    	SavedCard card = null;
+    	    	SavedCardManager db = new SavedCardManager();
+    	    	card=db.getDefaultSavedCardsByUserId(customer.getID())==null? null: db.getDefaultSavedCardsByUserId(customer.getID());
+    	    	if(card!=null) {
+    	    		session.setAttribute("savedCardName", card.getNameOnCard());
+    	    		session.setAttribute("savedCard", card.getCensoredCardNumber());
+    	    	}else {
+    	    		session.setAttribute("savedCard", "");
+    	    		session.setAttribute("savedCardName", "");
+    	    	}
+    			
     			response.sendRedirect("/NibInk/JSP/home.jsp"); //login effettuato correttamente
     			break;
     		case 2:

@@ -43,6 +43,10 @@
 		
 	%>
 	<div class="container0">
+	<div id="titleDiv">
+				<h1 class="title">Catalogo</h1>	
+			</div>
+					
 	<div class="container">
 		<div id="search-filters">
 			<div id="search">
@@ -73,7 +77,6 @@
 		
 		
 		<div class=container2>
-			<h1 class="title">&emsp;&emsp;Catalog</h1>			
 			
 			<div class="itemInCatalog">		
 				<% int i=0;
@@ -96,7 +99,7 @@
 							 	<c:when test="<%=disponibility[p]%>">
 								 	<form action="/NibInk/AddToCart" method="get" class="addToCartForm">
 								 		<input type="hidden" name="product" value="${item.getCodenumber()}">
-								 		<button type="submit" class="addToCart">Add to Cart</button>
+								 		<button type="submit" class="addToCart">Aggiungi al Carrello</button>
 									</form>
 							 	</c:when>
 							 	<c:otherwise>
@@ -123,7 +126,7 @@
 					for(int k=0, j=1; k<items; k+=itemPerPage, j++)
 					{
 				%>
-						<form action="/NibInk/nextPage" method="get">
+						<form class="formPages" action="/NibInk/nextPage" method="get">
 							<input type="hidden" value="<%= filter %>" name="filters" class="invisibleButtons">
 							<input type="hidden" value="<%=k%>" name="startIndex" class="invisibleButtons">
 							<input type="hidden" value="<%=j%>" name="pageNumber" class="invisibleButtons">
