@@ -51,6 +51,16 @@
 	                        $(".radio-input").append(imgElement);
 	                    
 	                    }
+	                    var divElement = document.getElementById('columLeft');
+	                	var imgElements = divElement.getElementsByTagName('img');
+	                	for(var i=0; i<imgElements.length; i++)
+	                		{
+	                		if(i===0)
+	                			imgElements[i].style.display='flex';
+	                		else
+	                			imgElements[i].style.display='none';
+	                		}
+	                    
                     }
                     else
                     	{
@@ -63,18 +73,6 @@
             });
             //parte per la gesitone dei slide delle immagini
         });
-        window.onload= function()
-        {
-        	var divElement = document.getElementById('columLeft');
-        	var imgElements = divElement.getElementsByTagName('img');
-        	for(var i=0; i<imgElements.length; i++)
-        		{
-        		if(i===0)
-        			imgElements[i].style.display='flex';
-        		else
-        			imgElements[i].style.display='none';
-        		}
-        }
     </script>
 </head>
 <body>
