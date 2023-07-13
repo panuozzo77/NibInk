@@ -14,9 +14,10 @@ if(admin!=null)
 %>
 <ul class="menu">
     <li><a href="/NibInk/JSP/dashboard.jsp">Dashboard</a></li>
-    <li><a href="/NibInk/JSP/products.jsp">Products</a></li>
-    <li><a href="/NibInk/JSP/orders.jsp">Orders</a></li>
-    <li><a href="#">Customers</a></li>
+    <li><a href="/NibInk/JSP/products.jsp">Articoli</a></li>
+    <li><a href="/NibInk/JSP/orders.jsp">Ordini</a></li>
+    <li><a href="#">Utenti</a></li>
+    <li><a href="/NibInk/JSP/shippingMethods.jsp">Metodi di Spedizione</a></li>
     <li><a href="/NibInk/JSP/itemEntry.jsp"> Crea nuovo Articolo</a>
   </ul>
 </body>

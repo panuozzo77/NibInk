@@ -31,7 +31,7 @@
 			<a href="/NibInk/JSP/cart.jsp">Il mio carrello</a>
 			<a>Termini e condizioni</a>
 			<%if("admin".equals(session.getAttribute("userType"))) { %>
-				<a href="/NibInk/JSP/admin.jsp">Pannello di Controllo</a>
+				<a href="/NibInk/JSP/dashboard.jsp">Pannello di Controllo</a>
 			<%} %>
 		</div>
 		<div class="colonna">
