@@ -3,20 +3,41 @@ package com.model;
 public class SavedCard {
     private int id;
     private int userId;
-    private String cardNumber; //formato xxxx-xxxx-xxxx-YYYY
+    private String cardNumber="noCardNumber"; 			//formato 1234123412341234
+    private String censoredCardNumber;  //formato xxxx-xxxx-xxxx-YYYY
     private String nameOnCard;
     private boolean isPrimary;
-
-    public SavedCard(int userId, String cardNumber, String nameOnCard, boolean isPrimary) {
+/*
+    //Costruttori senza id
+    public SavedCard(int userId, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
         this.userId = userId;
-        this.cardNumber = cardNumber;
+        this.censoredCardNumber = CensoredCardNumber;
         this.nameOnCard = nameOnCard;
         this.isPrimary = isPrimary;
     }
-    public SavedCard(int id, int userId, String cardNumber, String nameOnCard, boolean isPrimary) {
+    
+    public SavedCard(int userId, int cardNumber, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
+        this.userId = userId;
+        this.cardNumber = cardNumber;
+        this.censoredCardNumber = CensoredCardNumber;
+        this.nameOnCard = nameOnCard;
+        this.isPrimary = isPrimary;
+    }
+*/
+    //Costruttori con id
+    public SavedCard(int id, int userId, String cardNumber, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
         this.id = id;
         this.userId = userId;
         this.cardNumber = cardNumber;
+        this.censoredCardNumber = CensoredCardNumber;
+        this.nameOnCard = nameOnCard;
+        this.isPrimary = isPrimary;
+    }
+    
+    public SavedCard(int id, int userId, String censoredCardNumber, String nameOnCard, boolean isPrimary) {
+        this.id = id;
+        this.userId = userId;
+        this.censoredCardNumber = censoredCardNumber;
         this.nameOnCard = nameOnCard;
         this.isPrimary = isPrimary;
     }
@@ -40,6 +61,13 @@ public class SavedCard {
     public boolean getBoolean() {
     	return isPrimary;
     }
+    
+	public String getCensoredCardNumber() {
+		return censoredCardNumber;
+	}
+	public void setCensoredCardNumber(String censoredCNumber) {
+		censoredCardNumber = censoredCNumber;
+	}
     
     public void setIsPrimary(boolean value) {
     	isPrimary = value;
@@ -69,6 +97,7 @@ public class SavedCard {
                 "id=" + id +
                 ", userId=" + userId +
                 ", cardNumber='" + cardNumber + '\'' +
+                ", censoredCardNumber='" + censoredCardNumber + '\'' +
                 ", nameOnCard='" + nameOnCard + '\'' +
                 '}';
     }
