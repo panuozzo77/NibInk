@@ -76,7 +76,7 @@
 		<div class="prodotto">
 			<div class="informazione_ordine">
 				<div class="info">
-					<h3>Codice Ordine : <%= orderId%></h3>
+					<h3>Numero Ordine : <%= orderId%></h3>
 				</div>
 				<div class="info">
 					<h3>Data Ordine</h3>

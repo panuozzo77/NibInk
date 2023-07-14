@@ -167,8 +167,8 @@ public class DAOCustomer extends DAOConnection {
 	}
 	
 	public boolean deleteCustomerById(int id) {
-	    boolean status = false;
-	    String sql = "DELETE FROM Users WHERE ID = ?";
+		boolean status = false;
+	    String sql = "UPDATE Users SET Password = NULL WHERE ID = ?";
 	    try {
 	        stmt = con.prepareStatement(sql);
 	        stmt.setInt(1, id);

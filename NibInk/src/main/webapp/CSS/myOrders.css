@@ -64,11 +64,6 @@ div.prodotto
 	border-bottom-right-radius:10px;
 }
 
-.info
-{
-	
-}
-
 .informazione_prodotto
 {
 	display:flex;
@@ -84,4 +79,47 @@ img
 {
 	height:7vh;
 	width: 7vh;
+}
+
+@media screen and (max-width:1000px)
+{
+	
+	.title
+	{
+		width:90%;
+	}
+	
+	div.prodotto
+	{
+		width:90%;
+		display:flex;
+		flex-direction:column;
+		
+		
+	}
+	h2
+	{
+		font-size:60px;
+	}
+	
+	h3
+	{
+		font-size:50px;
+	}
+	
+	p
+	{
+		font-size:45px;
+	}
+	
+	.prodotto > h2
+	{
+		font-size:45px;
+	}
+	
+	button
+	{
+		font-size:45px;
+		padding:5px;
+	}
 }
