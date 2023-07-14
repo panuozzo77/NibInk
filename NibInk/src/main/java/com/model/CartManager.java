@@ -49,6 +49,7 @@ public class CartManager {
     public void cleanCart(String cartId) {
     	Cart c = activeCarts.get(cartId);
     	c.cart.clear();
+    	c.setTotal(0);
     }
     
     

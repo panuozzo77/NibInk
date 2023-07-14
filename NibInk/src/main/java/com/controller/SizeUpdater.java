@@ -33,7 +33,7 @@ public class SizeUpdater extends HttpServlet {
 		String size = request.getParameter("size");
 		DAOVariant db = new DAOVariant();
 		db.updateVariant(id, size, quantity);
-		response.sendRedirect("/NibInk/JSP/admin.jsp");
+		response.sendRedirect("/NibInk/JSP/products.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

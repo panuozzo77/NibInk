@@ -34,7 +34,8 @@ public class DAOOrder extends DAOConnection {
     	return 0;
     }
     
-    public void saveOrder(Order toSave) {
+    public boolean saveOrder(Order toSave) {
+    	boolean status = true;
     	int orderId = getLatestOrderId() + 1;
     	try {
     		String query = "INSERT INTO Orders (ID, User, Email, Shipping_address, Invoice_address, Payment_method, Amount, status, Shipping_Method, Shipping_Cost, Order_Date) " +
@@ -53,8 +54,10 @@ public class DAOOrder extends DAOConnection {
             stmt.executeUpdate();
     	} catch (SQLException e) {
     		e.printStackTrace();
+    		status = false;
     	}
     	saveOrderedItems(orderId, toSave.getPurchased());
+    	return status;
     }
     
     public void saveOrderedItems(int orderNumber, ArrayList<OrderedItem> orderedItems) {
