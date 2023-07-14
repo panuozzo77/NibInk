@@ -24,6 +24,7 @@
 		
 	}
 	
+	
 	#contenuto2
 	{
 		animation: slideDown 1s forwards;
@@ -51,4 +52,27 @@
 	  to {
 	    transform: translateY(0);
 	  }
+	}
+	
+	@media screen and (max-width:1000px)
+	{
+		h1
+		{
+			font-size:50px;
+		}
+		
+		h2
+		{
+			font-size:45px;
+		}
+		img
+		{
+			height:37vh;
+			width:50vh;
+		}
+		button
+		{
+			font-size:50px;
+			width:50%;
+		}
 	}
