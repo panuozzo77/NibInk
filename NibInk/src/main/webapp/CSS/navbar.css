@@ -206,8 +206,10 @@ a:active { text-decoration: none; }
 	
 	.page > .menu2 > .link > a
 	{
-		padding-top: 25px;
+		margin-top:25px;
 		font-size: 2em;
+		color: black;
+  		text-decoration: none;
 	}
 	.page > .menu2 > .link >.prodotti >a
 	{
@@ -221,6 +223,20 @@ a:active { text-decoration: none; }
   		padding-right: 0px;
   		font-size: 2em;
 	}
+	
+	#carrello
+	{
+		color: black;
+  		text-decoration: none;
+  		transition: transform .2s;
+  		text-align: center;
+  		padding-top: 25px;
+  		padding-bottom: 0px;
+  		padding-left: 0px;
+  		padding-right: 0px;
+  		font-size: 2em;
+	}
+	
 	#logo
 	{
 		height:7vh;
@@ -236,5 +252,10 @@ a:active { text-decoration: none; }
 	.page > .menu2 > .link.scorrimento
 	{
 		margin-left:0;
+	}
+	
+	.prodotti:hover
+	{
+		margin-bottom:75px;
 	}
 }
