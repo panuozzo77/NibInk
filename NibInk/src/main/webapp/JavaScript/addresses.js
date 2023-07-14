@@ -244,7 +244,7 @@ function saveForGuest(){
 	//console.log(addr);
 	
 	
-	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne" ,"addr": addr, "isBA": false}, 
+	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne" ,"addrToSave": addr, "isBA": false}, 
     	function(){
 			window.location.href ="payment.jsp";
 		}).fail(function(){
@@ -398,7 +398,7 @@ function sendAddr(index){
 	addr+=city+" "+state+", "+country;
 	
 	
-	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInBoth","addr": addr, "isBA": isBa}, 
+	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInBoth", "addrToSave": addr, "isBA": isBa}, 
     	function(){
 			window.location.href ="payment.jsp";
 		});

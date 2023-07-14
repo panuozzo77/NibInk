@@ -101,6 +101,12 @@
 					<div class="emailDiv">
 						<span>Email:</span><input type="email" id="emailCustomer" class="emailCustomer" value="<%=c.getEmail()%>">
 					</div>
+					<div class="addrDiv">
+						<p>Indirizzo di spedizione: <%=session.getAttribute("addr") %></p>
+						<%if(!(session.getAttribute("addrBA").equals("false"))){%>
+						<p>Indirizzo di Fatturazione: <%=session.getAttribute("addrBA") %></p>
+						<%} %>
+					</div>
 					<div class="paymenthContainer">
 						<% if(session.getAttribute("paymentMethod").equals("card")){ %>
 							<div class="cardInfo">

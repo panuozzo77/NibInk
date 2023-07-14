@@ -328,6 +328,18 @@ public class DAOItem extends DAOConnection {
 				e.printStackTrace();
 			}
 			return getFromResultSet(rs);
-		
 	}
+	
+	public ArrayList<Item> getNewItems(int n) {
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM Items ORDER BY ID ASC LIMIT ?"; //TODO rimetti desc, per debug metto asc
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, n);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getFromResultSet(rs);
+    }
 }

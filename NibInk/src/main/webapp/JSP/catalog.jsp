@@ -90,7 +90,7 @@
 						<div class="cardContent">
 							<button class="productCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">
 							<div>
-							<img class="productImg" src="/NibInk/images/${item.getCodenumber()}//thumbnail.png">
+							<img class="productImg" src="/NibInk/images/${item.getCodenumber()}/thumbnail.png">
 							</div> 
 								<br>${item.getTitle()}<br>
 								<fmt:formatNumber value="${item.getPrice()}" type="currency"/>

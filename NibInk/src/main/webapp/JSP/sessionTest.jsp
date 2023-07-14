@@ -1,22 +1,46 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.*" %>
-    
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Cosa c'è dentro la Session?</title>
+    <title>Cosa c'è dentro la Session?</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+    
 </head>
 <body>
-<c:forEach items="${sessionScope}" var="attr">
-    ${attr.key}=${attr.value}<br>
-</c:forEach>
-
-<button onclick="location.href = '/NibInk/JSP/catalog.jsp';">Sito</button>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Attributo</th>
+                <th>Valore</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%-- Recupera l'oggetto session --%>
+            <% HttpSession s = request.getSession(); %>
+            <%-- Itera attraverso gli attributi della sessione --%>
+            <% Enumeration<String> attributeNames = s.getAttributeNames(); %>
+            <% while (attributeNames.hasMoreElements()) { %>
+                <% String attributeName = attributeNames.nextElement(); %>
+                <% Object attributeValue = session.getAttribute(attributeName); %>
+                <tr>
+                    <td><%= attributeName %></td>
+                    <td><%= attributeValue %></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <button onclick="location.href = '/NibInk/JSP/catalog.jsp';">Sito</button>
+    
 </body>
 </html>

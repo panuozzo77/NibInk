@@ -21,6 +21,8 @@ public class SessionListener implements HttpSessionListener {
         cm.addNewCart(code);
         session.setAttribute("sessionId", code);
         session.setAttribute("userType", "unregistered");
+        session.setAttribute("addr", "");
+        session.setAttribute("addrBA", "");
     }
 
 	/**

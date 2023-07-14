@@ -27,11 +27,7 @@ public class ItemManager {
         ArrayList<Item> al=db.getItems(startIndex, count);
         System.out.println("ItemManager size: " +al.size());
         return al;
-    }
-	 
-	
-	
-	
+	}
 	
 	public String searchDefaultItemForCart(String item){
 		 ItemVariant load = new ItemVariant();
@@ -100,4 +96,11 @@ public class ItemManager {
 		 }
 		 return array;
 	 }
+	 
+		public ArrayList<Item> loadNewItems(int numberOfItems) {
+	        DAOItem db = new DAOItem();
+	        ArrayList<Item> al=db.getNewItems(numberOfItems);
+	        //System.out.println("ItemManager size: " +al.size());
+	        return al;
+	    }
 }

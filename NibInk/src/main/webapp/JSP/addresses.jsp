@@ -29,7 +29,6 @@
 			<%
 					HttpSession sessione = request.getSession();
 					sessione.setAttribute("addr", "");
-					sessione.setAttribute("isBA", "");
 					sessione.setAttribute("addrBA", "");
 					String registered = (String) sessione.getAttribute("userType");
 					int Guest=1;

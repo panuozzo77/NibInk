@@ -137,44 +137,58 @@ function hideCard(){
 	$("#inputCard").addClass("Hidden");
 }
 
-function checkAndSubmit(event){
-	event.preventDefault();
-	
-	if(!$("#BACheckBox").prop("checked")){
-		let addr ="false";
-		copyAddrToBa(addr);
-		if($("#pm2").is(":checked")){
-			//CashOnDelivery senza fattura
-			$("#realSubmit").click();
-		}else if(checkCard()){
-			//Carta senza fattura
-			$("#realSubmit").click();
-		}
-	}else {
-		if($("#addrCheckbox").prop("checked")){
-			let addr = $("#userSavedAddr").text();
-			copyAddrToBa(addr);
-			if($("#pm2").is(":checked")){
-				//CashOnDelivery con fattura uguale a spedizione
-				$("#realSubmit").click();
-			}else if(checkCard()){
-				//Carta con fattura uguale a spedizione
-				$("#realSubmit").click();
-			}
-		}else{
-			if($("#pm2").is(":checked") && checkAddr()){
-				//CashOnDelivery con fattura diversa
-				let addr=genBA();
-				copyAddrToBa(addr);
-				$("#realSubmit").click();
-			}else if(checkCard() && checkAddr()){
-				//Carta con fattura diversa
-				let addr=genBA();
-				copyAddrToBa(addr);
-				$("#realSubmit").click();
-			}
-		}
-	}
+function checkAndSubmit(event) {
+  event.preventDefault();
+
+  if (!$("#BACheckBox").prop("checked")) {
+    let addr = "false";
+    copyAddrToBa(addr).then(() => {
+      if ($("#pm2").is(":checked")) {
+        //CashOnDelivery senza fattura
+        $("#realSubmit").click();
+      } else if (checkCard()) {
+        //Carta senza fattura
+        $("#realSubmit").click();
+      }
+    });
+  } else {
+    if ($("#addrCheckbox").prop("checked")) {
+      let addr = $("#userSavedAddr").text();
+      copyAddrToBa(addr).then(() => {
+        if ($("#pm2").is(":checked")) {
+          //CashOnDelivery con fattura uguale a spedizione
+          $("#realSubmit").click();
+        } else if (checkCard()) {
+          //Carta con fattura uguale a spedizione
+          $("#realSubmit").click();
+        }
+      });
+    } else {
+      if ($("#pm2").is(":checked") && checkAddr()) {
+        //CashOnDelivery con fattura diversa
+        let addr = genBA();
+        copyAddrToBa(addr).then(() => {
+          $("#realSubmit").click();
+        });
+      } else if (checkCard() && checkAddr()) {
+        //Carta con fattura diversa
+        let addr = genBA();
+        copyAddrToBa(addr).then(() => {
+          $("#realSubmit").click();
+        });
+      }
+    }
+  }
+}
+
+function copyAddrToBa(addr) {
+  return new Promise((resolve, reject) => {
+    $.get('/NibInk/AjaxAddressServlet', {
+      "toDo": "saveInOne",
+      "addrToSave": addr,
+      "isBA": true
+    }).done(resolve).fail(reject);
+  });
 }
 
 function checkCard(){
@@ -257,9 +271,7 @@ function checkAddr(){
 	return false;
 }
 
-function copyAddrToBa(addr){
-	$.get('/NibInk/AjaxAddressServlet', {"toDo": "saveInOne", "addr": addr, "isBA": true});
-}
+
 
 function genBA(){
 	var addr;
