@@ -36,10 +36,14 @@ public class AddReviewServlet extends HttpServlet {
 		review.setStarRating((int) Integer.parseInt(request.getParameter("rating")));
 	    review.setDate(sqlDate);
 		review.setText(request.getParameter("review"));
-		if(request.getParameter("modify").equals("yes"))
-			rm.modifyReviewUser(review);
-		else
+		if(request.getParameter("modify")!=null) {
+			if(request.getParameter("modify").equals("yes")) {
+				rm.modifyReviewUser(review);
+			}
+		}
+		else {
 			rm.addReview(review);
+		}
 		response.sendRedirect("/NibInk/JSP/product.jsp?id="+request.getParameter("itemId"));
 
 	}
