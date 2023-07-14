@@ -10,18 +10,34 @@
 <html lang="en">
 <%
 int id=Integer.parseInt(request.getParameter("id"));
+int userId= (int) session.getAttribute("id");
 DAOOrder db = new DAOOrder();
 Order order = db.loadOrder(id);
+if(session.getAttribute("userType").toString().equals("registered")) {	//se è un utente registrato e l'ID utente dell'ordine non coincide con quello che lo visualizza
+	if(order.getUser()!=userId) {	//non hai i permessi per visualizzare questo riepilogo!
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	}
+}
 float IVA = order.getAmount()/100*22;
 float netto = order.getAmount()-IVA;
 DAOCustomer db2 = new DAOCustomer();
 Customer customer = db2.getCustomerById(order.getUser());
+
+String invoiceAddress = order.getInvoiceAddress();
+String title = "La tua Fattura";
+String fileName = "Fattura";
+boolean isInvoice = true;
+if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è inferiore a 2 caratteri, non può essere una fattura
+	isInvoice = false;
+	title = "Riepilogo Ordine";
+	fileName = "Ordine";
+}
 %>
 <head>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <meta charset="utf-8">
-  <title>La tua Fattura</title>
+  <title><%=title %></title>
   <link rel="stylesheet" href="/NibInk/CSS/fattura.css" media="all" />
 </head>
 <body>
@@ -30,7 +46,7 @@ Customer customer = db2.getCustomerById(order.getUser());
 	    <div id="logo">
 	      <img src="/NibInk/images/logo.png">
 	    </div>
-	    <h1>FATTURA N°<%= order.getId() %></h1>
+	    <h1><%=fileName%> N°<%= order.getId() %></h1>
 	    <div id="company" class="clearfix">
 	      <div>NibInk</div>
 	      <div>Via inesistente 123<br /> SA 84121, IT</div>
@@ -40,7 +56,7 @@ Customer customer = db2.getCustomerById(order.getUser());
 	    <div id="project">
 	      <div><span>ACQUIRENTE</span> <%= customer.getName() %> <%= customer.getSurname() %></div>
 	      <div><span>INDIRIZZO</span> <%= order.getShippingAddress() %></div>
-	      <%if(order.getInvoiceAddress()!=null) { %>
+	      <%if(isInvoice) { %>
 	      <div><span>FATTURAZIONE</span> <%= order.getInvoiceAddress() %></div>
 	      <% } %>
 	      <div><span>EMAIL</span> <a href="mailto:<%= order.getEmail() %>"><%= order.getEmail() %></a></div>
@@ -61,7 +77,7 @@ Customer customer = db2.getCustomerById(order.getUser());
 	        </tr>
 	      </thead>
 	      <tbody>
-	        <% for (OrderedItem orderedItem : order.getPurchased()) { %>
+	        <% for (OrderedItem orderedItem : order.getPurchasedItems(order.getId())) { %>
 	        <tr>
 	          <td class="service"><%= orderedItem.getItemId() %></td>
 	          <td class="desc"><%= orderedItem.getName() %></td>
