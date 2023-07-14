@@ -109,7 +109,7 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
   </div>
   <footer>
     La ringraziamo per l'acquisto.
-    <input type="button" class="btn_print" value="Download Fattura">
+    <input type="button" class="btn_print" value="Download <%=fileName%>">
   </footer>
   <script>
     $(document).ready(function() {
@@ -121,11 +121,7 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
           margin: 1,
           filename: 'fattura.pdf',
           image: { type: 'jpeg', quality: 0.98 },
-<<<<<<< HEAD
           html2canvas: { scale: 2 },
-=======
-          html2canvas: { scale: 1 },
->>>>>>> refs/heads/Raffaele
           jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
