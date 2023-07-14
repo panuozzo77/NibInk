@@ -89,7 +89,7 @@
                     </form>
                 </td>
                 <td>
-                	<button onclick="togglePopup(2, ${user.getID()})">Cambia Password</button> <!-- funzionante -->
+                	<button onclick="togglePopupPassword(2, ${user.getID()})">Cambia Password</button> <!-- funzionante -->
                 </td>
                 <td>
                 	<button id="viewAddressesButton" onclick="viewAddresses(${user.getID()})">Visualizza Indirizzi</button>
@@ -165,7 +165,7 @@
         </c:forEach>
     </table>
     <script>
-        function togglePopup(i, user) {
+        function togglePopupPassword(i, user) {
             var overlay = document.getElementById("popupOverlay");
             var container = document.getElementById("popupContainer"+i);
             var hiddenField = document.getElementById("hiddenValue");

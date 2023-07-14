@@ -10,7 +10,9 @@
 <body>
 <div class="pagina">
 	<h1>Mio Account</h1>
-	
+	<% if(session.getAttribute("userType").toString().equals("unregistered")) { 
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	} %>
 		<div class="riga">
 				<div class="opzione" onClick="Ordini()">
 					<img alt="" src="/NibInk/images/ordini.png">

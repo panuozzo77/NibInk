@@ -14,7 +14,9 @@
 <link href="/NibInk/CSS/myOrders.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-
+<% if(session.getAttribute("userType").toString().equals("unregistered")) { 
+		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	} %>
 	<div class="page">
 		<div class="title">
 			<h2>I miei ordini</h2>

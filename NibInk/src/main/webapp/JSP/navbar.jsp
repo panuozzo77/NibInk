@@ -22,7 +22,11 @@
 		</div>
 		<img alt="" src="/NibInk/images/logo.png">
 		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
+		<% if(session.getAttribute("userType").toString().equals("registered")||session.getAttribute("userType").toString().equals("admin")) { %>
+		<a href="/NibInk/LoginServlet?logout=yes">Logout</a>
+		<%} else { %>
 		<a href="/NibInk/JSP/login.jsp">Login</a>
+		<%} %>
 	</div>
 	
 	<div class="menu2">
@@ -38,7 +42,11 @@
   			</div>
 		</div>
   		<a href="/NibInk/JSP/cart.jsp">Carrello</a>
+  		<% if(session.getAttribute("userType").toString().equals("registered")||session.getAttribute("userType").toString().equals("admin")) { %>
+		<a href="/NibInk/LoginServlet?logout=yes">Logout</a>
+		<%} else { %>
 		<a href="/NibInk/JSP/login.jsp">Login</a>
+		<%} %>
 	</div>
 		<img alt="" src="/NibInk/images/menu.png" class="scorrimento">
 	</div>

@@ -100,17 +100,22 @@ public class DAOCustomer extends DAOConnection {
 	public boolean addCustomer(Customer customer)
 	{
 		boolean status = true;
-		String sql="INSERT INTO Users (email, password, name, surname, type) VALUES (?, ?, ?, ?, ?);";															 
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setObject(1, customer.getEmail());
-			stmt.setObject(2, customer.getPassword());
-			stmt.setObject(3, customer.getName());
-			stmt.setObject(4, customer.getSurname());
-			stmt.setObject(5, customer.getType());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(getCustomerByEmail(customer.getEmail())==null) { //se non lo trovo
+			String sql="INSERT INTO Users (email, password, name, surname, type) VALUES (?, ?, ?, ?, ?);";															 
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setObject(1, customer.getEmail());
+				stmt.setObject(2, customer.getPassword());
+				stmt.setObject(3, customer.getName());
+				stmt.setObject(4, customer.getSurname());
+				stmt.setObject(5, customer.getType());
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				status = false;
+			}
+		}
+		else {
 			status = false;
 		}
 		return status;

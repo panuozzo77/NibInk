@@ -56,5 +56,13 @@ public class LoginServlet extends HttpServlet {
     			response.sendRedirect("/NibInk/JSP/login.jsp?error=3"); //user non registrato
     	}
 	}
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	if(request.getParameter("logout").equals("yes")) {
+    		HttpSession session = request.getSession();
+    		session.invalidate();
+    		response.sendRedirect("/NibInk/JSP/login.jsp");
+    	}
+    }
 
 }
