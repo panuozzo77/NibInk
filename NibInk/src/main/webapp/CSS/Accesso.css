@@ -121,3 +121,46 @@ input[type=text]:focus
   box-shadow: 13px 13px 100px #969696,
              -13px -13px 100px #ffffff;
 }
+
+@media screen and (max-width:1000px)
+{
+	h1
+	{
+		font-size:50px;
+	}
+	
+	.opzioni
+	{
+		width:90%;
+	}
+	h2
+	{
+		font-size:45px;
+	}
+	
+	h3
+	{
+		font-size:40px;
+	}
+	.opzione
+	{
+		align-items:center;
+	}
+	form
+	{
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
+	}
+	input[type=submit]
+	{
+		font-size:35px;
+		width:200px;
+		height:70px;
+	}
+	input[type=text]
+	{
+		font-size:25px;
+	}
+}
