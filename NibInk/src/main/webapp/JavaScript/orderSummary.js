@@ -52,13 +52,38 @@ function showBuyBtn(){
 	}
 }
 
-function placeOrder(){
-	if(checkEmail()){
-		var email=$("#emailCustomer").val();
-		var shippingMethod=$('input[name="shippingRadio"]:checked').data("smethod");
-		var shippingPrice=$('input[name="shippingRadio"]:checked').data("sprice");
-		$.post("/NibInk/placeOrder", {"email": email, "shippingMethod": shippingMethod, "shippingPrice": shippingPrice});
-	}
+function placeOrder() {
+  if (checkEmail()) {
+    var email = $("#emailCustomer").val();
+    var shippingMethod = $('input[name="shippingRadio"]:checked').data("smethod");
+    var shippingPrice = $('input[name="shippingRadio"]:checked').data("sprice");
+
+    var promise = new Promise(function(resolve, reject) {
+      $.ajax({
+        url: "/NibInk/placeOrder",
+        type: "POST",
+        data: {
+          email: email,
+          shippingMethod: shippingMethod,
+          shippingPrice: shippingPrice
+        },
+        dataType: "text",
+        success: resolve,
+        error: reject
+      });
+    });
+
+    promise.then(function(response) {
+  		var redirectUrl = response.trim();
+  		if (redirectUrl.startsWith("/NibInk")) {
+    	window.location.href = redirectUrl;
+  		} else {
+		console.error("Invalid redirect URL: " + redirectUrl);
+  		}
+	}).catch(function(error) {
+  	console.error("AJAX request failed:", error);
+	});
+  }
 }
 
 function checkEmail(){

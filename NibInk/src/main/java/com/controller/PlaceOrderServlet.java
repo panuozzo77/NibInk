@@ -91,15 +91,17 @@ public class PlaceOrderServlet extends HttpServlet {
 		toSave.setShippingMethod(shippingMethod);
 		toSave.setShippingCost(shippingPrice);
 		toSave.setPurchased(purchased);
+		response.setContentType("text/plain");
+		response.setCharacterEncoding("UTF-8");
 		if(db2.saveOrder(toSave)) {
 			cm.cleanCart((String) session.getAttribute("sessionId"));
 			if(session.getAttribute("userType").equals("unregistered"))
-				response.sendRedirect("/NibInk/JSP/home.jsp");
+				response.getWriter().write("/NibInk/JSP/home.jsp");
 			else 
-				response.sendRedirect("/NibInk/JSP/myOrders.jsp");
+				response.getWriter().write("/NibInk/JSP/myOrders.jsp");
 		}
 		else {
-			response.sendRedirect(request.getHeader("referer"+"?error=generic"));
+			response.getWriter().write(request.getHeader("referer")+"?error=generic");
 		}
 		
     }
