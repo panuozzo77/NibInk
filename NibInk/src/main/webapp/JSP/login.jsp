@@ -8,6 +8,7 @@
 </head>
 <body>
 <div>
+<script src="/NibInk/JavaScript/jquery.js"></script>
 <jsp:include page="navbar.jsp"/>
 </div>
 
@@ -21,6 +22,10 @@
 		<div class="scelta_azione">
 			<input type="button" id="loginBtn" value="Login" onclick="login()">
 			<input type="button" id="registerBtn" value="Iscrizione" onclick="register()">
+			<br><br>
+		</div>
+		<div class="scelta_azione">
+			<input type="button" id="forgotPassword" value="Password Dimenticata?" onclick="togglePopup()">
 			<br><br>
 		</div>
 	</form>
@@ -43,6 +48,52 @@
 		</div>
 	</form>
 </div>
+
+<div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup-container" id="popupContainer">
+        <h2>Recupero password</h2>
+        <div id="passwordResetForm">
+            <label for="FPname">Nome utente:</label>
+            <input type="text" id="FPname" name="FPname">
+            <label for="FPsurname">Cognome:</label>
+            <input type="text" id="FPsurname" name="FPsurname">
+            <label for="FPemail">Email:</label>
+            <input type="email" id="FPemail" name="FPemail">
+            <button class="FPbttns" onclick="passwordResetCheckAndSubmit()"> Richiedi reset password </button>
+        </div>
+        <button class="FPbttns" onclick="togglePopup()">Indietro</button>
+</div>
+    
+<script>
+        function togglePopup() {
+            var overlay = document.getElementById("popupOverlay");
+            var container = document.getElementById("popupContainer");
+            overlay.style.display = overlay.style.display === "block" ? "none" : "block";
+            container.style.display = container.style.display === "block" ? "none" : "block";
+        }
+        
+        function passwordResetCheckAndSubmit(){
+        	var nameSurnameTest=/^([A-Za-zàèéìòóù]+\s?)+$/;
+        	var emailTest = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        	if( nameSurnameTest.test($("#FPname").val()) && nameSurnameTest.test($("#FPsurname").val()) && emailTest.test($("#FPemail").val())){
+        		ajaxResetPassword();
+        		setTimeout(function (){window.location.reload();}, 5000);
+        		alert("Se i dati inseriti corrispondono, riceverai un'email con la nuova password provvisoria!");
+        		
+        	}
+        	else{
+        		alert("Controlla bene i dati inseriti!");
+        	}
+        }
+        
+        function ajaxResetPassword(){
+        	var name=$("#FPname").val();
+        	var surname=$("#FPsurname").val();
+        	var email=$("#FPemail").val();
+        	$.post('/NibInk/resetPassword', {"name": name, "surname": surname, "email": email});
+        }
+</script>
+
 
 <%
 	String errorHandler = request.getParameter("error");

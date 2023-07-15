@@ -8,6 +8,7 @@
 <link href="/NibInk/CSS/myAccount.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<script src="/NibInk/JavaScript/jquery.js"></script>
 <div class=navbar>
 <jsp:include page="navbar.jsp"/>
 </div>
@@ -26,7 +27,7 @@
 					</div>
 				</div>
 				
-				<div class="opzione" onClick="AccessoeSicurezza()">
+				<div class="opzione" onClick="togglePopup()">
 					<img alt="" src="/NibInk/images/accesso.png">
 					<div class="spiegazione">
 						<h2 class="title">Accesso e Sicurezza</h2>
@@ -62,20 +63,71 @@
 		</div>
 		
 	</div>
+	
+	<div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup-container" id="popupContainer">
+        <h2>Cambio password</h2>
+        <div id="passwordChangeForm">
+        	<label for="CPemail">Email:</label>
+            <input type="email" id="CPemail" name="CPemail">
+            <label for="CPpassword">Passowrd corrente:</label>
+            <input type="password" id="CPpassword" name="CPpassword">
+            <label for="CPpasswordNew1">Nuova password:</label>
+            <input type="password" id="CPpasswordNew1" name="CPpasswordNew1">
+            <label for="CPpasswordNew2">Ripeti nuova password:</label>
+            <input type="password" id="CPpasswordNew2" name="CPpasswordNew2">
+            <button class="CPbttns" onclick="passwordChangeCheckAndSubmit()"> Richiedi reset password </button>
+        </div>
+        <button class="CPbttns" onclick="togglePopup()">Indietro</button>
+</div>
+    
+<script>
+        function togglePopup() {
+            var overlay = document.getElementById("popupOverlay");
+            var container = document.getElementById("popupContainer");
+            overlay.style.display = overlay.style.display === "block" ? "none" : "block";
+            container.style.display = container.style.display === "block" ? "none" : "block";
+        }
+        
+        function passwordChangeCheckAndSubmit(){
+        	var passwordTest=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\p{P}\p{S}])(?!.*\s).{12,}$/;
+        	var emailTest = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        	if(emailTest.test($("#CPemail").val())){
+        		if(passwordTest.test($("#CPpassword").val())){
+            		if($("#CPpasswordNew1").val()==$("#CPpasswordNew2").val()){
+            			if(passwordTest.test($("#CPpasswordNew1").val())){
+            				ajaxChangePassword();
+            			}
+            		}
+            		setTimeout(function (){window.location.reload();}, 5000);
+            		alert("Se i dati inseriti corrispondono, riceverai un'email di conferma!");
+            		
+            	}
+        	}
+        	
+        	else{
+        		alert("Controlla bene i dati inseriti!");
+        	}
+        }
+        
+        function ajaxChangePassword(){
+        	var oldPassword=$("#CPpassword").val();
+        	var newPassword=$("#CPpasswordNew1").val();
+        	var email=$("#CPemail").val();
+        		
+        	$.post('/NibInk/changePassword', {"email": email, "oldPassword": oldPassword, "newPassword": newPassword});
+        }
+</script>  
 <script type="text/javascript">
 function Ordini()
 {
 	window.location.href = "/NibInk/JSP/myOrders.jsp";	
 }
 
-function AccessoeSicurezza()
-{
-	window.location.href = "/NibInk/JSP/Accesso.jsp";	
-}
 
 function Indirizzi()
 {
-	window.location.href = "/NibInk/JSP/addresses.jsp";	
+	window.location.href = "/NibInk/JSP/addresses.jsp?fromUser=1";	
 }
 
 function comunicazioni()

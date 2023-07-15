@@ -28,21 +28,25 @@ public class ResetPasswordServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String) request.getParameter("email");
 		String name = (String) request.getParameter("name");
-		String subject = generateSubject(siteName);
-		String newPassword = "";
-		Random r = new Random();
+		String surname = (String) request.getParameter("surname");
 		
-		for(int i=0; i<20; i++) {
-			newPassword+=chars.charAt(r.nextInt(chars.length()));
+		if(checkUser(email, name, surname)) {
+			String subject = generateSubject(siteName);
+			String newPassword = "";
+			Random r = new Random();
+			
+			for(int i=0; i<30; i++) {
+				newPassword+=chars.charAt(r.nextInt(chars.length()));
+			}
+	        request.setAttribute("message", generateMsg(name, newPassword, siteName));
+	        request.setAttribute("sendTo", email);
+	        request.setAttribute("subject", subject);
+	        
+	        if(changeByEmail(email, newPassword)) {
+	        	RequestDispatcher dispatcher = request.getRequestDispatcher("/sendEmail");
+	            dispatcher.forward(request, response);
+	        }
 		}
-        request.setAttribute("message", generateMsg(name, newPassword, siteName));
-        request.setAttribute("sendTo", email);
-        request.setAttribute("subject", subject);
-        
-        if(changeByEmail(email, newPassword)) {
-        	RequestDispatcher dispatcher = request.getRequestDispatcher("/sendEmail");
-            dispatcher.forward(request, response);
-        }
     }
 	
 	private String generateSubject(String siteName) {
@@ -85,5 +89,14 @@ public class ResetPasswordServlet extends HttpServlet {
         Customer customer = db.getCustomerByEmail(email);
         int id = customer.getID();
         return db.changePassword(id, newPassword);
+    }
+    
+    protected boolean checkUser(String email, String name, String surname) {
+        DAOCustomer db = new DAOCustomer();
+        Customer customer = db.getCustomerByEmail(email);
+        if(customer.getName().equals(name) && customer.getSurname().equals(surname)) {
+        	return true;
+        }
+        return false;
     }
 }

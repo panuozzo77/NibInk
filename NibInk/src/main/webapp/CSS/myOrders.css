@@ -44,7 +44,7 @@ div.prodotto
 	display: flex;
 	justify-content:space-between;
 	flex-direction:row;
-	background-color: grey;
+	background-color: lightblue;
 	padding: 20px;
 	border: 1px solid black;
 	border-bottom:none;

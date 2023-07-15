@@ -41,6 +41,7 @@ body
 	justify-content: space-around;
 	flex-direction: column;
 	opacity:1;
+	padding-bottom: 5%;
 }
 
 
@@ -123,7 +124,7 @@ body
 	color:#94938F;
 }
 
-/*gggggggggggggggggggggggggggggggggggggggggggggggggggg*/
+/*-----------------------------------------------------------*/
 
 #campi_input_reg
 {
@@ -153,6 +154,7 @@ body
 	justify-content: space-around;
 	flex-direction: column;
 	opacity:1;
+	padding-bottom: 5%;
 }
 
 
@@ -360,4 +362,64 @@ body
 		justify-content:center;
 		margin:0;
 	}		
+}
+
+/*--------------------------------------------*/
+
+.popup-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+.popup-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    margin: 2%; 
+}
+
+.popup-container h2 {
+    margin-top: 0;
+}
+
+.popup-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.popup-container input[type="text"] {
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+.popup-container input[type="email"] {
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.popup-container input[type="submit"] {
+    padding: 5px 10px;
+}
+
+.FPbttns{
+	background:none;
+	border: 2px solid #000;
+	font-family: "montserrat", sans-serif;
+	text-transform: uppercase;
+	padding: 12px 5%;
+	min-width: 100px;
+	margin: 5px;
+	cursor: pointer;
 }
