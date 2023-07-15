@@ -149,9 +149,13 @@
 </script>
 </head>
 <body>
-  <div class="background-gray"></div>
+<div class="navbarDiv">
+	<jsp:include page="navbar.jsp"/>
+	
+</div>
 
 
+<div class="background-gray"></div>
   <div class="main-container">
     <div class="left-container">
 

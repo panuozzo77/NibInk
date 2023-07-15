@@ -14,6 +14,9 @@
 <link href="/NibInk/CSS/myOrders.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div class=navbar>
+<jsp:include page="navbar.jsp"/>
+</div>
 <% if(session.getAttribute("userType").toString().equals("unregistered")) { 
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
 	} %>
@@ -111,7 +114,7 @@
 							<h2>Titolo:<%= item.getName()%></h2>
 							<h2>Taglia: <%= item.getSize()%></h2>
 							<h2>&euro;<%= item.getPrice()%></h2>
-							<h2>Quantit&agrave:<%= item.getQuantity()%></h2>
+							<h2>Quantità:<%= item.getQuantity()%></h2>
 						</div>
 					</div>
 				</div>

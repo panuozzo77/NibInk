@@ -28,6 +28,9 @@
 <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+<div class=navbar>
+<jsp:include page="navbar.jsp"/>
+</div>
 
 <section class="main-content">
   <div class="container">

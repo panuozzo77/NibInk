@@ -8,6 +8,10 @@
 <link href="/NibInk/CSS/myAccount.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<div class=navbar>
+<jsp:include page="navbar.jsp"/>
+</div>
+
 <div class="pagina">
 	<h1>Mio Account</h1>
 	<% if(session.getAttribute("userType").toString().equals("unregistered")) { 

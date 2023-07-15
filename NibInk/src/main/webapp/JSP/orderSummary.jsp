@@ -23,6 +23,9 @@
 <script src="/NibInk/JavaScript/jquery.js"></script>
 <script src="/NibInk/JavaScript/orderSummary.js"> </script>
 <body>
+<div class=navbar>
+<jsp:include page="navbar.jsp"/>
+</div>
 	<%
 		HttpSession sessione = request.getSession();
 		String cartId = (String) sessione.getAttribute("sessionId");

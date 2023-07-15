@@ -83,9 +83,6 @@
 		<%	}%>
 
 </div>
-<div class="footer">
-	<jsp:include page="footer.jsp"/>
-</div>
 <script>
 	function submit(){
 		$("#cartForm").submit();
