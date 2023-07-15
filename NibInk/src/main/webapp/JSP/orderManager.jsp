@@ -53,6 +53,11 @@
         .popup-container input[type="submit"] {
             padding: 5px 10px;
         }
+        
+        .option {
+        	display: inline-block;
+        	margin-right:40px;
+        }
     </style>
 </head>
 <body>
@@ -60,13 +65,22 @@
         <jsp:include page="adminNavbar.jsp" />
     </div>
     <div class="actions" id="buttons">
-    	<button onclick="showAllOrders()">Mostra tutti</button>
-    	<input type="number" max="1000" id="userResearch" placeholder="Ricerca per ID Utente">
-    	<button id="userButton" disabled onclick="showSingleUserOrders()">Avvia Ricerca</button>
-    	<input type="date" id="startDate">
-    	<input type="date" id="endDate">
-    	<button id="dateButton" disabled onclick="showOrderByDate()">Ricerca per Data</button>
-    	
+    	<div class="option">
+    		<button onclick="showAllOrders()">Mostra tutti gli Ordini</button>
+    	</div>
+    	<div class="option">
+	    	<input type="number" max="1000" id="userResearch" placeholder="Ricerca per ID Utente">
+	    	<button id="userButton" disabled onclick="showSingleUserOrders()">Avvia Ricerca</button>
+    	</div>
+    	<div class="option">
+	    	<input type="date" id="startDate">
+	    	<input type="date" id="endDate">
+    		<button id="dateButton" disabled onclick="showOrderByDate()">Ricerca per Data</button>
+    	</div>
+    	<div class="option">
+	    	<input type="number" max="1000" id="invoiceResearch" placeholder="ID ordine">
+	    	<button id="invoiceButton" disabled onclick="showInvoice()">Mostra dettagli Ordine</button>
+    	</div>
     </div>
     <div id=container></div>
 </body>

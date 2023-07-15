@@ -19,7 +19,9 @@ if(session.getAttribute("userType").toString().equals("registered")) {	//se è u
 	}
 }
 float IVA = order.getAmount()/100*22;
-float netto = order.getAmount()-IVA;
+float spedizione = order.getShippingCost();
+float IVASpedizione = spedizione/100*22;
+float netto = order.getAmount()-IVA+(spedizione-IVASpedizione);
 DAOCustomer db2 = new DAOCustomer();
 Customer customer = db2.getCustomerById(order.getUser());
 
@@ -93,7 +95,11 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
 	          <td class="total"><%= netto %></td>
 	        </tr>
 	        <tr>
-	          <td colspan="5">TAX 22%</td>
+	          <td colspan="5">SPEDIZIONE (incluso in subtotale)</td>
+	          <td class="total"><%= spedizione %></td>
+	        </tr>
+	        <tr>
+	          <td colspan="5">IVA</td>
 	          <td class="total"><%= IVA %></td>
 	        </tr>
 	        <tr>

@@ -8,8 +8,22 @@ $(document).ready(function() {
 	  $("#endDate").on("change keyup", function() {
 		  checkDates();
 	  });
+	  $("#invoiceResearch").on("change keyup", function() {
+		  canISearchInvoice();
+	  });
 })
     
+function canISearchInvoice() {
+	var input = document.getElementById("invoiceResearch");
+	var button = document.getElementById("invoiceButton");
+	if(input.value==='') {
+		button.disabled = true;
+	}
+	else {
+		button.disabled = false;
+	}
+}
+
 function canISearchByUser() {
 	var input = document.getElementById("userResearch");
 	var button = document.getElementById("userButton");
@@ -34,6 +48,12 @@ function checkDates() {
   } else {
     dateButton.disabled = true;
   }
+}
+
+function showInvoice() {
+	var invoiceId = document.getElementById("invoiceResearch").value;
+	var url = '/NibInk/JSP/invoice.jsp?id=' + invoiceId;
+	window.location.href = url;
 }
 //funzione AJAX per il caricamento di tutti gli ordini dal più recente
 function showAllOrders() {
@@ -159,6 +179,8 @@ function showOrders(response) {
               button.addEventListener('click', function () {
                 var orderId = order['id']; 
                 sendAjaxRequest(orderId, newStatus);
+                button.remove();
+                buttonAdded = false;
               });
               cell.appendChild(button); // Append the button to the cell
               buttonAdded = true;
@@ -190,18 +212,8 @@ function showOrders(response) {
 }
 
 function sendAjaxRequest(orderId, newStatus) {
-	$.ajax({
-  url: '/getOrders',
-  method: 'POST',
-  data: {
-    parameter1: orderId,
-    parameter2: newStatus,
-  },
-  success: function(response) {
-    console.log(response);
-  },
-  error: function(error) {
-    console.error(error);
-  }
-});
+	$.post('/NibInk/getOrders', {
+       "parameter1": orderId,
+	    "parameter2": newStatus
+	});
 }
