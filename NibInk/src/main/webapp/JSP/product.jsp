@@ -20,7 +20,7 @@
 		ItemVariant productVariants = new ItemVariant(product);
 		productVariants.loadVariants();
 	%>
-	<title> <%= product.getTitle() %></title>
+	<title> NibInk - <%= product.getTitle() %></title>
 	<link rel="stylesheet" href="/NibInk/CSS/product.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

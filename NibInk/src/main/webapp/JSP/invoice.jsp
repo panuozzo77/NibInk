@@ -39,7 +39,7 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <meta charset="utf-8">
-  <title><%=title %></title>
+  <title>NibInk - <%=title %></title>
   <link rel="stylesheet" href="/NibInk/CSS/fattura.css" media="all" />
 </head>
 <body>

@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Invia un Messaggio</title>
+  <title>NibInk - Contattaci</title>
   <link rel="stylesheet" href="https://www.coralliegioie.com/themes/classic/assets/css/theme.css" type="text/css" media="all">
   <script>
   document.addEventListener("DOMContentLoaded", function () {

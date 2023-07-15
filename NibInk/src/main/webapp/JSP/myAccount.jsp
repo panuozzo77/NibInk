@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Il Mio Account</title>
+<title>NibInk - Il Mio Account</title>
 <link href="/NibInk/CSS/myAccount.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

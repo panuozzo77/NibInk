@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">
-<title>Pannello di Controllo</title>
+<title>ADMIN - Prodotti</title>
 
 <script>
     function updateQuantityInput(index) {
@@ -35,6 +35,12 @@
 
 </head>
 <body>
+<%//Admin check
+String admin = (String) request.getSession().getAttribute("userType");
+if (admin != null && !admin.equals("admin")) {
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
+%>
 <%
 DAOItem db=new DAOItem();
 int items;

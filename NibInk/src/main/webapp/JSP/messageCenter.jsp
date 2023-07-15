@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/391827d54c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/NibInk/CSS/messageCenter.css">
-  <title>Centro Messaggi</title>
+  <title>NibInk - Centro Messaggi</title>
   <% String str = (String) request.getSession().getAttribute("userType");
   if (str != null && str.equals("unregistered")) {
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);

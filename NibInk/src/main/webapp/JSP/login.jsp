@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Accesso Utente</title>
+<title>NibInk - Accesso Utente</title>
 <link rel="stylesheet" href="/NibInk/CSS/login.css">
 <script type="text/javascript" src="/NibInk/JavaScript/library.js"></script>
 </head>

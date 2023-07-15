@@ -181,7 +181,7 @@ body{
 }
 
 #inkButton:hover:after{
-	content: "Inchiostro";
+	content: "Inchiostri";
 }
 
 #noteButton:hover:after{

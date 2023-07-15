@@ -10,7 +10,7 @@
 	<script src="/NibInk/JavaScript/orderManager.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/NibInk/CSS/admin.css">
-    <title>Ordini</title>
+    <title>ADMIN - Ordini</title>
     <style>
         /* Styles for the popup */
         .popup-overlay {
@@ -61,6 +61,12 @@
     </style>
 </head>
 <body>
+<%//Admin check
+String admin = (String) request.getSession().getAttribute("userType");
+if (admin != null && !admin.equals("admin")) {
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
+%>
     <div class="navbar">
         <jsp:include page="adminNavbar.jsp" />
     </div>

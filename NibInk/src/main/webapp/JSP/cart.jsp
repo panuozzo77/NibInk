@@ -10,7 +10,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Cart</title>
+	<title>NibInk - Carrello</title>
 	<link rel="stylesheet" href="/NibInk/CSS/cart.css">
 </head>
 <body>
@@ -82,6 +82,9 @@
 			
 		<%	}%>
 
+</div>
+<div class="footer">
+	<jsp:include page="footer.jsp"/>
 </div>
 <script>
 	function submit(){

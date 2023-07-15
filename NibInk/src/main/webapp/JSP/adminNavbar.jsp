@@ -6,12 +6,13 @@
 	<meta charset="ISO-8859-1">
 </head>
 <body>
-<%
+<%//Admin check
 String admin = (String) request.getSession().getAttribute("userType");
-if(admin!=null)
-	if(!admin.equals("admin"))
-		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+if (admin != null && !admin.equals("admin")) {
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
 %>
+
 <ul class="menu">
     <li><a href="/NibInk/JSP/dashboard.jsp">Dashboard</a></li>
     <li><a href="/NibInk/JSP/products.jsp">Articoli</a></li>

@@ -21,8 +21,14 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">
-<title>Dashboard</title>
+<title>ADMIN - Dashboard</title>
 <body>
+<%//Admin check
+String admin = (String) request.getSession().getAttribute("userType");
+if (admin != null && !admin.equals("admin")) {
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
+%>
 <div class="navbar">
 	<jsp:include page="adminNavbar.jsp"/>
 </div>

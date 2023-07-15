@@ -13,11 +13,14 @@
 	<link href="/NibInk/CSS/itemEntry.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<%
+<%//Admin check
 String admin = (String) request.getSession().getAttribute("userType");
 if (admin != null && !admin.equals("admin")) {
 	response.sendError(HttpServletResponse.SC_FORBIDDEN);
 }
+%>
+
+<%
 String id = request.getParameter("id");
 DAOItem db = new DAOItem();
 Item item = db.getItemFromDB(id);
