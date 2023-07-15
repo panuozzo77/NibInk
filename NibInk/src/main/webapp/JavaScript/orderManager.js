@@ -94,111 +94,114 @@ function togglePopup() {
 	  var container = document.getElementById("container");
 	  container.style.display = "none";
 }
+
   	
-  	//questa funzione mostra tutti gli ordini ricevuti dalla response
+//questa funzione mostra tutti gli ordini ricevuti dalla response
 function showOrders(response) {
-	  var container = document.getElementById("container");
-	
-	  // Clear any existing addresses
-	  container.innerHTML = "";
-	
-	  // Create the HTML table structure
-	  var table = document.createElement("table");
-	  var thead = document.createElement("thead");
-	  var tbody = document.createElement("tbody");
-	
-	  // Create the table header row
-	  var headerRow = document.createElement("tr");
-	  for (var key in response[0]) {
-	    if (response[0].hasOwnProperty(key)) {
-	      var th = document.createElement("th");
-	      th.textContent = key;
-	      headerRow.appendChild(th);
-	    }
-	  }
-	  thead.appendChild(headerRow);
-	  table.appendChild(thead);
-	
-	  // Create the table body rows
-	  response.forEach(function (order) {
-	    var row = document.createElement("tr");
-	    for (var key in order) {
-	      if (order.hasOwnProperty(key)) {
-	        var cell = document.createElement("td");
-	        if(key ==="status") {	//se è la colonna status
-	        	var select = document.createElement("select");
-	        	select.name = "status";
-	        	var option1 = document.createElement("option");
-	        	option1.value = "pending";
-	            option1.text = "Pending";
-	
-	        	var option2 = document.createElement("option");
-	        	option2.value = "confirmed";
-	        	option2.text = "Confirmed";
-	        	
-	        	var option3 = document.createElement("option");
-	        	option3.value = "canceled";
-	        	option3.text = "Canceled";
-	        	
-	        	var option4 = document.createElement("option");
-	        	option4.value = "shipped";
-	        	option4.text = "Shipped";
-	        	
-	        	var option5 = document.createElement("option");
-	        	option5.value = "delivered";
-	        	option5.text = "Delivered";
-	        	
-	        	var option6 = document.createElement("option");
-	        	option6.value = "toBeReturned";
-	        	option6.text = "ToBeReturned";
-	        	
-	        	var option7 = document.createElement("option");
-	        	option7.value = "refund";
-	        	option7.text = "Refund";
-	        	
-	        	select.appendChild(option1);
-	        	select.appendChild(option2);
-	        	select.appendChild(option3);
-	        	select.appendChild(option4);
-	        	select.appendChild(option5);
-	        	select.appendChild(option6);
-	        	select.appendChild(option7);
-	        	
-	        	select.value = order[key];
-	        	cell.appendChild(select);
-	        	
-	        	select.addEventListener('change', function() {	//da qui comincio a controllare se la Select viene modificata
-					var currentStatus = order[key];
-					var newStatus = select.value;
-					if(currentStatus !== newStatus) {
-						var button = document.createElement("button");
-						button.textContent = "Aggiorna";
-						button.addEventListener('click', function() {
-							var orderId = order['id'];
-							//sendAjaxRequest(orderId, newStatus);		//da fare se riesco a far funzionare sto cazzo di bottone
-						});
-					} else {	//la select è ritornata allo stato di partenza, non devo aggiornare
-						var button = cell.querySelector('button');
-						if(button) {
-							button.remove();
-						}
-					}
-				});
-	        }
-	        else {	//non è la colonna status
-		        cell.textContent = order[key];
-	        }
-	        row.appendChild(cell);
-	      }
-	    }
-	    tbody.appendChild(row);
-	  });
-	  table.appendChild(tbody);
-	
-	  // Append the table to the container
-	  container.appendChild(table);
-	  var backButton = $("<button>").text("Indietro").click(function() {
-		  togglePopup(); });
-	  backButton.appendTo(table);
-	  container.style.display = "block";
+  var container = document.getElementById("container");
+
+  // Clear any existing orders
+  container.innerHTML = "";
+
+  // Create the HTML table structure
+  var table = document.createElement("table");
+  var thead = document.createElement("thead");
+  var tbody = document.createElement("tbody");
+
+  // Create the table header row
+  var headerRow = document.createElement("tr");
+  for (var key in response[0]) {
+    if (response[0].hasOwnProperty(key)) {
+      var th = document.createElement("th");
+      th.textContent = key;
+      headerRow.appendChild(th);
+    }
+  }
+  thead.appendChild(headerRow);
+  table.appendChild(thead);
+
+  // Create the table body rows
+  response.forEach(function (order) {
+    var row = document.createElement("tr");
+    var buttonAdded = false;
+    for (var key in order) {
+      if (order.hasOwnProperty(key)) {
+        var cell = document.createElement("td");
+        if (key === "status") { // If it's the status column
+          var select = document.createElement("select");
+          select.name = "status";
+          var options = [
+            { value: "pending", text: "Pending" },
+            { value: "confirmed", text: "Confirmed" },
+            { value: "canceled", text: "Canceled" },
+            { value: "shipped", text: "Shipped" },
+            { value: "delivered", text: "Delivered" },
+            { value: "toBeReturned", text: "To Be Returned" },
+            { value: "refund", text: "Refund" }
+          ];
+
+          options.forEach(function (option) {
+            var optionElement = document.createElement("option");
+            optionElement.value = option.value;
+            optionElement.text = option.text;
+            select.appendChild(optionElement);
+          });
+
+          select.value = order[key];
+          cell.appendChild(select);
+
+          select.addEventListener('change', function () {
+            var currentStatus = order[key];
+            var newStatus = select.options[select.selectedIndex].value;
+            if (currentStatus !== newStatus && !buttonAdded) {
+              var button = document.createElement("button");
+              button.textContent = "Aggiorna";
+              button.addEventListener('click', function () {
+                var orderId = order['id']; 
+                sendAjaxRequest(orderId, newStatus);
+              });
+              cell.appendChild(button); // Append the button to the cell
+              buttonAdded = true;
+            } else {
+              var button = cell.querySelector('button');
+              if (button) {
+                button.remove();
+                buttonAdded = false;
+              }
+            }
+          });
+        } else {
+          cell.textContent = order[key];
+        }
+        row.appendChild(cell);
+      }
+    }
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+
+  // Append the table to the container
+  container.appendChild(table);
+  var backButton = $("<button>").text("Indietro").click(function () {
+    togglePopup();
+  });
+  backButton.appendTo(table);
+  container.style.display = "block";
+}
+
+function sendAjaxRequest(orderId, newStatus) {
+	$.ajax({
+  url: '/getOrders',
+  method: 'POST',
+  data: {
+    parameter1: orderId,
+    parameter2: newStatus,
+  },
+  success: function(response) {
+    console.log(response);
+  },
+  error: function(error) {
+    console.error(error);
+  }
+});
 }

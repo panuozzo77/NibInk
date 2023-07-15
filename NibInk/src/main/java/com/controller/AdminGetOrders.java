@@ -54,7 +54,15 @@ public class AdminGetOrders extends HttpServlet {
 
 	//effettua modifiche sullo stato di un ordine
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		DAOOrder db = new DAOOrder();
+		boolean status = db.changeOrderStatus(request.getParameter("parameter1"), request.getParameter("parameter2"));
+		String message;
+		if(status)
+			message = "modifica avvenuta con successo";
+		else 
+			message = "la modifica ha incontrato degli errori";
+		response.setContentType("text/plain");
+		response.getWriter().write(message);
 	}
 
 }

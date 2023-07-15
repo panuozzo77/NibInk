@@ -209,6 +209,30 @@ public class DAOOrder extends DAOConnection {
         return orderList;
     }
     
+    public boolean changeOrderStatus(String orderId, String status) {
+    	boolean result = false;
+    	String query;  
+    	if(!status.equals("refund")) 
+    		  query = "UPDATE Orders SET status = ? WHERE ID = ?";
+    	else
+    		query = "UPDATE Orders SET status = ?, Amount = 0 WHERE ID = ?";
+    	  try {
+    	    stmt = con.prepareStatement(query);
+    	    stmt.setString(1, status);
+    	    stmt.setString(2, orderId);
+    	    int rowsUpdated = stmt.executeUpdate();
+
+    	    if (rowsUpdated > 0) 
+    	      result = true;
+    	  } catch (SQLException e) {
+    	    System.out.println("Error updating order status in the database!");
+    	    e.printStackTrace();
+    	  } finally {
+    	    closeResources();
+    	  }
+    	  return result;
+    	}
+    
     private ArrayList<Order> getFromResultSet(ResultSet rs) {
     	ArrayList<Order> list = new ArrayList<Order>();
     	try {
