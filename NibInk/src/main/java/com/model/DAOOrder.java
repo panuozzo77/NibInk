@@ -188,6 +188,27 @@ public class DAOOrder extends DAOConnection {
         return orderList;
     }
     
+    public ArrayList<Order> loadOrdersByDateRange(String startDate, String endDate) {
+        ArrayList<Order> orderList = new ArrayList<>();
+
+        String sql = "SELECT * FROM Orders WHERE Order_Date >= ? AND Order_Date <= ? ORDER BY Order_Date DESC";
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, startDate);
+            stmt.setString(2, endDate);
+            ResultSet rs = stmt.executeQuery();
+
+            orderList = getFromResultSet(rs);
+        } catch (SQLException e) {
+            System.out.println("Error loading orders by date range!");
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+
+        return orderList;
+    }
+    
     private ArrayList<Order> getFromResultSet(ResultSet rs) {
     	ArrayList<Order> list = new ArrayList<Order>();
     	try {
@@ -226,10 +247,7 @@ public class DAOOrder extends DAOConnection {
         } catch (SQLException e) {
             System.out.println("Error getting order count!");
             e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-
+        } 
         return count;
     }
     //status = {pending, confirmed, canceled, shipped, delivered, toBeReturned, refund}
