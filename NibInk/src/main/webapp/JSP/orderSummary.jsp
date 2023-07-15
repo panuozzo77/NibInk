@@ -29,11 +29,9 @@
 	<%
 		HttpSession sessione = request.getSession();
 		String cartId = (String) sessione.getAttribute("sessionId");
-		int userId =  (int) sessione.getAttribute("id");
 		CartManager cm = new CartManager();
 		Cart carrello = cm.getCart(cartId);
 		ArrayList<ItemInTheCart> items=carrello.getCart();
-		Customer c = new DAOCustomer().getCustomerById(userId);
 	%>
 <div class="Container0">
 	<div class="Container">
@@ -101,13 +99,22 @@
 			</div>
 			<div class="costAndPayment">
 				<h3>Riepilogo pagamento:</h3>
-					<div class="emailDiv">
-						<span>Email:</span><input type="email" id="emailCustomer" class="emailCustomer" value="<%=c.getEmail()%>">
-					</div>
+					<%if(!(sessione.getAttribute("userType").equals("unregistered"))){
+						int userId =  (int) sessione.getAttribute("id");
+						Customer c = new DAOCustomer().getCustomerById(userId);
+					%>
+						<div class="emailDiv">
+							<span>Email:</span><input type="email" id="emailCustomer" class="emailCustomer" value="<%=c.getEmail()%>">
+						</div>
+					<%}else{ %>
+						<div class="emailDiv">
+							<span>Email:</span><input type="email" id="emailCustomer" class="emailCustomer" value="" placeholder="Inserisci Email">
+						</div>
+					<%} %>
 					<div class="addrDiv">
-						<p>Indirizzo di spedizione: <%=session.getAttribute("addr") %></p>
+						<p>Indirizzo di spedizione: <span><%=session.getAttribute("addr") %></span></p>
 						<%if(!(session.getAttribute("addrBA").equals("false"))){%>
-						<p>Indirizzo di Fatturazione: <%=session.getAttribute("addrBA") %></p>
+						<p>Indirizzo di Fatturazione: <span><%=session.getAttribute("addrBA") %></span></p>
 						<%} %>
 					</div>
 					<div class="paymenthContainer">
@@ -152,6 +159,6 @@
 		</div>
 	</div>
 </div>	
-
+<input id="userType" type="hidden" value="<%=sessione.getAttribute("userType") %>">
 </body>
 </html>
