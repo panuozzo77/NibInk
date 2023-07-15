@@ -67,9 +67,6 @@ public class AdminChangeUsers extends HttpServlet {
 				out.flush();
 				
 			}
-			if(mode.equals("showOrders")) {
-				
-			}
 		}
 		
 		

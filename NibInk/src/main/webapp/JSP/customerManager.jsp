@@ -72,7 +72,6 @@
             <th>Azione1</th>
             <th>Azione2</th>
             <th>Azione3</th>
-            <th>Azione4</th>
         </tr>
         <c:forEach items="<%=list %>" var="user">
             <tr>
@@ -153,13 +152,6 @@
                 	    });
                 	  }
                 	</script>
-                </td>
-                <td>
-                	<form action="#!" method="get">
-                        <input type="hidden" name="UserId" value="${method.getID()}" />
-                        <input type="hidden" name="mode" value="showOrders" />
-                        <input type="submit" value="Visualizza Ordini" />
-                    </form>
                 </td>
             </tr>
         </c:forEach>
