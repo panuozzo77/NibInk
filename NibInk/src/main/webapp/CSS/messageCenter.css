@@ -15,12 +15,12 @@ body {
   background: #ccc;
 }
 
-.background-green {
+.background-gray {
   position: absolute;
   top: 0;
   width: 100%;
   height: 20%;
-  background-color: #009688;
+  background-color: rgb(192, 192, 192);
 }
 
 .main-container {
@@ -56,7 +56,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(https://camo.githubusercontent.com/854a93c27d64274c4f8f5a0b6ec36ee1d053cfcd934eac6c63bed9eaef9764bd/68747470733a2f2f7765622e77686174736170702e636f6d2f696d672f62672d636861742d74696c652d6461726b5f61346265353132653731393562366237333364393131306234303866303735642e706e67);
   opacity: 0.5;
 }
 
@@ -68,14 +67,6 @@ body {
   height: 60px;
   background: #ededed;
   padding: 0 15px;
-}
-
-.user-img {
-  position:relative;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 50%;
 }
 
 .dp {
@@ -91,11 +82,10 @@ body {
 .nav-icons {
   display:flex;
   justify-content: flex-end;
-  padding-left: 110px;
+  padding-left: 20px;
 }
 
 .nav-icons li {
-  backgroud-color:pink;
   list-style: none;
   display: flex;
   cursor: pointer;
@@ -157,7 +147,7 @@ body {
 }
 
 .search-container .input input {
-  width: 121%;
+  width: 94%;
   outline: none;
   border: none;
   background: #fff;
@@ -336,6 +326,7 @@ img {
 }
 
 .message-box p {
+  margin-right: 10px;
   position:relative;
   right: 0;
   text-align: right;

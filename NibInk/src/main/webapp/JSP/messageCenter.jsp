@@ -7,7 +7,7 @@
 <%@ page import="com.model.Customer" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -149,7 +149,7 @@
 </script>
 </head>
 <body>
-  <div class="background-green"></div>
+  <div class="background-gray"></div>
 
 
   <div class="main-container">
@@ -157,12 +157,8 @@
 
 <!--header -->
       <div class="header">
-        <div class="user-img">
-          <img class="dp" src="https://www.codewithfaraz.com/InstaPic.png" alt="">
-        </div>
         <div class="nav-icons">
-          <li><i class="fa-solid fa-message" onclick="openMessageForm()">
- </i></li>
+          <li><i class="fa-solid fa-message" onclick="openMessageForm()"> Nuova chat</i></li>
         </div>
       </div>
 
@@ -197,9 +193,6 @@
        			add = "closed";%>
 		 <% } %>
         <div class="chat-box" id="cb-<%=i%>"  onclick="openChat('<%=message.getId() %>', '<%=i%>')">
-          <div class="img-box">
-            <img class="img-cover" src="/NibInk/images/userIcon.png" alt="">
-          </div>
           <div class="chat-details">
             <div class="text-head">
             <%  String userName = "";
@@ -243,9 +236,6 @@
 <!--header (la persona con cui chatti) -->
       <div class="header">
         <div class="img-text">
-          <div class="user-img">
-          <img class="dp" src="/NibInk/images/userIcon.png" alt="">
-        </div>
           <h4>Invia Messaggio<br><span>email</span></h4>
         </div>
         <div class="nav-icons">
