@@ -17,7 +17,21 @@ body{
 	pointer-events: none;
 }
 
+#welcomeUser{
+	width: 80%;
+}
+
+#welcomeUser .title{
+	width: 100%;
+}
+
+#welcomeUser p{
+	margin-left: 10%;
+	font-size: 20px;
+}
+
 .title {
+	margin-top: 2%;
 	width: 70%;
 	display: flex;
 	justify-content: flex-start;
@@ -38,19 +52,43 @@ body{
 	align-items: center;
 }
 
+.showcaseBttns{
+	padding: 10% 4px;
+	border: none;
+	background-color: lightgray;
+	border-radius: 5px;
+	margin: 2% 0%;
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+
+.showcaseBttns:hover{
+	background-color: gray;
+	transform: scale(1.02);
+	
+}
+
 .itemsShowcase{
 	display: flex;
 	flex-direction: row;
 	width: 80%;
-	justify-content: space-evenly;
+	justify-content: center;
 }
 
 .cardContainer{
 	width: 20%;
+	min-width: 100px;
 	border: 1px solid black;
 	padding: 1% 2%;
 	margin: 1% 2%;
 	border-radius: 10px;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.cardContainer:hover{
+	transform: scale(1.05);
+	box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
 }
 
 .cardImg{
@@ -69,4 +107,104 @@ body{
 
 .cardText{
 	height: 10%;
+}
+
+.categories{
+	width: 80%;
+	display: flex;
+	flex-direction: column;	
+	height: 20%;
+}
+
+
+.buttonsDiv{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+		
+}
+
+.bigButton{
+	padding: 12% 5%;
+	width: 60%;
+	margin: 1% 2%;
+	background-color: transparent;
+	border: none;
+	transition: transform 0.3s ease;
+}
+
+.smallButton{
+	padding: 12% 5%;
+	width: 30%;
+	margin: 1% 2%;
+	background-color: transparent;
+	border: none;
+	transition: transform 0.3s ease;
+}
+
+.bigButton:hover, .smallButton:hover{
+	transform: scale(0.97);
+}
+
+#penButton, #inkButton, #noteButton, #contactButton{
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#penButton{
+	background-image: url("/NibInk/images/penButton.png");
+}
+
+#inkButton{
+	background-image: url("/NibInk/images/inkButton.png");
+}
+
+#noteButton{
+	background-image: url("/NibInk/images/noteButton.png");
+}
+
+#contactButton{
+	background-image: url("/NibInk/images/contactButton.png");
+	background-size: contain;
+}
+
+#penButton:hover:after, #inkButton:hover:after, #noteButton:hover:after, #contactButton:hover:after{
+	padding: 8px 16px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+	border-radius: 4px;
+}
+
+#penButton:hover:after{
+	content: "Penne";
+}
+
+#inkButton:hover:after{
+	content: "Inchiostro";
+}
+
+#noteButton:hover:after{
+	content: "Quaderni";
+}
+
+#contactButton:hover:after{
+	content: "Contattaci";
+}
+
+#mostSoldItems{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	overflow: auto;
+}
+
+#mostSoldItems .cardContainer{
+	width: 10%;
+	height: 15%;
+	min-height: 150px;
+}
+
+.footer{
+	margin-top: 1%;
 }

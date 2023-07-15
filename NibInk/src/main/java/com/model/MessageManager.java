@@ -46,4 +46,10 @@ public class MessageManager {
 	public void closeConversation(int conversationId) {
 		db.setConversationStatusAsClosed(conversationId);
 	}
+	
+	//------------------------------------------------------------------------------------------
+	
+	public int getUnreadMessagesCountForUser(String userEmail) {
+		return db.getUnreadMessageCountForUser(userEmail);
+	}
 }

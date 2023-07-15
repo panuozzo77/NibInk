@@ -11,9 +11,9 @@
 <body>
 <div class="page">
 	<div class="menu">
-		<a class="home" href="/NibInk/JSP/catalog.jsp">Home</a>
+		<a class="home" href="/NibInk/JSP/home.jsp">Home</a>
 		<div class="prodotti">
-  			<a href="#">Prodotti</a>
+  			<a href="/NibInk/JSP/catalog.jsp">Prodotti</a>
  			<div class="submenu">
     			<a href="/NibInk/JSP/catalog.jsp?filter=ink">Inchiostri</a>
     			<a href="/NibInk/JSP/catalog.jsp?filter=pen">Penne</a>
@@ -32,9 +32,9 @@
 	<div class="menu2">
 	<img alt="" src="/NibInk/images/logo.png" id="logo">
 	<div class="link">
-		<a class="home" href="/NibInk/JSP/catalog.jsp">Home</a>
+		<a class="home" href="/NibInk/JSP/home.jsp">Home</a>
   		<div class="prodotti">
-  			<a>Prodotti</a>
+  			<a href="/NibInk/JSP/catalog.jsp">Prodotti</a>
  			<div class="submenu">
     			<a href="/NibInk/JSP/catalog.jsp?filter=ink">Inchiostri</a>
     			<a href="/NibInk/JSP/catalog.jsp?filter=pen">Penne</a>

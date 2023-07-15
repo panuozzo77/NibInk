@@ -72,7 +72,7 @@ public class DAOMessage extends DAOConnection {
     		e.printStackTrace();
     	}
     	return unreadCount;
-    }
+    }    
 
     public List<Message> getMessagesOf(int conversationId) {
         List<Message> messages = new ArrayList<>();
@@ -253,5 +253,24 @@ public class DAOMessage extends DAOConnection {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
+    }
+    
+    //----------------------------------------------------------------------------
+    
+    public int getUnreadMessageCountForUser(String userEmail) {
+    	int unreadCount = 0;
+    	String sql = "SELECT COUNT(*) AS unreadCount FROM Messages WHERE UserEmail=? AND hasUserReadIt = FALSE;";
+    	try {
+    		stmt = con.prepareStatement(sql);
+    		stmt.setString(1, userEmail);
+    		ResultSet rs = stmt.executeQuery();
+    		if(rs.next()) {
+    			unreadCount = rs.getInt("unreadCount");
+    		}
+    		rs.close();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return unreadCount;
     }
 }

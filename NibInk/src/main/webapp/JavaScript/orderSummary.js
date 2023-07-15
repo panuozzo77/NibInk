@@ -57,8 +57,22 @@ function placeOrder() {
     var email = $("#emailCustomer").val();
     var shippingMethod = $('input[name="shippingRadio"]:checked').data("smethod");
     var shippingPrice = $('input[name="shippingRadio"]:checked').data("sprice");
+	
+	sendAjaxRequest(email, shippingMethod, shippingPrice).then((resolve) => {
+  		var redirectUrl = resolve.trim();
+  		if (redirectUrl.startsWith("/NibInk")) {
+    		window.location.href = redirectUrl;
+  		} else {
+			console.error("Invalid redirect URL: " + redirectUrl);
+  		}
+	}).catch(function(error) {
+  		console.error("AJAX request failed:", error);
+	});
+  }
+}
 
-    var promise = new Promise(function(resolve, reject) {
+function sendAjaxRequest(email, shippingMethod, shippingPrice){
+	return new Promise((resolve, reject) => {
       $.ajax({
         url: "/NibInk/placeOrder",
         type: "POST",
@@ -70,20 +84,8 @@ function placeOrder() {
         dataType: "text",
         success: resolve,
         error: reject
-      });
+      }).done(resolve).fail(reject);
     });
-
-    promise.then(function(response) {
-  		var redirectUrl = response.trim();
-  		if (redirectUrl.startsWith("/NibInk")) {
-    	window.location.href = redirectUrl;
-  		} else {
-		console.error("Invalid redirect URL: " + redirectUrl);
-  		}
-	}).catch(function(error) {
-  	console.error("AJAX request failed:", error);
-	});
-  }
 }
 
 function checkEmail(){

@@ -34,9 +34,6 @@
    </script>
 </head>
 <body>
-<div class="userNavbar">
-	<jsp:include page="userNavbar.jsp"/>
-</div>
 <div class="navbar">
 	<jsp:include page="navbar.jsp"/>
 </div>

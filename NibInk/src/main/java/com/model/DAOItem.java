@@ -333,7 +333,7 @@ public class DAOItem extends DAOConnection {
 	public ArrayList<Item> getNewItems(int n) {
         ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM Items ORDER BY ID ASC LIMIT ?"; //TODO rimetti desc, per debug metto asc
+            String sql = "SELECT * FROM Items ORDER BY ID DESC LIMIT ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, n);
             rs = stmt.executeQuery();
@@ -342,4 +342,34 @@ public class DAOItem extends DAOConnection {
         }
         return getFromResultSet(rs);
     }
+	
+	public ArrayList<Item> getMostSoldItems(int n) {
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT Name, Item FROM OrderedProducts GROUP BY Name, Item ORDER BY COUNT(*) DESC LIMIT ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, n);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return generateItemsById(rs);
+    }
+	
+	public ArrayList<Item> generateItemsById(ResultSet rs){
+		ArrayList<Item> items = new ArrayList<Item>();
+		try {
+		while (rs.next())
+		{	
+			Item item = getItemFromDB(String.valueOf(rs.getInt("Item")));
+            items.add(item);
+            System.out.println("Oggetto caricato: "+item.getTitle());
+		}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//System.out.println("totalSize: "+items.size());
+			return items;
+	}
 }
