@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="com.model.DAOOrder" %>
 <%@ page import="com.model.Order" %>
 <%@ page import="com.model.OrderedItem" %>
@@ -17,68 +16,70 @@
 <div class=navbar>
 <jsp:include page="navbar.jsp"/>
 </div>
-<% if(session.getAttribute("userType").toString().equals("unregistered")) { 
+<% 
+if(session.getAttribute("userType").toString().equals("unregistered")) { 
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-	} %>
-	<div class="page">
-		<div class="title">
-			<h2>I miei ordini</h2>
+} 
+%>
+<div class="page">
+	<div class="title">
+		<h2>I miei ordini</h2>
+	</div>
+	
+	<% 
+	DAOOrder DaoOrder= new DAOOrder();
+	DAOItem db = new DAOItem();
+	
+	String utente = session.getAttribute("id").toString();
+	if(utente==null)
+	{
+		throw new Exception("Utente non autenticato");
+	}
+	ArrayList<Order> orders = DaoOrder.loadAllOrder(utente);
+	if(orders==null)
+	{
+		System.out.println("non ci sono ordini per questo utente");
+	%>
+		<div class="informazione_ordine">
+			<h2>Non hai ordini</h2>
 		</div>
-		
-		<% 
-		DAOOrder DaoOrder= new DAOOrder();
-		DAOItem db = new DAOItem();
-		
-		String utente = session.getAttribute("id").toString();
-		if(utente==null)
-		{
-			throw new Exception("Utente non autenticato");
-		}
-		ArrayList<Order> orders = DaoOrder.loadAllOrder(utente);
-		if(orders==null)
-		{
-			System.out.println("non ci sono ordini per questo utente");
-		%>
-			<div class="informazione_ordine">
-				<h2>Non hai ordini</h2>
-			</div>
-		<%
-		}
-		else
-		{
-			for(Order ord : orders){
-				Integer orderId = ord.getId();
-				System.out.println(orderId);
-				String status = ord.getStatus();
-				boolean canViewInvoice = false;		//0 = no. 1 = si. 
-				switch(status) {
-				case "pending":
-					status = "Da Confermare";
-					break;
-				case "confirmed":
-					status = "Confermato";
-					canViewInvoice = true;
-					break;
-				case "canceled":
-					status = "Cancellato";
-					break;
-				case "shipped":
-					status = "Spedito";
-					canViewInvoice = true;
-					break;
-				case "delivered":
-					status = "Consegnato";
-					canViewInvoice = true;
-					break;
-				case "toBeReturned":
-					status = "Avvio Reso";
-					break;
-				case "refund":
-					status = "Reso Completo";
-					break;
-				}
-		%>
-		<div class="prodotto">
+	<%
+	}
+	else
+	{
+		for(Order ord : orders){
+			Integer orderId = ord.getId();
+			System.out.println(orderId);
+			String status = ord.getStatus();
+			boolean canViewInvoice = false;		//0 = no. 1 = si. 
+			switch(status) {
+			case "pending":
+				status = "Da Confermare";
+				break;
+			case "confirmed":
+				status = "Confermato";
+				canViewInvoice = true;
+				break;
+			case "canceled":
+				status = "Cancellato";
+				break;
+			case "shipped":
+				status = "Spedito";
+				canViewInvoice = true;
+				break;
+			case "delivered":
+				status = "Consegnato";
+				canViewInvoice = true;
+				break;
+			case "toBeReturned":
+				status = "Avvio Reso";
+				break;
+			case "refund":
+				status = "Reso Completo";
+				break;
+			}
+	%>
+		<div class="prodotto">	<!-- qui inizia l'ordine -->
 			<div class="informazione_ordine">
 				<div class="info">
 					<h3>Numero Ordine : <%= orderId%></h3>
@@ -89,7 +90,7 @@
 				</div>
 				<div class="info">
 					<h3>Totale Ordine</h3>
-					<p><%= ord.getAmount()%></p>
+					<p>&euro;<%= ord.getAmount()%></p>
 				</div>
 				<div class="info">
 					<h3>Stato</h3>
@@ -104,27 +105,30 @@
 			</div>
 			<%
 			ArrayList<OrderedItem> list = ord.getPurchasedItems(orderId);
-			for(OrderedItem item : list) {
-			%>
-			<div class="informazione_consegna">	<!-- qua c'è l'item -->
-				<div class="prodotto">
-					<div class="dettagli_ordine">
-						<img alt="" src="/NibInk/images/<%=item.getItemId()%>/thumbnail.png">
-						<div class="prodotto">
-							<h2>Titolo:<%= item.getName()%></h2>
-							<h2>Taglia: <%= item.getSize()%></h2>
-							<h2>&euro;<%= item.getPrice()%></h2>
-							<h2>Quantit�:<%= item.getQuantity()%></h2>
+			for(OrderedItem item : list) 
+			{
+				%>
+				<div class="informazione_consegna">	<!-- qua c'è l'item -->
+					<div class="prodotto">
+						<div class="dettagli_ordine">
+							<img alt="" src="/NibInk/images/<%=item.getItemId()%>/thumbnail.png">
+							<div class="prodotto">
+								<h2>Titolo:<%= item.getName()%></h2>
+								<h2>Taglia: <%= item.getSize()%></h2>
+								<h2>&euro;<%= item.getPrice()%></h2>
+								<h2>Quantit&agrave;:<%= item.getQuantity()%></h2>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="function">
-					<button onclick="location.href='http://localhost:8080/NibInk/JSP/product.jsp?id=<%=item.getItemId()%>'">Vedi Articolo</button>
-				</div>
-			</div>
+					
+					<div class="function">
+						<button onclick="location.href='http://localhost:8080/NibInk/JSP/product.jsp?id=<%=item.getItemId()%>'">Vedi Articolo</button>
+					</div>
+				</div>	<!-- qui termina l'item -->
+		 <%}%></div> <%} }%> 
 		</div>
-		<%} } }%>
+	<div class="footer">
+		<jsp:include page="footer.jsp"/>
 	</div>
 </body>
 </html>

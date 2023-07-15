@@ -21,6 +21,11 @@ body
 	flex-direction:column;
 	justify-content:center;
 	align-items:center;
+	margin-bottom: 20px;
+}
+
+.footer {
+	margin-top: 20px;
 }
 
 .title
@@ -52,16 +57,18 @@ div.prodotto
 	border-top-right-radius:10px;
 }
 
-.informazione_consegna
-{
-	width:100%;
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	padding: 20px;
-	border: 1px solid black;
-	border-bottom-left-radius:10px;
-	border-bottom-right-radius:10px;
+.informazione_consegna {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.informazione_consegna:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .informazione_prodotto

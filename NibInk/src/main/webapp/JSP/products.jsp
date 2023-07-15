@@ -91,14 +91,6 @@ items = db.getItemsNumber();
                     <option hidden="" value="stop" selected>Scegli la taglia</option>
                 </select>
             </td>
-            <script>
-            function handleKeyPress(event) {
-                if (event.keyCode === 13) {
-                	event.preventDefault();
-                    return false;
-                }
-            }
-            </script>
             <td><span id="currQnt<%=i %>"></span></td>
             <td><form action="/NibInk/setQuantities" method="get">
             	<input type="number" name="quantity" id="quantityInput<%=i %>" onkeydown="handleKeyPress(event)">

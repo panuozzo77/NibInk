@@ -6,6 +6,7 @@
 <%@ page import="com.model.OrderedItem" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.model.DAOItem" %>
+<%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <%
@@ -13,15 +14,21 @@ int id=Integer.parseInt(request.getParameter("id"));
 int userId= (int) session.getAttribute("id");
 DAOOrder db = new DAOOrder();
 Order order = db.loadOrder(id);
+if(session.getAttribute("userType").toString().equals("unregistered")) { //se non sei registrato non possiamo mai essere certi che sia lui l'acquirente. Non può accedervi
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
+
 if(session.getAttribute("userType").toString().equals("registered")) {	//se è un utente registrato e l'ID utente dell'ordine non coincide con quello che lo visualizza
 	if(order.getUser()!=userId) {	//non hai i permessi per visualizzare questo riepilogo!
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
 	}
 }
-float IVA = order.getAmount()/100*22;
-float spedizione = order.getShippingCost();
-float IVASpedizione = spedizione/100*22;
-float netto = order.getAmount()-IVA+(spedizione-IVASpedizione);
+
+DecimalFormat decimalFormat = new DecimalFormat("#.##");
+float IVA = Float.parseFloat(decimalFormat.format(order.getAmount() / 100 * 22));
+float spedizione = Float.parseFloat(decimalFormat.format(order.getShippingCost()));
+float IVASpedizione = Float.parseFloat(decimalFormat.format(spedizione / 100 * 22));
+float netto = Float.parseFloat(decimalFormat.format(order.getAmount() - IVA + (spedizione - IVASpedizione)));
 DAOCustomer db2 = new DAOCustomer();
 Customer customer = db2.getCustomerById(order.getUser());
 
@@ -63,7 +70,6 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
 	      <% } %>
 	      <div><span>EMAIL</span> <a href="mailto:<%= order.getEmail() %>"><%= order.getEmail() %></a></div>
 	      <div><span>ACQUISTATO IL</span> <%= order.getOrderDate() %></div>
-	      <div><span>CONSEGNA</span></div>
 	    </div>
 	  </header>
 	  <main>
