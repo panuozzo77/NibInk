@@ -58,13 +58,15 @@ h4 {
 
 .paymentMethods > div
 {
+	width: 100%;
 	display:flex;
+	flex-direction:row;
 	align-items:center;
 }
 
 input[type="radio"]
 	{
-		margin-right:8px;;
+		margin-left:8px;;
 	}
 
 input[type=text]{
@@ -217,6 +219,10 @@ input[type=text]{
 	h2
 	{
 		font-size:65px;
+	}
+	
+	h4{
+		font-size: 35px;
 	}
 	
 	input[type="text"]

@@ -24,11 +24,16 @@
 			
 				<h4>Metodo di pagamento</h4>
 				<div class="paymentMethods">
-					<input name="paymentRadio" id="pm1" type="radio" value="card" onclick="showCard()">
-					<label for="pm1">Carta di Credito</label>
+					<div>
+						<label for="pm1">Carta di Credito</label>
+						<input name="paymentRadio" id="pm1" type="radio" value="card" onclick="showCard()">
+					</div>	
 					<br>
-					<input name="paymentRadio" id="pm2" type="radio" value="cashOnDelivery" onclick="hideCard()">
-					<label for="pm2">Contrassegno</label>
+					<div>
+						<label for="pm2">Contrassegno</label>
+						<input name="paymentRadio" id="pm2" type="radio" value="cashOnDelivery" onclick="hideCard()">					
+					</div>
+					
 				</div>
 
 				<div id="inputCard" class="Hidden">

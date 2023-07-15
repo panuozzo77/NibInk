@@ -11,6 +11,10 @@ body{
 	flex-direction: column;
 }
 
+.navbar{
+	width: 100%;
+}
+
 .Hidden{
 	visibility: hidden;
 	display: none;
