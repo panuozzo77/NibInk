@@ -11,6 +11,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>NibInk - Carrello</title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<link rel="stylesheet" href="/NibInk/CSS/cart.css">
 </head>
 <body>

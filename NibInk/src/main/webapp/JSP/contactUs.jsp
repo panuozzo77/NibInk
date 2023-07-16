@@ -7,6 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <title>NibInk - Contattaci</title>
+  <link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
   <link rel="stylesheet" href="https://www.coralliegioie.com/themes/classic/assets/css/theme.css" type="text/css" media="all">
   <script>
   document.addEventListener("DOMContentLoaded", function () {

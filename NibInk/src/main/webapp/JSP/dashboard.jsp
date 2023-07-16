@@ -22,6 +22,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">
 <title>ADMIN - Dashboard</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <body>
 <%//Admin check
 String admin = (String) request.getSession().getAttribute("userType");

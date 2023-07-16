@@ -8,7 +8,7 @@
 <%@ page import="com.model.DAOItem" %>
 <%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <%
 int id=Integer.parseInt(request.getParameter("id"));
 int userId= (int) session.getAttribute("id");
@@ -48,6 +48,7 @@ if(invoiceAddress.length()<2){	//se il campo dell'indirizzo di fatturazione è i
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <meta charset="utf-8">
   <title>NibInk - <%=title %></title>
+  <link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
   <link rel="stylesheet" href="/NibInk/CSS/fattura.css" media="all" />
 </head>
 <body>

@@ -11,6 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>NibInk - Metodi di pagamento</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <% 
         String str = (String) request.getSession().getAttribute("userType");
         List<SavedCard> list = new ArrayList<>(); // Initialize the list with an empty list

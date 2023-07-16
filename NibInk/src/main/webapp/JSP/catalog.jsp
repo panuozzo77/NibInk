@@ -10,7 +10,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>NibInk - Catalogo</title>
+	<title>NibInk - Catalogo</title>	
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<link href="/NibInk/CSS/catalog.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

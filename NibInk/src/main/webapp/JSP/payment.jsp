@@ -4,6 +4,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>NibInk - Pagamento</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <link href="/NibInk/CSS/payment.css" rel="stylesheet" type="text/css"/>
 
 </head>

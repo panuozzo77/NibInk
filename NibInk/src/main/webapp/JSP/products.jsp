@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">
 <title>ADMIN - Prodotti</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 
 <script>
     function updateQuantityInput(index) {

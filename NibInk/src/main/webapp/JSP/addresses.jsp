@@ -9,6 +9,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title> NibInk - Indirizzi </title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<link href="/NibInk/CSS/addresses.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

@@ -7,7 +7,7 @@
 <%@ page import="com.model.Customer" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +15,7 @@
   <script src="https://kit.fontawesome.com/391827d54c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/NibInk/CSS/messageCenter.css">
   <title>NibInk - Centro Messaggi</title>
+  <link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
   <% String str = (String) request.getSession().getAttribute("userType");
   if (str != null && str.equals("unregistered")) {
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);

@@ -10,6 +10,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>NibInk - I miei Ordini</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <link href="/NibInk/CSS/myOrders.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

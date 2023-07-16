@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/NibInk/CSS/admin.css">
     <title>ADMIN - Ordini</title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
     <style>
         /* Styles for the popup */
         .popup-overlay {

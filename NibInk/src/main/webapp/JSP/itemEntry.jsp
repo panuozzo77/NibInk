@@ -9,6 +9,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>ADMIN - Item Entry</title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<script type="text/javascript" src="/NibInk/JavaScript/itemEntryJS.js"></script>
 	<link href="/NibInk/CSS/itemEntry.css" rel="stylesheet" type="text/css"/>
 </head>

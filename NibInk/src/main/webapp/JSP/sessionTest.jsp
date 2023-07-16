@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Cosa c'è dentro la Session?</title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
     <style>
         table {
             border-collapse: collapse;
@@ -26,9 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            <%-- Recupera l'oggetto session --%>
             <% HttpSession s = request.getSession(); %>
-            <%-- Itera attraverso gli attributi della sessione --%>
             <% Enumeration<String> attributeNames = s.getAttributeNames(); %>
             <% while (attributeNames.hasMoreElements()) { %>
                 <% String attributeName = attributeNames.nextElement(); %>

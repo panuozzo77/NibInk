@@ -21,6 +21,7 @@
 		productVariants.loadVariants();
 	%>
 	<title> NibInk - <%= product.getTitle() %></title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<link rel="stylesheet" href="/NibInk/CSS/product.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -18,6 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>NibInk - Riepilogo Ordine</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <link rel="stylesheet" href="/NibInk/CSS/orderSummary.css">
 </head>
 <script src="/NibInk/JavaScript/jquery.js"></script>

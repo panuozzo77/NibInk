@@ -13,6 +13,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>NibInk - Homepage </title>
+	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 	<link href="/NibInk/CSS/home.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>

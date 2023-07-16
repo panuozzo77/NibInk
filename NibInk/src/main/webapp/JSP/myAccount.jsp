@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>NibInk - Il Mio Account</title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <link href="/NibInk/CSS/myAccount.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -17,6 +18,7 @@
 	<h1>Mio Account</h1>
 	<% if(session.getAttribute("userType").toString().equals("unregistered")) { 
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+		//TODO aggiungere la card per le carte salvate
 	} %>
 		<div class="riga">
 				<div class="opzione" onClick="Ordini()">
