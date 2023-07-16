@@ -3,7 +3,7 @@
 <%@page import="com.model.Customer" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <title>NibInk - Contattaci</title>

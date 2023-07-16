@@ -1,7 +1,7 @@
 <%@ page import="com.model.DAOOrder" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-
+<html lang="it">
 <%
     DAOOrder daoOrder = new DAOOrder();
     int openOrdersCount = daoOrder.getOpenOrdersCount("pending");
@@ -16,8 +16,6 @@
     String currentDate = dateFormat.format(new Date());
 %>
 
-<body>
-<html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">

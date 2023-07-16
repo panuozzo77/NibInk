@@ -2,7 +2,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.*" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <title>Cosa c'è dentro la Session?</title>
 	<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">

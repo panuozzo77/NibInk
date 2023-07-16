@@ -4,7 +4,7 @@
 <%@page import="com.model.ShippingMethod" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/NibInk/CSS/admin.css">

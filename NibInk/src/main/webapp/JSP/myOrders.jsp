@@ -6,7 +6,7 @@
 <%@ page import="com.model.DAOItem" %>
 <%@ page errorPage="/JSP/login.jsp?error=3" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="ISO-8859-1">
 <title>NibInk - I miei Ordini</title>

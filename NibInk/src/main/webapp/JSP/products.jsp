@@ -8,7 +8,7 @@
 <%@page import="com.model.ItemVariant" %>
 <%@ page import="java.util.Map" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/NibInk/CSS/admin.css">

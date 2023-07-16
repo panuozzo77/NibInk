@@ -7,7 +7,7 @@
 <%@ page import="com.model.Customer" %>
 <%@ page import="java.util.List" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

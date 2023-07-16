@@ -7,7 +7,7 @@
 <%@ page import="com.model.DAOItem" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<meta charset="UTF-8">
 	<title>NibInk - Catalogo</title>	

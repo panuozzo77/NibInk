@@ -4,7 +4,7 @@
 <%@page import="com.model.Customer" %>
 <%@page import="java.util.ArrayList" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="/NibInk/JavaScript/orderManager.js"></script>

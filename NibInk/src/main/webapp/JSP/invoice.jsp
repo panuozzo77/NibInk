@@ -8,7 +8,7 @@
 <%@ page import="com.model.DAOItem" %>
 <%@ page import="java.text.DecimalFormat" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <%
 int id=Integer.parseInt(request.getParameter("id"));
 int userId= (int) session.getAttribute("id");

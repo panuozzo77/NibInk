@@ -312,7 +312,7 @@ function modifyAddr(index){
 	$("#Country option:contains('"+country+"'):first").prop("selected", true);
 	$("#MoreInfo").val(moreInfo);
 	
-	toggleAddressInput("modify");
+	toggleAddressInput();
 	
 	if(isBa=="true"){
 		$("#isBA").prop("checked", true);

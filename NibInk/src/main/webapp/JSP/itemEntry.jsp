@@ -5,7 +5,7 @@
 <%@page import="com.model.DAOVariant" %>
 <%@page import="java.util.Map" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<meta charset="ISO-8859-1">
 	<title>ADMIN - Item Entry</title>

@@ -14,7 +14,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <title>NibInk - Riepilogo Ordine</title>

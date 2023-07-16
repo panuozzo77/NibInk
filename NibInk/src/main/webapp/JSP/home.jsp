@@ -9,7 +9,7 @@
 <%@ page import="com.model.Item" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 	<meta charset="UTF-8">
 	<title>NibInk - Homepage </title>

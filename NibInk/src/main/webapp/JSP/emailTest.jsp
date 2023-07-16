@@ -3,7 +3,7 @@
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="com.model.*"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
 <meta charset="ISO-8859-1">
 <title>Email/Password reset tester</title>

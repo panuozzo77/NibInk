@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+<title> NibInk - Footer </title>
+<link rel="icon" type="image/x-icon" href="/NibInk/images/favicon.ico">
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="/NibInk/CSS/footer.css">
 </head>
