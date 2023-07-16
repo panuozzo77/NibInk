@@ -141,7 +141,7 @@ function displayImages(images) {
     img.alt = "Preview";
 
     var deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
+    deleteButton.textContent = "Elimina";
     deleteButton.addEventListener("click", function () {
       deleteImage(image);
       thumbnailPreview.removeChild(img);

@@ -234,6 +234,9 @@ body {
   color: #aaa;
   font-size: 0.9em;
 }
+.text-head p{
+	overflow: auto;
+}
 
 .closed {
 	background-color: darkslategray;

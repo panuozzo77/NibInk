@@ -20,6 +20,7 @@ if (admin != null && !admin.equals("admin")) {
     <li><a href="/NibInk/JSP/customerManager.jsp">Utenti</a></li>
     <li><a href="/NibInk/JSP/shippingMethods.jsp">Metodi di Spedizione</a></li>
     <li><a href="/NibInk/JSP/itemEntry.jsp"> Crea nuovo Articolo</a>
+    <li><a href="/NibInk/JSP/messageCenter.jsp"> Centro messaggi</a>
   </ul>
 </body>
 </html>

@@ -95,16 +95,22 @@ body{
 	margin-top: 10%;
 }
 
+#showImgBtn{
+	margin-bottom: 30px;
+}
+
 #popup {
   display: none;
+  flex-direction: column;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  background-color: rgb(51, 209, 122);
+  background-color: lightsalmon;
   text-align: center;
   padding: 20px;
+  width: 30%;
 }
 
 #popup h3 {
@@ -112,11 +118,35 @@ body{
 }
 
 #popup img {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 100px;
+  max-height: 100px;
   margin: 10px;
 }
 
 #closePopup {
   margin-top: 20px;
+}
+
+#thumbnailPreview div, #photosPreview div{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#thumbnailPreview div button, #photosPreview div button{
+	width: 30%;
+}
+
+#thumbnailPreview div{
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+#photosPreview div{
+	
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	
 }

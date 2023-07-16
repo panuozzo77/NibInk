@@ -115,7 +115,7 @@ if(item.getType()!= null)
   			<input type="file" name="photos[]" class="files" multiple>
   			<div class="submitButton">
 			<input type="hidden" id="itemId" name="item" value="id">
-  			<button type="submit">Carica Immagini</button>
+  			<button id="showImgBtn" type="submit">Carica Immagini</button>
   			</div>
   			</form>
   			<button id="showPopup" onclick="showUploadedPhotos()" type="button">Mostra foto caricate</button>
@@ -123,8 +123,13 @@ if(item.getType()!= null)
 		<%} %>
 		<div id="popup">
 			<h3>Anteprima immagini:</h3>
-			<div id="thumbnailPreview"></div>
-			<div id="photosPreview"></div>
+			<div>
+				<p style="color: white">Copertina:</p>
+				<div id="thumbnailPreview"></div>
+				<p style="color: white">Altre immagini:</p>
+				<div id="photosPreview"></div>
+			</div>
+			
 			<button id="closePopup" onclick="closePopUp()">Chiudi</button>
 		</div>
 	</div>

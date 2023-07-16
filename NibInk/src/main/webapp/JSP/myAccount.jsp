@@ -18,7 +18,6 @@
 	<h1>Mio Account</h1>
 	<% if(session.getAttribute("userType").toString().equals("unregistered")) { 
 		response.sendError(HttpServletResponse.SC_FORBIDDEN);
-		//TODO aggiungere la card per le carte salvate
 	} %>
 		<div class="riga">
 				<div class="opzione" onClick="Ordini()">
@@ -60,6 +59,14 @@
 					<div class="spiegazione">
 						<h2 class="title">Indirizzi</h2>
 						<p>Gestisci gli indirizzi<br> di consegna</p>
+					</div>
+				</div>
+				
+				<div class="opzione" onclick="carte()">
+					<img alt="" src="/NibInk/images/card.png">
+					<div class="spiegazione">
+						<h2 class="title">Le tue carte</h2>
+						<p>Gestisci le carte di credito</p>
 					</div>
 				</div>
 		</div>
@@ -126,6 +133,10 @@ function Ordini()
 	window.location.href = "/NibInk/JSP/myOrders.jsp";	
 }
 
+function carte()
+{
+	window.location.href = "/NibInk/JSP/paymentMethod.jsp";	
+}
 
 function Indirizzi()
 {

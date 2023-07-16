@@ -37,7 +37,7 @@
 			        Taglia: ${item.getSize()}
 			        <form id="cartForm" action="/NibInk/CartServlet" method="post">
 			          Quantità:
-			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="100" value="${item.getQuantity()}">
+			          <input type="number" name="quantityInput" id="quantityInput${loop.index}" min="1" max="15" value="${item.getQuantity()}">
 			
 			          <br><br>
 			         

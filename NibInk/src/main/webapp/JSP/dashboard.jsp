@@ -32,19 +32,9 @@ if (admin != null && !admin.equals("admin")) {
 <div class="navbar">
 	<jsp:include page="adminNavbar.jsp"/>
 </div>
-    <h1>Dashboard</h1>
     <div class="dashboard-section">
         <h2>Open Orders</h2>
         <p>Number of open orders: <%= openOrdersCount %></p>
-    </div>
-
-    <div class="dashboard-section">
-        <h2>Customer Messages</h2>
-    </div>
-
-    <div class="dashboard-section">
-        <h2>Monthly Earnings</h2>
-        
     </div>
 </body>
 </html>
