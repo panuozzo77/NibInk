@@ -26,7 +26,6 @@ public class LoginServlet extends HttpServlet {
     	String password = request.getParameter("password");
     	DAOCustomer verify = new DAOCustomer();
     	int status = verify.checkLogin(email, password);
-    	//System.out.println(status);
     	switch (status) {
     		case 1: 
     			HttpSession session = request.getSession();

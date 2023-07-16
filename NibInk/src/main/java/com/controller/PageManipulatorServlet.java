@@ -36,7 +36,6 @@ public class PageManipulatorServlet extends HttpServlet{
 					filter = filter.substring(0, index) + "";
 				if(filter != "") //teoricamente si potrebbe togliere ma secondo me meglio di no perché funziona così ed amen
 					url += "filter="+filter+"&";
-					//System.out.println(url);
 			}
 			else //è già presente e si sta cambiando pagina
 				url += "filter="+filter+"&";

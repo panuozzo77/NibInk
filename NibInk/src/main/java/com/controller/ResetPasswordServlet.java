@@ -21,6 +21,7 @@ public class ResetPasswordServlet extends HttpServlet {
 									  + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 								      + "0123456789"
 							          + "!@#$%^&*()_+{}[]";
+	private Random random = new Random();
 	
 	private static final String siteName="NibInk";
 
@@ -33,10 +34,10 @@ public class ResetPasswordServlet extends HttpServlet {
 		if(checkUser(email, name, surname)) {
 			String subject = generateSubject(siteName);
 			String newPassword = "";
-			Random r = new Random();
 			
 			for(int i=0; i<30; i++) {
-				newPassword+=chars.charAt(r.nextInt(chars.length()));
+				int r = this.random.nextInt(chars.length());
+				newPassword+=chars.charAt(r);
 			}
 	        request.setAttribute("message", generateMsg(name, newPassword, siteName));
 	        request.setAttribute("sendTo", email);

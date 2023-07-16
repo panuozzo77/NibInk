@@ -15,10 +15,6 @@ public class ImageDeleteServlet extends HttpServlet {
     public ImageDeleteServlet() {
         super();
     }
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,7 +28,6 @@ public class ImageDeleteServlet extends HttpServlet {
     private void deleteImage(HttpServletRequest request, String imageUrl) {
     	String file = imageUrl.substring(imageUrl.indexOf("/images"));
         String uploadDir = getServletContext().getRealPath("/") + file;
-        System.out.println(uploadDir);
         File imageFile = new File(uploadDir);
         if (imageFile.exists()) {
             imageFile.delete();

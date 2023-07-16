@@ -44,7 +44,6 @@ public class RetrieveMessage extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
         } else {
-        	System.out.println("Error getting conversationId to retrieve messages");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

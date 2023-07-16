@@ -30,8 +30,6 @@ public class UploadServlet extends HttpServlet {
     	      throws ServletException, IOException {
     	    // Directory where the files will be saved
     	    String uploadDir = getServletContext().getRealPath("/")+"images/"+request.getParameter("itemId")+"/";
-    		//String uploadDir = "/NibInk/images/" + request.getParameter("itemId") +"/";
-    	    System.out.println("upload images in: "+ uploadDir);
     	    File dir = new File(uploadDir);
     	    if (!dir.exists()) {
     	      dir.mkdirs();

@@ -37,7 +37,6 @@ public class GetImages extends HttpServlet {
             for (File imageFile : imageFiles) {
                 String imageName = imageFile.getName();
                 String imagePath = "/NibInk/images/"+request.getParameter("id") + "/" + imageName;
-                System.out.println(imagePath);
                 imageUrls.add(imagePath);
             }
         }

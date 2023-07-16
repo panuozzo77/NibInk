@@ -17,21 +17,11 @@ public class SessionListener implements HttpSessionListener {
         HttpSession session = event.getSession();
         CartManager cm = new CartManager();
     	String code = UUID.randomUUID().toString();
-        //System.out.println("User Code created: " + code);
         cm.addNewCart(code);
         session.setAttribute("sessionId", code);
         session.setAttribute("userType", "unregistered");
         session.setAttribute("addr", "");
         session.setAttribute("addrBA", "");
-    }
-
-	/**
-     * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
-     */
-    public void sessionDestroyed(HttpSessionEvent event)  { 
-        //HttpSession session = event.getSession();
-        //String uniqueCode = (String) session.getAttribute("uniqueCode");
-        //System.out.println("User Code destroyed: " + uniqueCode);
     }
 	
 }
