@@ -59,7 +59,11 @@ public class DAOMessage extends DAOConnection {
     public int getUnreadMessageCount(int conversationId, String reader) {
     	int unreadCount = 0;
     	String column = reader.equals("admin") ? "hasAdminReadIt" : "hasUserReadIt";
-    	String sql = "SELECT COUNT(*) AS unreadCount FROM Messages WHERE id = ? AND " +column+ " = FALSE;";
+    	String sql = null;
+    	if(column.equals("hasAdminReadIt"))
+    		sql = "SELECT COUNT(*) AS unreadCount FROM Messages WHERE id = ? AND hasAdminReadIt = FALSE;";
+    	else
+    		sql = "SELECT COUNT(*) AS unreadCount FROM Messages WHERE id = ? AND hasUserReadIt = FALSE;";
     	try {
     		stmt = con.prepareStatement(sql);
     		stmt.setInt(1, conversationId);
@@ -166,8 +170,9 @@ public class DAOMessage extends DAOConnection {
     //restituisce il numero dell'ultimo messaggio presente nella conversazione
     public int getLatestMessageNumber(int conversationId) {
     	try {
-    		Statement stmt = con.createStatement();
-    		ResultSet rs = stmt.executeQuery("SELECT messageNumber FROM Messages WHERE id = "+conversationId+" ORDER BY sent DESC LIMIT 1");
+    		stmt = con.prepareStatement("SELECT messageNumber FROM Messages WHERE id = ? ORDER BY sent DESC LIMIT 1");
+    		stmt.setInt(1, conversationId);
+    		ResultSet rs = stmt.executeQuery();
     		if(rs.next()) {
     			return rs.getInt("messageNumber");
     		}
@@ -233,7 +238,11 @@ public class DAOMessage extends DAOConnection {
     
     public int setReadStatus(int conversationId, String reader) {
     	String columnToUpdate = reader.equals("admin") ? "hasAdminReadIt" : "hasUserReadIt";
-    	String sql = "UPDATE Messages SET "+ columnToUpdate +" = true WHERE id = ?";
+    	String sql = null;
+    	if(columnToUpdate.equals("hasAdminReadIt"))
+    		sql = "UPDATE Messages SET hasAdminReadIt = true WHERE id = ?";
+    	else
+    		sql = "UPDATE Messages SET hasUserReadIt = true WHERE id = ?";
     	try {
     		stmt = con.prepareStatement(sql);
     		stmt.setInt(1, conversationId);
