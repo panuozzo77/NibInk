@@ -21,11 +21,11 @@ public class ImageDeleteServlet extends HttpServlet {
             throws ServletException, IOException {
         String imageUrl = request.getParameter("imageUrl");
         if (imageUrl != null && !imageUrl.isEmpty()) {
-            deleteImage(request, imageUrl);
+            deleteImage(imageUrl);
         }
     }
 
-    private void deleteImage(HttpServletRequest request, String imageUrl) {
+    private void deleteImage(String imageUrl) {
     	String file = imageUrl.substring(imageUrl.indexOf("/images"));
         String uploadDir = getServletContext().getRealPath("/") + file;
         File imageFile = new File(uploadDir);

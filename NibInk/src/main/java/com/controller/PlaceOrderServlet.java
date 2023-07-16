@@ -58,7 +58,7 @@ public class PlaceOrderServlet extends HttpServlet {
     	Cart userCart = cm.getCart((String) session.getAttribute("sessionId"));
     	
     	ArrayList<ItemInTheCart> list = userCart.getCart();
-    	ArrayList<OrderedItem> purchased = new ArrayList<OrderedItem>();	//devo spostare dal carrello a questa nuova lista
+    	ArrayList<OrderedItem> purchased = new ArrayList<>();	//devo spostare dal carrello a questa nuova lista
     	
     	float total = userCart.getTotal(); //totale provvisorio
     	
@@ -126,7 +126,9 @@ public class PlaceOrderServlet extends HttpServlet {
             email.setMsg(message);
             email.addTo(sendTo);
         	email.send();
-        } catch(EmailException e) {}
+        } catch(EmailException e) {
+        	e.printStackTrace();
+        }
 
     }
 

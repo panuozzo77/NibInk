@@ -64,7 +64,9 @@ void sendEmail(String sendTo, String name) {
         email.setMsg(message);
         email.addTo(sendTo);
     	email.send();
-    } catch(EmailException e) {}
+    } catch(EmailException e) {
+    	e.printStackTrace();
+    }
 
 }
 

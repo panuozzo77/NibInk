@@ -93,11 +93,12 @@ public class ResetPasswordServlet extends HttpServlet {
     }
     
     protected boolean checkUser(String email, String name, String surname) {
-        DAOCustomer db = new DAOCustomer();
+        boolean status = false;
+    	DAOCustomer db = new DAOCustomer();
         Customer customer = db.getCustomerByEmail(email);
         if(customer.getName().equals(name) && customer.getSurname().equals(surname)) {
-        	return true;
+        	status = true;
         }
-        return false;
+        return status;
     }
 }

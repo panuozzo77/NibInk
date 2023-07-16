@@ -59,16 +59,16 @@ public class AjaxAddressServlet extends HttpServlet {
 		}
 		String surname=temp[temp.length-1];
 		
-		int user=Integer.valueOf(request.getParameter("id"));
+		int user=Integer.parseInt(request.getParameter("id"));
 		String country=request.getParameter("country");
     	String street=request.getParameter("street");
-    	int number=Integer.valueOf(request.getParameter("number"));
+    	int number=Integer.parseInt(request.getParameter("number"));
     	String moreInfo=request.getParameter("moreInfo");
-    	int zipCode=Integer.valueOf(request.getParameter("zipCode"));
+    	int zipCode=Integer.parseInt(request.getParameter("zipCode"));
     	String city=request.getParameter("city");
     	String state=request.getParameter("state");
-    	boolean isBA=Boolean.valueOf(request.getParameter("isBA"));
-    	boolean isDefault=Boolean.valueOf(request.getParameter("isDefault"));
+    	boolean isBA=Boolean.parseBoolean(request.getParameter("isBA"));
+    	boolean isDefault=Boolean.parseBoolean(request.getParameter("isDefault"));
     	
     	Address addr = new Address(user, country, name, surname, street, number, moreInfo, zipCode, city, state, isBA, isDefault);
     	AddressManager am = new AddressManager(user);
@@ -79,7 +79,7 @@ public class AjaxAddressServlet extends HttpServlet {
 		}
 		
 		else if(toDo.equals("modify")) {
-			int index=Integer.valueOf(request.getParameter("index"));
+			int index=Integer.parseInt(request.getParameter("index"));
 	    	am.modifyAddr(am.getAddresses().get(index), addr);
 	    	response.getWriter().write("Modifica Riuscita!");
 		}
