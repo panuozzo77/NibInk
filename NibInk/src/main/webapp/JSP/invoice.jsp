@@ -24,11 +24,12 @@ if(session.getAttribute("userType").toString().equals("registered")) {	//se è u
 	}
 }
 
-DecimalFormat decimalFormat = new DecimalFormat("#.##");
-float IVA = Float.parseFloat(decimalFormat.format(order.getAmount() / 100 * 22));
-float spedizione = Float.parseFloat(decimalFormat.format(order.getShippingCost()));
-float IVASpedizione = Float.parseFloat(decimalFormat.format(spedizione / 100 * 22));
-float netto = Float.parseFloat(decimalFormat.format(order.getAmount() - IVA + (spedizione - IVASpedizione)));
+//DecimalFormat decimalFormat = new DecimalFormat("#.##");
+float IVA = Math.round(order.getAmount() * 0.22f * 100) / 100f;
+float spedizione = Math.round(order.getShippingCost() * 100) / 100f;
+float IVASpedizione = Math.round(spedizione * 0.22f * 100) / 100f;
+float netto = Math.round(((order.getAmount()/100)*78) * 100) / 100f;
+
 DAOCustomer db2 = new DAOCustomer();
 Customer customer = db2.getCustomerById(order.getUser());
 

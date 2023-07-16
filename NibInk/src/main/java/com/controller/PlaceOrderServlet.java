@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
+
 import com.model.DAOOrder;
 import com.model.Item;
 import com.model.ItemInTheCart;
@@ -94,6 +99,7 @@ public class PlaceOrderServlet extends HttpServlet {
 		response.setContentType("text/plain");
 		response.setCharacterEncoding("UTF-8");
 		if(db2.saveOrder(toSave)) {
+			sendEmail(email);
 			cm.cleanCart((String) session.getAttribute("sessionId"));
 			if(session.getAttribute("userType").equals("unregistered"))
 				response.getWriter().write("/NibInk/JSP/home.jsp");
@@ -105,5 +111,46 @@ public class PlaceOrderServlet extends HttpServlet {
 		}
 		
     }
+    void sendEmail(String sendTo) {
+    	String siteName="NibInk";
+    	String subject=generateSubject(siteName);
+    	String message=generateMsg(siteName);
+        try {
+        	Email email = new SimpleEmail();
+        	email.setHostName("smtp.googlemail.com");
+        	email.setSmtpPort(465);
+        	email.setAuthenticator(new DefaultAuthenticator("nibinkhelper@gmail.com", "etnvtvwwbhbeqlkv"));
+        	email.setSSLOnConnect(true);
+        	email.setFrom("nibinkhelper@gmail.com");
+        	email.setSubject(subject);
+            email.setMsg(message);
+            email.addTo(sendTo);
+        	email.send();
+        } catch(EmailException e) {}
+
+    }
+
+    private String generateSubject(String siteName) {
+    	String msg="[SiteName] - Conferma dell'ordine!";
+    	msg = msg.replace("[SiteName]", siteName);
     	
+    	return msg;
+    }
+
+    private String generateMsg(String siteName) {
+
+    	String msg="Gentile Cliente,\n"
+    			+ "\n"
+    			+ "Grazie per il tuo ordine su NibInk! Siamo lieti di confermare che l'operazione è stata completata con successo e che i tuoi articoli saranno presto pronti per la spedizione.\n"
+    			+ "Il nostro team si occuperà dell'imballaggio dei tuoi articoli con cura e attenzione per garantire che arrivino in perfette condizioni.\n"
+    			+ "Se hai domande o necessiti di assistenza riguardo al tuo ordine, ti preghiamo di contattare il nostro team di supporto clienti. Siamo sempre disponibili per aiutarti.\n"
+    			+ "\n"
+    			+ "Grazie ancora per aver scelto [SiteName] come il tuo negozio di fiducia per penne, inchiostri e taccuini. Speriamo che tu possa apprezzare appieno i prodotti che hai selezionato.\n"
+    			+ "Cordiali saluti,\n"
+    			+ "\n"
+    			+ "Il team di [SiteName]";   	
+    	msg = msg.replace("[SiteName]", siteName);
+    	
+    	return msg;
+    }    	
 }

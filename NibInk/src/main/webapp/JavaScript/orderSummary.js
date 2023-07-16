@@ -56,11 +56,12 @@ function showBuyBtn(){
 
 function placeOrder() {
 	if (checkEmail()) {
+		$("#placeOrderBtn").attr("disabled", true);
+		$("#placeOrderBtn").val("Ordine inviato!");
 	    var email = $("#emailCustomer").val();
 	    
 	    var shippingMethod = $('input[name="shippingRadio"]:checked').data("smethod");
 	    var shippingPrice = $('input[name="shippingRadio"]:checked').data("sprice");
-		
 		sendAjaxRequest(email, shippingMethod, shippingPrice).then((resolve) => {
 	  		var redirectUrl = resolve.trim();
 	  		if (redirectUrl.startsWith("/NibInk")) {
