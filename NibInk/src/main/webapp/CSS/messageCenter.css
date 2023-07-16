@@ -162,7 +162,6 @@ body {
   border: none;
   background: #fff;
   padding: 5px;
-  height: 30x;
   border-radius: 10px;
   font-size: 12px;
   padding-left: 60px;
@@ -234,7 +233,6 @@ body {
 .chat-list .chat-box .chat-details .text-message p {
   color: #aaa;
   font-size: 0.9em;
-  overlay: hidden;
 }
 
 .closed {

@@ -1,6 +1,7 @@
 <%@ page import="com.model.DAOOrder" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<!DOCTYPE html>
 <html lang="it">
 <%
     DAOOrder daoOrder = new DAOOrder();

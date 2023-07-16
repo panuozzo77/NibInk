@@ -163,7 +163,7 @@
 <!--header -->
       <div class="header">
         <div class="nav-icons">
-          <li><i class="fa-solid fa-message" onclick="openMessageForm()"> Nuova chat</i></li>
+         <ul> <li><i class="fa-solid fa-message" onclick="openMessageForm()"> Nuova chat</i></li></ul>
         </div>
       </div>
 
@@ -244,8 +244,7 @@
           <h4>Invia Messaggio<br><span>email</span></h4>
         </div>
         <div class="nav-icons">
-          <li><i></i></li>
-          <li id="check">Segna come risolto<i onclick="markAsSolved()"class="fa-solid fa-circle-check"></i></li>
+         <ul><li id="check">Segna come risolto<i onclick="markAsSolved()"class="fa-solid fa-circle-check"></i></li></ul> 
         </div>
       </div>
 

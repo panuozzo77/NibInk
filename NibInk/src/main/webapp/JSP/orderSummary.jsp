@@ -43,7 +43,7 @@
 				<div class="itemContainer">
 					<div class="itemInfo"> 
 						<div class="itemImg">
-							<img class="image" src="/NibInk/images/<%=i.getItem().getCodenumber()%>/thumbnail.png">
+							<img alt="Immagine del Prodotto" class="image" src="/NibInk/images/<%=i.getItem().getCodenumber()%>/thumbnail.png">
 						</div>
 						<div class="itemTitle">
 							<p><%= i.getItem().getTitle() %></p>

@@ -67,7 +67,7 @@
 					%>
 						<div id="item<%=i%>" class="cardContainer" onclick="location.href='/NibInk/JSP/product.jsp?id=<%=item.getCodenumber()%>'">
 							<div class="cardImg">
-								<img class="itemImg" src="/NibInk/images/<%=item.getCodenumber() %>/thumbnail.png">
+								<img alt="Immagine Prodotto" class="itemImg" src="/NibInk/images/<%=item.getCodenumber() %>/thumbnail.png">
 							</div>
 							<div class="cardText">
 								<div class="cardTitle">
@@ -84,7 +84,7 @@
 					%>
 						<div id="item<%=i%>" class="Hidden" onclick="location.href='/NibInk/JSP/product.jsp?id=<%=item.getCodenumber()%>'">
 							<div class="cardImg">
-								<img class="itemImg" src="/NibInk/images/<%=item.getCodenumber() %>/thumbnail.png">
+								<img alt="Immagine Prodotto" class="itemImg" src="/NibInk/images/<%=item.getCodenumber() %>/thumbnail.png">
 							</div>
 							<div class="cardText">
 								<div class="cardTitle">
@@ -124,7 +124,7 @@
 				%>
 					<div id="MSitem<%=i%>" class="cardContainer" onclick="location.href='/NibInk/JSP/product.jsp?id=<%=item.getCodenumber()%>'">
 						<div class="cardImg">
-							<img class="itemImg" src="/NibInk/images/<%=item.getCodenumber()%>/thumbnail.png">
+							<img alt="Immagine Prodotto" class="itemImg" src="/NibInk/images/<%=item.getCodenumber()%>/thumbnail.png">
 						</div>
 						<div class="cardText">
 							<div class="cardTitle">

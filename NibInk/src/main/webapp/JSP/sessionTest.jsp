@@ -20,6 +20,7 @@
 </head>
 <body>
     <table>
+    	<caption>Elementi della sessione corrente:</caption>
         <thead>
             <tr>
                 <th>Attributo</th>
