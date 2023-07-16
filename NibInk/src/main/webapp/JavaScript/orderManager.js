@@ -11,8 +11,22 @@ $(document).ready(function() {
 	  $("#invoiceResearch").on("change keyup", function() {
 		  canISearchInvoice();
 	  });
+	  $("#selectStatus").on("change keyup", function() {
+		  canISearchStatus();
+	  });
 })
-    
+
+function canISearchStatus() {
+  var selectStatus = document.getElementById("selectStatus");
+  var statusButton = document.getElementById("statusButton");
+
+  if (selectStatus.value !== "") {
+    statusButton.disabled = false;
+  } else {
+    statusButton.disabled = true;
+  }
+}
+
 function canISearchInvoice() {
 	var input = document.getElementById("invoiceResearch");
 	var button = document.getElementById("invoiceButton");
@@ -109,6 +123,21 @@ function showOrderByDate() {
     });
 }
 
+function statusResearch() {
+	var status = document.getElementById("selectStatus").value;
+	$.ajax({
+      url: "/NibInk/getOrders",
+      method: "GET",
+      data: {mode : "byStatus", st : status},
+      dataType: "json", 
+      success: function (response) {
+    	  showOrders(response);
+    	},
+      error: function (xhr, status, error) {
+        console.log("AJAX Error:", error);
+      }
+    });
+}
 //funzione per chiudere la tabella generata da showOrder
 function togglePopup() {
 	  var container = document.getElementById("container");

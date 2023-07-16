@@ -39,6 +39,9 @@ public class AdminGetOrders extends HttpServlet {
 			if(request.getParameter("mode").equals("byDate")) {	//se deve caricare gli ordini per data
 				list = db.loadOrdersByDateRange(request.getParameter("sd"), request.getParameter("ed"));
 			}
+			if(request.getParameter("mode").equals("byStatus")) {	//se deve caricare gli ordini per stato
+				list = db.getOrdersByStatus(request.getParameter("st"));
+			}
 		}
 		if(request.getParameter("userId")!=null) {
 			String id = request.getParameter("userId");		//se deve caricare gli ordini dato un ID utente

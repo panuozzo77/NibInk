@@ -87,6 +87,20 @@ if (admin != null && !admin.equals("admin")) {
 	    	<input type="number" max="1000" id="invoiceResearch" placeholder="ID ordine">
 	    	<button id="invoiceButton" disabled onclick="showInvoice()">Mostra dettagli Ordine</button>
     	</div>
+    	<div class="option">
+	    	<label for="selectStatus">Scegli lo</label>
+	    	<select id="selectStatus" name="selectInput">
+	    	<option value="" disabled selected>stato</option>
+	    	<option value="pending">Pending</option>
+	    	<option value="confirmed">Confirmed</option>
+	    	<option value="canceled">Canceled</option>
+	    	<option value="shipped">Shipped</option>
+	    	<option value="delivered">Delivered</option>
+	    	<option value="toBeReturned">toBeReturned</option>
+	    	<option value="refund">Refund</option>
+	    	</select>
+	    	<button id="statusButton" disabled onclick="statusResearch()">Cerca per stato</button>
+    	</div>
     </div>
     <div id=container></div>
 </body>

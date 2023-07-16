@@ -153,6 +153,22 @@ public class DAOOrder extends DAOConnection {
         
     }
     
+    public ArrayList<Order> getOrdersByStatus(String status) {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM Orders WHERE status = ? ORDER BY Order_Date DESC";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            orders = getFromResultSet(rs);
+            } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+    
     private void closeResources() {
         try {
             if (stmt != null) {
