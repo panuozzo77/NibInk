@@ -41,7 +41,7 @@
 					<p class="required">Intestatario Carta</p>	
 					<input name="cardName" type="text" id="cardName" value="<%=sessione.getAttribute("savedCardName")%>"><br>
 					<p class="required">Numero della Carta</p>
-					<input name="cardNumber" type="text" id="cardNumber" value="<%=sessione.getAttribute("savedCard")%>" onkeydown="showSaveCard()"><br>
+					<input name="cardNumber" type="text" id="cardNumber" maxlength="16" value="<%=sessione.getAttribute("savedCard")%>" onkeydown="showSaveCard()"><br>
 					<div  class="secondHalf">
 						<div class="shContent">
 							<p class="required">Data di Scadenza</p>

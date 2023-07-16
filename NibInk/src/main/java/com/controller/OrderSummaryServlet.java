@@ -22,9 +22,6 @@ public class OrderSummaryServlet extends HttpServlet {
        
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String paymentMethod = request.getParameter("paymentRadio");
@@ -34,7 +31,7 @@ public class OrderSummaryServlet extends HttpServlet {
 			String cardName=request.getParameter("cardName");
 			String privacyCard="xxxx-xxxx-xxxx-"+card.substring(12);
 			String saveCard = request.getParameter("saveCard")==null? "off":"on";
-			if(saveCard.equals("true")) {
+			if(saveCard.equals("on")) {
 				SavedCardManager db = new SavedCardManager();
 				int userId = (int) session.getAttribute("id");
 				SavedCard cardToSave = new SavedCard(0, userId, card, privacyCard, cardName, false);
