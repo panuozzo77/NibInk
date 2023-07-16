@@ -14,7 +14,6 @@ public class Cart {
 	{
 		boolean itemExists = false;
 		for(ItemInTheCart c : cart) {
-			System.out.println("item: "+c.getItem().getCodenumber() +"size: "+c.getSize() );
 			if(c.getItem().getCodenumber().equals(item.getCodenumber()) && c.getSize().equals(size)) {
 				c.setQuantity(c.getQuantity()+quantity);
 				itemExists = true;
@@ -46,23 +45,6 @@ public class Cart {
 		total+=item.getQuantity()*item.getItem().getPrice();
 	}
 	
-	
-	/*public void removeFromCart(ItemInTheCart item){		l'ho modificato sotto
-			cart.remove(i);
-			total -= item.getQuantity() * item.getItem().getPrice();
-		}
-	*/
-	
-	/*
-	public void modifyQuantity(ItemInTheCart item, int newQuantity)	{
-		int index=cart.indexOf(item);
-		ItemInTheCart it = cart.get(index);
-        total -= it.getQuantity() * it.getItem().getPrice();
-    	it.setQuantity(newQuantity);
-        total += newQuantity * it.getItem().getPrice();
-        cart.add(index, it);
-	}
-	*/
 	public float getTotal()
 	{
 		return total;

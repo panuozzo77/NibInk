@@ -107,7 +107,6 @@ public class DAOOrder extends DAOConnection {
                 return order;
             }
         } catch (SQLException e) {
-            System.out.println("Error loading order from the database!");
             e.printStackTrace();
         } finally {
             closeResources();
@@ -143,7 +142,6 @@ public class DAOOrder extends DAOConnection {
         }
         
         catch (SQLException e) {
-            System.out.println("Error loading order from the database!");
             e.printStackTrace();
         } finally {
             closeResources();
@@ -178,7 +176,6 @@ public class DAOOrder extends DAOConnection {
                 con.close();
             }
         } catch (SQLException e) {
-            System.out.println("Error closing database resources!");
             e.printStackTrace();
         }
     }
@@ -195,7 +192,6 @@ public class DAOOrder extends DAOConnection {
 
             orderList = getFromResultSet(rs);
         } catch (SQLException e) {
-            System.out.println("Error loading orders by most recent with pagination!");
             e.printStackTrace();
         } finally {
             closeResources();
@@ -216,7 +212,6 @@ public class DAOOrder extends DAOConnection {
 
             orderList = getFromResultSet(rs);
         } catch (SQLException e) {
-            System.out.println("Error loading orders by date range!");
             e.printStackTrace();
         } finally {
             closeResources();
@@ -241,7 +236,6 @@ public class DAOOrder extends DAOConnection {
     	    if (rowsUpdated > 0) 
     	      result = true;
     	  } catch (SQLException e) {
-    	    System.out.println("Error updating order status in the database!");
     	    e.printStackTrace();
     	  } finally {
     	    closeResources();
@@ -268,7 +262,6 @@ public class DAOOrder extends DAOConnection {
 	            list.add(order);
     		} 
     	} catch (SQLException e) {
-    			System.out.println("Error loading orders!");
                 e.printStackTrace();
     		}
     	return list;
@@ -285,7 +278,6 @@ public class DAOOrder extends DAOConnection {
                 count = rs.getInt("count");
             }
         } catch (SQLException e) {
-            System.out.println("Error getting order count!");
             e.printStackTrace();
         } 
         return count;
@@ -303,7 +295,6 @@ public class DAOOrder extends DAOConnection {
                 count = rs.getInt("count");
             }
         } catch (SQLException e) {
-            System.out.println("Error getting count of open orders!");
             e.printStackTrace();
         } finally {
             closeResources();

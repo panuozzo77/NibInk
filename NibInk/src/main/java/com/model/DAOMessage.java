@@ -109,7 +109,6 @@ public class DAOMessage extends DAOConnection {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
-        System.out.println("Sono qui getMessageIntestationOf");
         return null;
 	}
     
@@ -170,8 +169,8 @@ public class DAOMessage extends DAOConnection {
     //restituisce il numero dell'ultimo messaggio presente nella conversazione
     public int getLatestMessageNumber(int conversationId) {
     	try {
-    		stmt = con.prepareStatement("SELECT messageNumber FROM Messages WHERE id = ? ORDER BY sent DESC LIMIT 1");
-    		stmt.setInt(1, conversationId);
+    		PreparedStatement stmt2 = con.prepareStatement("SELECT messageNumber FROM Messages WHERE id = ? ORDER BY sent DESC LIMIT 1");
+    		stmt2.setInt(1, conversationId);
     		ResultSet rs = stmt.executeQuery();
     		if(rs.next()) {
     			return rs.getInt("messageNumber");
@@ -209,17 +208,15 @@ public class DAOMessage extends DAOConnection {
     }
     
     public boolean answerMessage(int conversationId, String answer, String sender) {
-    	boolean status = false;
+    	boolean status = true;
 		Message message = getMessageIntestationOf(conversationId);
-		System.out.println(message);
-    	String sql = "INSERT INTO Messages (id, userId, userEmail, subject, text, messageNumber, ";
+    	String sql = null;
     	if(sender.equals("admin")) { 
-    		sql += "hasAdminReadIt)";
+    		sql = "INSERT INTO Messages (id, userId, userEmail, subject, text, messageNumber, hasAdminReadIt) VALUES (?, ?, ?, ?, ?, ?, ?);";
     		message.setUserId(0); // se valore 0 è admin
     	}
     	else
-    		sql += "hasUserReadIt)";
-    	sql += " VALUES (?, ?, ?, ?, ?, ?, ?);";
+    		sql = "INSERT INTO Messages (id, userId, userEmail, subject, text, messageNumber, hasUserReadIt) VALUES (?, ?, ?, ?, ?, ?, ?);";
     	try {
     		stmt = con.prepareStatement(sql);
     		stmt.setInt(1, conversationId);
@@ -228,10 +225,11 @@ public class DAOMessage extends DAOConnection {
     		stmt.setString(4, message.getSubject());
     		stmt.setString(5, answer);
     		stmt.setInt(6, getLatestMessageNumber(message.getId())+1);
-    		stmt.setBoolean(7, true);
+    		stmt.setBoolean(7, true); // Update the index to 1
     		status = stmt.execute();
     	} catch (SQLException e) {
     		e.printStackTrace();
+    		status = false;
     	}
     	return status;
     }

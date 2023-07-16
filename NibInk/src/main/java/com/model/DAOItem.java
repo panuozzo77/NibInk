@@ -127,16 +127,12 @@ public class DAOItem extends DAOConnection {
 			if(orderBy != null){
 				sql += " ORDER BY " + orderBy; 
 			}
-			/* int paramIndex = 1;
-			 * sql += " LIMIT ?, ?";
-			 */
+	
 			stmt = con.prepareStatement(sql);
 			if(filterField != null && filterValue != null){
 				stmt.setString(1, filterValue);
-				//paramIndex++;
 			}
-			//stmt.setInt(paramIndex, startIndex);
-			//stmt.setInt(paramIndex+1, count);
+
 			rs = stmt.executeQuery();
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -192,13 +188,11 @@ public class DAOItem extends DAOConnection {
             item.setDescription(rs.getString("description"));
             item.setType(rs.getString("Type"));
             items.add(item);
-            System.out.println("Oggetto caricato: "+item.getTitle());
 		}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//System.out.println("totalSize: "+items.size());
 			return items;
 	}
 	
@@ -215,13 +209,11 @@ public class DAOItem extends DAOConnection {
 	            item.setVAT(rs.getFloat("VAT"));
 	            item.setQuantity(rs.getInt("Quantity"));
 	            items.add(item);
-	            //System.out.println("Oggetto: "+item.getTitle());
 			}
 			rs.close();
 			} catch (SQLException e) {
 			e.printStackTrace();
 			}
-		System.out.println("totalSize: "+items.size());
 		return items;
 	}
 	
@@ -363,13 +355,11 @@ public class DAOItem extends DAOConnection {
 		{	
 			Item item = getItemFromDB(String.valueOf(rs.getInt("Item")));
             items.add(item);
-            System.out.println("Oggetto caricato: "+item.getTitle());
 		}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//System.out.println("totalSize: "+items.size());
 			return items;
 	}
 }

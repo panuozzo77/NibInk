@@ -32,7 +32,7 @@
 					sessione.setAttribute("addrBA", "");
 					String registered = (String) sessione.getAttribute("userType");
 					int Guest=1;
-					if(registered.equals("registered")){
+					if(registered.equals("registered") || registered.equals("admin")){
 						Guest=0;
 					}
 					if(Guest==0){

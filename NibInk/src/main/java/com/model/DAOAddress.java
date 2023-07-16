@@ -16,7 +16,6 @@ public class DAOAddress extends DAOConnection {
 		try {
 			con = super.getConnection();
 		} catch (SQLException e) {
-			System.out.println("Error getting connection in DAOItem!");
 			e.printStackTrace();
 		}
 	}

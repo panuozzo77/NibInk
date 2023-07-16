@@ -24,8 +24,6 @@ public class DAOCustomer extends DAOConnection {
 	
 	public int checkLogin(String email, String password)
 	{
-		//System.out.println("email inserita:"+email+";");
-		//System.out.println("password inserita:"+password+";");
 		String field = null;
 		ResultSet rs = null;
 		String sql="SELECT password FROM Users WHERE email = ?";
@@ -35,7 +33,6 @@ public class DAOCustomer extends DAOConnection {
 			rs = stmt.executeQuery();
 			if(rs.next()) {
 				field = rs.getString("password");
-				//System.out.println("field trovato:"+field+";");
 			}
 			else return 0; //user does not exists
 		} catch (Exception e) {

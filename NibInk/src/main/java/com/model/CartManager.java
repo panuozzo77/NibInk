@@ -7,7 +7,6 @@ public class CartManager {
     private static Map<String, Cart> activeCarts;
 
     public CartManager() {
-        //activeCarts = new HashMap<String, Cart>();
     	if(activeCarts==null) {
     		activeCarts = new HashMap<String, Cart>();
     	}
@@ -51,10 +50,6 @@ public class CartManager {
     	c.cart.clear();
     	c.setTotal(0);
     }
-    
-    
-    
-    
     
     public boolean containsKey(String key) {
     	return activeCarts.containsKey(key);

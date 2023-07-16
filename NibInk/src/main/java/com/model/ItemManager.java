@@ -25,7 +25,6 @@ public class ItemManager {
 	public ArrayList<Item> loadItems(int startIndex, int count) {
         DAOItem db = new DAOItem();
         ArrayList<Item> al=db.getItems(startIndex, count);
-        System.out.println("ItemManager size: " +al.size());
         return al;
 	}
 	
@@ -100,14 +99,12 @@ public class ItemManager {
 	public ArrayList<Item> loadNewItems(int numberOfItems) {
         DAOItem db = new DAOItem();
         ArrayList<Item> al=db.getNewItems(numberOfItems);
-        //System.out.println("ItemManager size: " +al.size());
         return al;
     }
 	
 	public ArrayList<Item> loadMostSoldItems(int numberOfItems) {
         DAOItem db = new DAOItem();
         ArrayList<Item> al=db.getMostSoldItems(numberOfItems);
-        //System.out.println("ItemManager size: " +al.size());
         return al;
     }
 }

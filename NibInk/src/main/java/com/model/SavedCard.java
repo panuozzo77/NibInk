@@ -3,27 +3,11 @@ package com.model;
 public class SavedCard {
     private int id;
     private int userId;
-    private String cardNumber="noCardNumber"; 			//formato 1234123412341234
+    private String cardNumber="noCardNumber"; 	//formato 1234123412341234
     private String censoredCardNumber;  //formato xxxx-xxxx-xxxx-YYYY
     private String nameOnCard;
     private boolean isPrimary;
-/*
-    //Costruttori senza id
-    public SavedCard(int userId, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
-        this.userId = userId;
-        this.censoredCardNumber = CensoredCardNumber;
-        this.nameOnCard = nameOnCard;
-        this.isPrimary = isPrimary;
-    }
-    
-    public SavedCard(int userId, int cardNumber, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
-        this.userId = userId;
-        this.cardNumber = cardNumber;
-        this.censoredCardNumber = CensoredCardNumber;
-        this.nameOnCard = nameOnCard;
-        this.isPrimary = isPrimary;
-    }
-*/
+
     //Costruttori con id
     public SavedCard(int id, int userId, String cardNumber, String CensoredCardNumber, String nameOnCard, boolean isPrimary) {
         this.id = id;
