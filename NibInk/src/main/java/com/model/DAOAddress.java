@@ -62,17 +62,61 @@ public class DAOAddress extends DAOConnection {
 	
 	public <T> void modifyAddrToDB(Address addr, String field, T value)
 	{
-		String sql="UPDATE Addresses SET "+field+" = ? WHERE User=? AND City=? AND Street=? AND Number=?;";
-		try {
-			stmt = con.prepareStatement(sql);
-			stmt.setObject(1, value);
-			stmt.setObject(2, addr.getUser());
-			stmt.setObject(3, addr.getCity());
-			stmt.setObject(4, addr.getStreet());
-			stmt.setObject(5, addr.getNumber());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		String sql="UPDATE Addresses SET ";
+		String toMatch = field.toLowerCase();
+		boolean passed = true;
+		switch(toMatch) {
+			case "user" :
+				sql = sql + "user";
+				break;
+			case "country" :
+				sql = sql + "country";
+				break;
+			case "name" :
+				sql = sql + "name";
+				break;
+			case "surname" :
+				sql = sql + "surname";
+				break;
+			case "street" :
+				sql = sql + "street";
+				break;
+			case "number" :
+				sql = sql + "number";
+				break;
+			case "moreinfo" :
+				sql = sql + "moreinfo";
+				break;
+			case "zipcode" :
+				sql = sql + "zipcode";
+				break;
+			case "city" :
+				sql = sql + "city";
+				break;
+			case "state" :
+				sql = sql + "state";
+				break;
+			case "isbillingaddress" :
+				sql = sql + "isbillingaddress";
+				break;
+			case "isdefault" :
+				sql = sql + "isdefault";
+				break;
+			default :
+				passed = false;
+		}
+		sql=sql +" = ? WHERE User=? AND City=? AND Street=? AND Number=?;";
+		if(passed) {
+			try {
+				stmt = con.prepareStatement(sql);
+				stmt.setObject(1, addr.getUser());
+				stmt.setObject(2, addr.getCity());
+				stmt.setObject(3, addr.getStreet());
+				stmt.setObject(4, addr.getNumber());
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
