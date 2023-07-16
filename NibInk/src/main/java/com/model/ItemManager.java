@@ -57,9 +57,9 @@ public class ItemManager {
 	
 	
 	
-	 public ArrayList<Item> loadRelatedItems(float price){
+	 public ArrayList<Item> loadRelatedItems(float price, int itemId){
 		 DAOItem db = new DAOItem();
-		 ArrayList<Item> al = db.getRelatedFromDB(price);
+		 ArrayList<Item> al = db.getRelatedFromDB(price, itemId);
 		 return al;
 	 }
 	 

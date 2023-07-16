@@ -239,15 +239,16 @@ public class DAOItem extends DAOConnection {
 		return item;
 	}
 	
-	public ArrayList<Item> getRelatedFromDB(float filterValue){
+	public ArrayList<Item> getRelatedFromDB(float filterValue, int itemId){
 		ResultSet rs = null;
 		try {
 			String sql= "SELECT * FROM Items";
-				sql += " WHERE price > ?";		
-				sql += " ORDER BY price ASC"; 
+				sql += " WHERE price <= ? AND ID != ?";		
+				sql += " ORDER BY price Desc"; 
 				sql += " LIMIT 4";
 			stmt = con.prepareStatement(sql);
 			stmt.setFloat(1, filterValue);
+			stmt.setInt(2, itemId);
 			rs = stmt.executeQuery();
 			} catch(SQLException e) {
 				e.printStackTrace();

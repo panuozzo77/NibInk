@@ -22,6 +22,8 @@ public class SessionListener implements HttpSessionListener {
         session.setAttribute("userType", "unregistered");
         session.setAttribute("addr", "");
         session.setAttribute("addrBA", "");
+        session.setAttribute("savedCard", "");
+		session.setAttribute("savedCardName", "");
     }
 	
 }

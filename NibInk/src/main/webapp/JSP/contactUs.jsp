@@ -58,7 +58,7 @@
               <div class="data email">
                 Inviaci un'e-mail:<br/>
               </div>
-              <a href="mailto:info@nibink.com">info@nibink.com</a>
+              <a href="mailto:nibinkhelper@gmail.com">nibinkhelper@gmail.com</a>
             </div>
           </div>
         </div>

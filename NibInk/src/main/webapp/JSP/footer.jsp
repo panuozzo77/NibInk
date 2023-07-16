@@ -16,7 +16,7 @@
 			<h3>NibInk</h3>
 			<h5>Contattaci subito:</h5>
 			<a>+39 3476809732</a>
-			<a>info@NibInk.com</a>
+			<a>nibinkhelper@gmail.com</a>
 			<a>Termini e condizioni</a>
 		</div>
 		

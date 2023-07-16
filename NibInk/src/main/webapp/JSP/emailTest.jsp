@@ -9,6 +9,13 @@
 <title>Email/Password reset tester</title>
 </head>
 <body>
+
+<%//Admin check
+String admin = (String) request.getSession().getAttribute("userType");
+if (admin != null && !admin.equals("admin")) {
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
+}
+%>
 	<%
 	HttpSession sessione = request.getSession();
     String user = (String) sessione.getAttribute("userType");

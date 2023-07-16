@@ -169,11 +169,11 @@
 			 
 				 <%
 				 	ItemManager im = new ItemManager();
-					ArrayList<Item> itemsLoaded=im.loadRelatedItems(product.getPrice());
+					ArrayList<Item> itemsLoaded=im.loadRelatedItems(product.getPrice(), Integer.parseInt(request.getParameter("id")));
 				 %>
 				
 				<div class="mpRow"> 
-					<c:forEach items="<%= itemsLoaded %>" var="item"> 									
+					<c:forEach items="<%= itemsLoaded %>" var="item">							
 						<div class= "mpCardBorder">
 							<div class="mpCardContent">
 								<button class="mpProductCard" type="button" onclick="location.href='/NibInk/JSP/product.jsp?id=${item.getCodenumber()}';">

@@ -171,7 +171,7 @@ for (Review rev : rm.list) { %>
                       </form>
                   </div>
               <% } %>
-          <% } else { System.out.println("recensione: utente deve recensire");%>%>
+          <% } else { System.out.println("recensione: utente deve recensire");%>
               <div class="userReviewWrite">
                   <h2>Scrivi una recensione</h2>
                   <form action="/NibInk/AddReviewServlet" method="post">
