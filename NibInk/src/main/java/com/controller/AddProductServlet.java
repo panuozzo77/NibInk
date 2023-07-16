@@ -22,10 +22,6 @@ public class AddProductServlet extends HttpServlet {
        
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean modify = (request.getParameter("item")!= null) ? true : false;
 		DAOItem db1 = new DAOItem();
@@ -53,7 +49,6 @@ public class AddProductServlet extends HttpServlet {
 			
 			String sizes[]=request.getParameter("optionValues").split(",");
 			for(String s : sizes) {
-				System.out.println("taglia: " + s);
 				itemV.addVariation(s.toUpperCase(), qnt);
 			}
 			DAOVariant db2 = new DAOVariant();

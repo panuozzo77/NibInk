@@ -47,7 +47,6 @@ public class CardManager extends HttpServlet {
 		String privacyCard="xxxx-xxxx-xxxx-"+cardNumber.substring(12);
 		String nameOnCard=(String) request.getParameter("user");
 		SavedCard card = new SavedCard(0, userId, cardNumber, privacyCard, nameOnCard, false);
-		System.out.println(card);
 		db.addSavedCard(card);
 		response.sendRedirect(request.getHeader("referer"));
 	}

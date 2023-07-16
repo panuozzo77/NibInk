@@ -25,25 +25,19 @@ public class AjaxAddressServlet extends HttpServlet {
     	HttpSession sessione = request.getSession();
     	
     	String toDo = request.getParameter("toDo");
-    		
-    	System.out.println("ToDo: " + toDo );
     	
     	if(toDo.equals("saveInBoth")) { //metodo di spedizione e fatturazione uguali
     		if(request.getParameter("isBA").equals("true")) {
-    				System.out.println("SIB, isBA TRUE: " + request.getParameter("addrToSave") );
     			
     				sessione.setAttribute("addrBA", request.getParameter("addrToSave"));
         	}
-    			System.out.println("SIB, isBA FALSE: " + request.getParameter("addrToSave") );
     			sessione.setAttribute("addr", request.getParameter("addrToSave"));
     			
     	}else if(toDo.equals("saveInOne")) { //indirizzi differenti
     		if(request.getParameter("isBA").equals("true")) { //se è indirizzo di spedizione
-    				System.out.println("SIO, isBA TRUE: " + request.getParameter("addrToSave") );
     			sessione.setAttribute("addrBA", request.getParameter("addrToSave")); //salva invoiceAddress
         	}else {
         		sessione.setAttribute("addr", request.getParameter("addrToSave"));  //salva shippingAddress
-        			System.out.println("SIO, isBA false: " + request.getParameter("addrToSave") );
         	}    		
     	}
     	

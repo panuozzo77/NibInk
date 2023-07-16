@@ -56,7 +56,6 @@ public class AdminChangeUsers extends HttpServlet {
 			if(mode.equals("showAddresses")) {
 				AddressManager addressManager = new AddressManager(userId);
 				ArrayList<Address> addresses = addressManager.getAddresses();
-				System.out.println(addresses.size());
 				Gson gson = new Gson();
 				String jsonAddresses = gson.toJson(addresses);
 				response.setContentType("application/json");

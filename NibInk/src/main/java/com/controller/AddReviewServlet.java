@@ -18,17 +18,11 @@ public class AddReviewServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Review review = new Review();
 		ReviewManager rm = new ReviewManager();
 	    java.util.Date currentDate = new java.util.Date();
-	    //System.out.println("data corrente util.Date: "+currentDate);
 	    java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
-	    //System.out.println("data corrente sql.Date: "+sqlDate);
 
 		HttpSession session = request.getSession();
 		review.setItemId(Integer.parseInt(request.getParameter("itemId")));

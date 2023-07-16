@@ -23,8 +23,4 @@ public class CloseConversation extends HttpServlet {
 		response.sendRedirect(request.getHeader("referer")); //ricarica la pagina che ha inviato la richiesta con parametro dell'esito
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 }
