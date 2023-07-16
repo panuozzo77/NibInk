@@ -53,7 +53,7 @@
 							<input name="cardCode" type="text" id="cardCode">	
 						</div>
 					</div>
-					<%if(registered.equals("registered")){ %>
+					<%if(!registered.equals("unregistered")){ %>
 						<div id="saveCardDiv" class="billingAddr">
 							<input type="checkbox" name="saveCard" id="saveCardCB"> 
 							<div class="cbText">
