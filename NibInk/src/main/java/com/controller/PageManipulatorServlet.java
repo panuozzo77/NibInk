@@ -14,18 +14,13 @@ public class PageManipulatorServlet extends HttpServlet{
 	public PageManipulatorServlet(){
 		super();
 	}
-	
-	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
-	}
-	
 	protected void doGet  (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String admin = null;
         admin = request.getParameter("isAdmin");
 		if(admin!=null) {
 			if(request.getParameter("isAdmin").contains("admin"))
-        	response.sendRedirect("/NibInk/JSP/admin.jsp?startIndex="+request.getParameter("startIndex")+"&pageNumber="+request.getParameter("pageNumber"));
+        	response.sendRedirect("/NibInk/JSP/products.jsp?startIndex="+request.getParameter("startIndex")+"&pageNumber="+request.getParameter("pageNumber"));
         }
         else {
 			String url = "/NibInk/JSP/catalog.jsp?";

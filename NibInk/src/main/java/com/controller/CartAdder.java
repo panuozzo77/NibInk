@@ -36,7 +36,7 @@ public class CartAdder extends HttpServlet {
 			cm.addItemToCart(code, id, 1, size);
 		}
 		
-		response.sendRedirect("/NibInk/JSP/cart.jsp");
+		response.sendRedirect(request.getHeader("referer"));
 		
 	}
 

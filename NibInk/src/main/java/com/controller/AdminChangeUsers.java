@@ -40,7 +40,6 @@ public class AdminChangeUsers extends HttpServlet {
 	}
 	
 	protected void doGet  (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean status = false;
 		HttpSession session = request.getSession();
 		String user = (String) session.getAttribute("userType");
 		String mode = request.getParameter("mode");
