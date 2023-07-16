@@ -139,7 +139,7 @@ function hideCard(){
 
 function checkAndSubmit(event) {
   event.preventDefault();
-
+	
   if (!$("#BACheckBox").prop("checked")) {
     let addr = "false";
     copyAddrToBa(addr).then(() => {

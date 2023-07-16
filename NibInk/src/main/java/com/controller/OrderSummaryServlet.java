@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.model.SavedCard;
+import com.model.SavedCardManager;
+
 
 @WebServlet("/toSummary")
 public class OrderSummaryServlet extends HttpServlet {
@@ -32,7 +35,10 @@ public class OrderSummaryServlet extends HttpServlet {
 			String privacyCard="xxxx-xxxx-xxxx-"+card.substring(12);
 			String saveCard = request.getParameter("saveCard")==null? "off":"on";
 			if(saveCard.equals("true")) {
-				//TODO Procedura per salvare la carta nel db, senza metterla di default
+				SavedCardManager db = new SavedCardManager();
+				int userId = (int) session.getAttribute("id");
+				SavedCard cardToSave = new SavedCard(0, userId, card, privacyCard, cardName, false);
+				db.addSavedCard(cardToSave);
 			}
 			session.setAttribute("cardNumber", privacyCard);
 			session.setAttribute("cardName", cardName);
