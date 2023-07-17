@@ -31,15 +31,19 @@
 		String filter=request.getParameter("filter");
 		ItemManager im = new ItemManager();
 		ArrayList<Item> itemsLoaded;
-		if(filter==null || filter.contains("null")){
-			itemsLoaded=im.loadItems(startIndex, itemPerPage);
-			items = db.getItemsNumber();
-			disponibility = im.loadDisponibility(startIndex, itemPerPage);
+		if(filter==null){
+			filter="null";
 		}
-		else{
+			
+		if(filter.contains("pen") || filter.contains("ink") || filter.contains("notebook")){
 			itemsLoaded=im.loadFilteredItems(startIndex, itemPerPage, filter);
 			items = db.getFilteredItemsNumber(filter);
 			disponibility = im.loadDisponibility(startIndex, itemPerPage, filter);
+		}
+		else{
+			itemsLoaded=im.loadItems(startIndex, itemPerPage);
+			items = db.getItemsNumber();
+			disponibility = im.loadDisponibility(startIndex, itemPerPage);
 		}
 		
 	%>

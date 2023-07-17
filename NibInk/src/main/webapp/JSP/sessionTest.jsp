@@ -16,7 +16,7 @@
             padding: 8px;
         }
     </style>
-    
+    <script src="/NibInk/JavaScript/sessionStorage.js"></script>
 </head>
 <body>
     <table>

@@ -128,13 +128,13 @@ for (Review rev : rm.list) { %>
 	<% } %>
 	</div>
 </div>
-<% if (session.getAttribute("userType").equals("unregistered")) { System.out.println("recensione: utente non registrato");%>
+<% if (session.getAttribute("userType").equals("unregistered")) {%>
 	<div class="userReviewLimit">
     <h2>Effettua il login per recensire questo articolo</h2>
 </div>
-	<% } else { System.out.println("recensione: utente  registrato");
-      if (rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha acquistato l'articolo");
-          if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { System.out.println("recensione: utente  ha già recensito l'articolo");%>
+	<% } else { 
+      if (rm.canThisUserReviewIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) {
+          if (rm.hasThisUserReviewedIt((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")))) { %>
               <% Review review = rm.loadReviewOf((int) session.getAttribute("id"), Integer.parseInt(request.getParameter("id")));
                  if (review != null) { %>
                   <div class="userReviewModify">
@@ -171,7 +171,7 @@ for (Review rev : rm.list) { %>
                       </form>
                   </div>
               <% } %>
-          <% } else { System.out.println("recensione: utente deve recensire");%>
+          <% } else { %>
               <div class="userReviewWrite">
                   <h2>Scrivi una recensione</h2>
                   <form action="/NibInk/AddReviewServlet" method="post">

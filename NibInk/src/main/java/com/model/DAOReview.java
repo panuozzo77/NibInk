@@ -15,7 +15,6 @@ public class DAOReview extends DAOConnection {
 		try {
 			con = super.getConnection();
 		} catch (SQLException e) {
-			System.out.println("Error getting connection in DAOReview!");
 			e.printStackTrace();
 		}
 	}

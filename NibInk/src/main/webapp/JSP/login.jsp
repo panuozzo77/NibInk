@@ -10,6 +10,7 @@
 <body>
 <div>
 <script src="/NibInk/JavaScript/jquery.js"></script>
+<script src="/NibInk/JavaScript/sessionStorage.js"></script>
 <jsp:include page="navbar.jsp"/>
 </div>
 
