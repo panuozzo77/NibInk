@@ -22,7 +22,7 @@ public class EmailServlet extends HttpServlet {
         String subject = request.getParameter("subject")!=null? (String)request.getParameter("subject"): (String)request.getAttribute("subject");
         String message = request.getParameter("message")!=null? (String)request.getParameter("message"): (String)request.getAttribute("message");
         try {
-        	
+        	//Prova l'invio di email
         	Email email = new SimpleEmail();
         	email.setHostName("smtp.googlemail.com");
         	email.setSmtpPort(465);
